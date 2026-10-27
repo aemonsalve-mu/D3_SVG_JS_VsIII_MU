@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>JSON: array de objetos · Carga de datos</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="carga.css">
+</head>
+
+<body>
+    <header>
+        <div><a href="index.html">← Formatos y formas de carga</a> · D3 / Datos</div>
+    </header>
+    <main>
+        <h1>JSON: array de objetos</h1>
+        <p>JSON conserva números, booleanos, arrays y objetos. Las fechas siguen siendo cadenas si no las conviertes.
+        </p>
+        <p class="notice"></p>
+        <section><h2>1. Leer el archivo real</h2><p>Lee el archivo <a href="datos/ventas.json" download>ventas.json</a>. La ruta <code>datos/ventas.json</code> se interpreta desde esta página HTML. El .js se carga al final del HTML y ejecuta la lectura automáticamente.</p><p class="notice">Lectura principal del curso: JSON: array de objetos.</p><p><code>d3.json</code> obtiene y analiza el archivo. En un JSON anidado, <code>respuesta.data</code> permite acceder a las filas. Los números JSON ya son números. La ficha API lee una respuesta guardada, sin claves ni servicios comerciales.</p><p>Para estas lecturas usa la <a href="index.html#servidor">guía del servidor HTTP local</a>. Si abres el HTML por doble clic, el navegador puede impedir el acceso por URL; el selector de archivos del laboratorio sigue disponible.</p><h3>Qué significa then</h3><p>La lectura tarda un tiempo. <code>then(function(datos) { ... })</code> ejecuta sus instrucciones cuando los datos han llegado. <code>catch</code> muestra un error. Las filas se consultan dentro de esa respuesta, no justo después de iniciar la petición.</p><h3>JavaScript del archivo js/json.js</h3><pre><code>// Lectura real de ventas.json. El archivo está en la carpeta datos.
+// Este script se ejecuta al cargar la página mediante HTTP.
+d3.json(&quot;datos/ventas.json&quot;).then(function(respuesta) {
+  d3.select(&quot;#salida-basica&quot;).text(
+    &quot;Filas: &quot; + respuesta.length + &quot;\n&quot; +
+    &quot;Primera zona: &quot; + respuesta[0].zona + &quot;\n&quot; +
+    &quot;Primera venta: &quot; + respuesta[0].ventas
+  );
+}).catch(function(error) {
+  d3.select(&quot;#salida-basica&quot;).text(&quot;No se pudo cargar: &quot; + error.message + &quot;. Abre la carpeta mediante HTTP; consulta la guía.&quot;);
+});</code></pre><p><b>Resultado esperado:</b> 4 filas leídas del archivo; primera zona Norte y venta 40.</p><div id="demo-basico" aria-label="Resultado de la lectura"></div><pre id="salida-basica" aria-live="polite">Leyendo el archivo...</pre><p><a href="json.html">Volver a leer el archivo</a></p></section><section><h2>2. Practicar con el archivo</h2><p>1. Abre el archivo de muestra y localiza sus columnas o su estructura.</p><p>2. Modifica un valor del archivo de datos, guárdalo y recarga el HTML: el resultado debe reflejar el cambio.</p><p>El HTML carga el .js correspondiente; no hay que escribir los datos dentro del programa para leer este archivo.</p></section><details><summary>Apoyo: interpretar texto ya escrito en el código</summary><p>Este fragmento ilustrativo explica la estructura del formato. No realiza una lectura de archivo y no se ejecuta en esta página; el ejemplo principal de arriba sí lee el archivo externo.</p><pre><code>// JSON es texto estructurado. Las cadenas van entre comillas dobles.
+const texto = &#x27;[{&quot;zona&quot;:&quot;Norte&quot;,&quot;ventas&quot;:40},{&quot;zona&quot;:&quot;Centro&quot;,&quot;ventas&quot;:70},{&quot;zona&quot;:&quot;Sur&quot;,&quot;ventas&quot;:100},{&quot;zona&quot;:&quot;Oeste&quot;,&quot;ventas&quot;:55}]&#x27;;
+const datos = JSON.parse(texto);
+d3.select(&quot;#salida-basica&quot;).text(
+  &quot;Filas: &quot; + datos.length + &quot;\n&quot; +
+  &quot;Primera zona: &quot; + datos[0].zona + &quot;\n&quot; +
+  &quot;Primera venta: &quot; + datos[0].ventas
+);</code></pre></details><details><summary>Ampliación opcional: selector de archivos, conversión, tabla y gráfico</summary><p>El código avanzado puede usar métodos del navegador. Antes de leer querySelector, querySelectorAll o textContent, consulta la <a href="../svg/metodos/Document.querySelector.html">introducción al DOM nativo</a>. No necesitas estos métodos para el recorrido inicial de D3.</p><p>Este laboratorio contiene más JavaScript y validación. No es necesario estudiarlo para comprender el ejemplo inicial. Sus botones de ejecución y restablecimiento solo afectan al código del laboratorio.</p><section>
+            <h2>Archivo y resultado esperado</h2>
+            <p><a href="datos/ventas.json" download>Descargar ventas.json</a></p>
+            <p>4 filas; ventas totales: 265 k€.</p>
+            <p>Datos sintéticos. Ventas y objetivos en miles de euros. Las cuatro zonas de la muestra principal suman
+                265 k€.</p>
+        </section>
+        <section>
+            <h2>1. Cargar sin servidor</h2>
+            <p>Abre esta página directamente. Selecciona el archivo descargado o prueba la copia incrustada del mismo
+                archivo.</p><label for="archivo">Archivo ventas.json</label><input id="archivo" type="file">
+            <div id="drop" tabindex="0">También puedes arrastrar un archivo aquí. Con teclado, utiliza el selector
+                anterior.</div><button id="ejemplo">Cargar ejemplo incluido</button>
+            <p id="origen" class="muted"></p>
+        </section>
+        <section>
+            <h2>2. Cómo se convierten los bytes en datos</h2>
+            <p>El selector usa <code>await archivo.arrayBuffer()</code>. Este código recibe ese buffer y devuelve un
+                array. Puedes editarlo y volver a ejecutarlo.</p><label for="convertir">JavaScript de
+                conversión</label><textarea id="convertir"
+                spellcheck="false">const texto=new TextDecoder(&#x27;utf-8&#x27;).decode(buffer);
+const numero=v=&gt;{if(v===null||v===undefined||String(v).trim()===&#x27;&#x27;)throw new Error(&#x27;Falta un número&#x27;);const n=Number(v);if(!Number.isFinite(n))throw new Error(&#x27;Número no válido: &#x27;+v);return n;};
+const normalizar=d=&gt;({id:String(d.id),zona:d.zona,ventas:numero(d.ventas),objetivo:numero(d.objetivo)});
+const filas=JSON.parse(texto);if(!Array.isArray(filas))throw new Error(&quot;Se esperaba un array&quot;);return filas.map(normalizar);</textarea><button
+                id="ejecutar">Ejecutar conversión</button><button id="restablecer">Restablecer código</button><button
+                id="codigo">Descargar código</button>
+            <p id="estado" role="status" aria-live="polite"></p>
+        </section>
+        <section>
+            <h2>3. Cargar por URL</h2>
+            <p>Sirve la carpeta por HTTP y utiliza una ruta relativa o una URL con permiso CORS. Leer por URL no
+                equivale a seleccionar un archivo del ordenador.</p>
+            <pre>const filas = await d3.json(&quot;datos/ventas.json&quot;);</pre><label for="url">URL del
+                archivo</label><input id="url" value="datos/ventas.json"><button id="cargar-url">Cargar URL</button>
+            <p>Si abres el HTML con file://, esta vía puede fallar. Utiliza el selector o consulta <a
+                    href="index.html#servidor">cómo iniciar un servidor local</a>.</p>
+        </section>
+        <section>
+            <h2>4. Datos antes del gráfico</h2>
+            <p id="resumen"></p>
+            <div id="tabla" class="scroll"></div><svg id="grafico" viewBox="0 0 650 260" role="img"
+                aria-label="Ventas por zona cargadas"></svg>
+            <details>
+                <summary>Ver objetos JavaScript y tipos</summary>
+                <pre id="objetos"></pre>
+            </details>
+        </section>
+        </details>
+<footer><a href="https://d3js.org/d3-fetch">D3: carga por URL</a> · <a href="https://d3js.org/d3-dsv">D3: parseo
+                de tablas de texto</a> · <a href="https://docs.sheetjs.com/docs/api/parse-options/">SheetJS: lectura de
+                hojas de cálculo</a></footer>
+    </main>
+    <script src="../vendor/d3.min.js"></script>
+    <script src="catalogo.js"></script>
+    <script src="carga.js"></script>
+    <script>iniciarCarga("json");</script>
+    <script src="js/json.js"></script>
+</body>
+
+</html>

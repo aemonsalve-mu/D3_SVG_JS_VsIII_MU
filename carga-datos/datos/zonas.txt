@@ -1,0 +1,4 @@
+Norte
+Centro
+Sur
+Oeste

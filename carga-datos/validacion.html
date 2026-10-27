@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Validar vacíos y números antes del gráfico · Carga de datos</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="carga.css">
+</head>
+
+<body>
+    <header>
+        <div><a href="index.html">← Formatos y formas de carga</a> · D3 / Datos</div>
+    </header>
+    <main>
+        <h1>Validar vacíos y números antes del gráfico</h1>
+        <p>No conviertas un vacío a cero sin comprobarlo. El ejemplo conserva cada fila y marca el problema; las ventas
+            inválidas no se dibujan.</p>
+        <p class="notice"></p>
+        <section><h2>1. Leer el archivo real</h2><p>Lee el archivo <a href="datos/ventas-invalidas.csv" download>ventas-invalidas.csv</a>. La ruta <code>datos/ventas-invalidas.csv</code> se interpreta desde esta página HTML. El .js se carga al final del HTML y ejecuta la lectura automáticamente.</p><p>El archivo contiene tres filas. Leemos la venta de la segunda, <code>datos[1].ventas</code>, y comprobamos el vacío antes de convertir. Cambia el índice para examinar otra fila.</p><p>Para estas lecturas usa la <a href="index.html#servidor">guía del servidor HTTP local</a>. Si abres el HTML por doble clic, el navegador puede impedir el acceso por URL; el selector de archivos del laboratorio sigue disponible.</p><h3>Qué significa then</h3><p>La lectura tarda un tiempo. <code>then(function(datos) { ... })</code> ejecuta sus instrucciones cuando los datos han llegado. <code>catch</code> muestra un error. Las filas se consultan dentro de esa respuesta, no justo después de iniciar la petición.</p><h3>JavaScript del archivo js/validacion.js</h3><pre><code>// Lectura real de ventas-invalidas.csv. El archivo está en la carpeta datos.
+// Este script se ejecuta al cargar la página mediante HTTP.
+d3.csv(&quot;datos/ventas-invalidas.csv&quot;).then(function(datos) {
+  // La segunda fila del archivo tiene la venta vacía.
+  const valor = datos[1].ventas;
+  if (valor.trim() === &quot;&quot;) {
+    d3.select(&quot;#salida-basica&quot;).text(&quot;Archivo leído: &quot; + datos.length + &quot; filas. Venta ausente en &quot; + datos[1].zona + &quot;: no convertir a cero.&quot;);
+  } else {
+    const venta = Number(valor);
+    if (Number.isFinite(venta)) {
+      d3.select(&quot;#salida-basica&quot;).text(&quot;Venta válida: &quot; + venta);
+    } else {
+      d3.select(&quot;#salida-basica&quot;).text(&quot;Venta no numérica.&quot;);
+    }
+  }
+}).catch(function(error) {
+  d3.select(&quot;#salida-basica&quot;).text(&quot;No se pudo leer el archivo: &quot; + error.message + &quot;. Consulta la guía HTTP.&quot;);
+});</code></pre><p><b>Resultado esperado:</b> 3 filas del archivo; la venta de Centro está ausente y no se transforma en cero.</p><div id="demo-basico" aria-label="Resultado de la lectura"></div><pre id="salida-basica" aria-live="polite">Leyendo el archivo...</pre><p><a href="validacion.html">Volver a leer el archivo</a></p></section><section><h2>2. Practicar con el archivo</h2><p>1. Cambia datos[1] por datos[0]: la venta de Norte debe ser válida.</p><p>2. Prueba datos[2] para detectar la venta no numérica de Sur.</p><p>El HTML carga el .js correspondiente; no hay que escribir los datos dentro del programa para leer este archivo.</p></section><details><summary>Apoyo: interpretar texto ya escrito en el código</summary><p>Este fragmento ilustrativo explica la estructura del formato. No realiza una lectura de archivo y no se ejecuta en esta página; el ejemplo principal de arriba sí lee el archivo externo.</p><pre><code>// Prueba también &quot;0&quot;, &quot;40&quot; y &quot;abc&quot;. No confundas vacío con cero.
+const valor = &quot;&quot;;
+if (valor.trim() === &quot;&quot;) {
+  d3.select(&quot;#salida-basica&quot;).text(&quot;Venta ausente: no convertir a cero.&quot;);
+} else {
+  const venta = Number(valor);
+  if (Number.isFinite(venta)) {
+    d3.select(&quot;#salida-basica&quot;).text(&quot;Venta válida: &quot; + venta);
+  } else {
+    d3.select(&quot;#salida-basica&quot;).text(&quot;Venta no numérica.&quot;);
+  }
+}</code></pre></details><details><summary>Ampliación opcional: selector de archivos, conversión, tabla y gráfico</summary><p>El código avanzado puede usar métodos del navegador. Antes de leer querySelector, querySelectorAll o textContent, consulta la <a href="../svg/metodos/Document.querySelector.html">introducción al DOM nativo</a>. No necesitas estos métodos para el recorrido inicial de D3.</p><p>Este laboratorio contiene más JavaScript y validación. No es necesario estudiarlo para comprender el ejemplo inicial. Sus botones de ejecución y restablecimiento solo afectan al código del laboratorio.</p><section>
+            <h2>Archivo y resultado esperado</h2>
+            <p><a href="datos/ventas-invalidas.csv" download>Descargar ventas-invalidas.csv</a></p>
+            <p>3 filas, dos con errores explícitos. Solo Norte tiene una venta válida.</p>
+            <p>Datos sintéticos. Ventas y objetivos en miles de euros. Las cuatro zonas de la muestra principal suman
+                265 k€.</p>
+        </section>
+        <section>
+            <h2>1. Cargar sin servidor</h2>
+            <p>Abre esta página directamente. Selecciona el archivo descargado o prueba la copia incrustada del mismo
+                archivo.</p><label for="archivo">Archivo ventas-invalidas.csv</label><input id="archivo" type="file">
+            <div id="drop" tabindex="0">También puedes arrastrar un archivo aquí. Con teclado, utiliza el selector
+                anterior.</div><button id="ejemplo">Cargar ejemplo incluido</button>
+            <p id="origen" class="muted"></p>
+        </section>
+        <section>
+            <h2>2. Cómo se convierten los bytes en datos</h2>
+            <p>El selector usa <code>await archivo.arrayBuffer()</code>. Este código recibe ese buffer y devuelve un
+                array. Puedes editarlo y volver a ejecutarlo.</p><label for="convertir">JavaScript de
+                conversión</label><textarea id="convertir"
+                spellcheck="false">const texto=new TextDecoder(&#x27;utf-8&#x27;).decode(buffer);
+return d3.csvParse(texto,d=&gt;{const vacio=d.ventas.trim()===&#x27;&#x27;;const n=Number(d.ventas);const valido=!vacio&amp;&amp;Number.isFinite(n);return {...d,ventas:valido?n:null,error:valido?&#x27;&#x27;:vacio?&#x27;Venta ausente&#x27;:&#x27;Venta no numérica&#x27;};});</textarea><button
+                id="ejecutar">Ejecutar conversión</button><button id="restablecer">Restablecer código</button><button
+                id="codigo">Descargar código</button>
+            <p id="estado" role="status" aria-live="polite"></p>
+        </section>
+        <section>
+            <h2>3. Cargar por URL</h2>
+            <p>Sirve la carpeta por HTTP y utiliza una ruta relativa o una URL con permiso CORS. Leer por URL no
+                equivale a seleccionar un archivo del ordenador.</p>
+            <pre>const texto = await d3.text(&quot;datos/ventas-invalidas.csv&quot;);
+// Valida vacíos y números antes de transformar o graficar.</pre><label for="url">URL del archivo</label><input
+                id="url" value="datos/ventas-invalidas.csv"><button id="cargar-url">Cargar URL</button>
+            <p>Si abres el HTML con file://, esta vía puede fallar. Utiliza el selector o consulta <a
+                    href="index.html#servidor">cómo iniciar un servidor local</a>.</p>
+        </section>
+        <section>
+            <h2>4. Datos antes del gráfico</h2>
+            <p id="resumen"></p>
+            <div id="tabla" class="scroll"></div><svg id="grafico" viewBox="0 0 650 260" role="img"
+                aria-label="Ventas por zona cargadas"></svg>
+            <details>
+                <summary>Ver objetos JavaScript y tipos</summary>
+                <pre id="objetos"></pre>
+            </details>
+        </section>
+        </details>
+<footer><a href="https://d3js.org/d3-fetch">D3: carga por URL</a> · <a href="https://d3js.org/d3-dsv">D3: parseo
+                de tablas de texto</a> · <a href="https://docs.sheetjs.com/docs/api/parse-options/">SheetJS: lectura de
+                hojas de cálculo</a></footer>
+    </main>
+    <script src="../vendor/d3.min.js"></script>
+    <script src="catalogo.js"></script>
+    <script src="carga.js"></script>
+    <script>iniciarCarga("validacion");</script>
+    <script src="js/validacion.js"></script>
+</body>
+
+</html>

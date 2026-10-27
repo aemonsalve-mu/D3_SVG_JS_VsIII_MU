@@ -1,0 +1,4 @@
+id,zona,ventas,objetivo
+001,Norte,40,50
+002,Centro,,65
+003,Sur,no-es-numero,90

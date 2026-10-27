@@ -1,0 +1,4 @@
+{"id": "001", "zona": "Norte", "ventas": 40, "objetivo": 50}
+{"id": "002", "zona": "Centro", "ventas": 70, "objetivo": 65}
+{"id": "003", "zona": "Sur", "ventas": 100, "objetivo": 90}
+{"id": "004", "zona": "Oeste", "ventas": 55, "objetivo": 60}
