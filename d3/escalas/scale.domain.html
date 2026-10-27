@@ -1,0 +1,33 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>scale.domain · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>scale.domain</h1><p>Configura las entradas de la escala; sin argumentos devuelve su dominio. Las fechas y categorías también pueden ser dominios.</p><p class="notice">Empieza por scaleLinear, domain, range e invert. Después compara categorías con scaleBand y scaleOrdinal. Las escalas logarítmicas, cuantiles e interpolación son pasos posteriores.</p><section><h2>Sintaxis</h2><p><code>d3.max(datos)</code> devuelve el máximo de este vector de números. Se define aquí antes de usarlo para construir los dos extremos del dominio.</p><pre>const datos = [20, 50, 100];
+const maximo = d3.max(datos);
+const escala = d3.scaleLinear().range([0,400]);
+escala.domain([0,maximo]);</pre><p><b>Define primero cada nombre.</b> datos contiene tres observaciones. maximo guarda un único número, 100. escala guarda la función que transforma esas observaciones. Ninguno de estos nombres es un comando reservado de D3.</p><p><b>Resultado esperado:</b> Máximo inicial 100 y nuevo 200; el dato 50 pasa de salida 200 a salida 100.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+            <p>JavaScript del ejemplo y resultado para scale.domain.</p>
+            <p>Este ejemplo no necesita una figura inicial. Los resultados se escriben en el panel de salida.</p>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. datos es el vector de observaciones numéricas.
+const datos = [20, 50, 100];
+// d3.max devuelve el mayor valor del vector: aquí 100.
+const maximo = d3.max(datos);
+const escala = d3.scaleLinear().domain([0, maximo]).range([0, 400]);
+const antes = escala(50);
+
+// 2. Cambiamos el tercer dato. La escala no se actualiza sola.
+datos[2] = 200;
+escala.domain([0, d3.max(datos)]);
+const despues = escala(50);
+
+d3.select(&quot;#salida&quot;).text(
+  &quot;Máximo inicial: &quot; + maximo + &quot;\n&quot; +
+  &quot;Dato 50 antes: &quot; + antes + &quot;\n&quot; +
+  &quot;Máximo nuevo: &quot; + d3.max(datos) + &quot;\n&quot; +
+  &quot;Dato 50 después: &quot; + despues
+);</code></pre>
+            <div id="demo" aria-label="Visualización de scale.domain">
+
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Una instrucción auxiliar definida aquí.</b> d3.max(datos) devuelve el mayor valor del array; no necesita que esté ordenado. Estos datos son números, no cadenas de texto procedentes de un CSV sin convertir. Esta función no dibuja nada.</p><p><b>Una muestra y dos extremos tienen papeles distintos.</b> datos es [20,50,100], pero el dominio de esta escala de barras es [0,100]. No pases toda la muestra a domain suponiendo que cada número creará una barra: en una escala lineal, un dominio con más de dos valores define tramos y necesita el rango correspondiente.</p><p><b>El dominio debe actualizarse de manera explícita.</b> datos[2]=200 cambia el tercer dato. No reemplaza el array completo. const fija la referencia de la variable, pero no congela sus elementos. Después se vuelve a llamar domain con el nuevo máximo. La escala no observa automáticamente los cambios del vector.</p><p><b>Qué ocurre con la longitud.</b> El rango sigue siendo [0,400]. Con máximo 100, el dato 50 produce 200; con máximo 200, produce 100. Cambia la proporción entre datos y longitudes, no el ancho del lienzo. Revisa <a href="d3.scaleLinear.html">las barras horizontales</a> y <a href="vectores-y-dimensiones.html">vectores y dimensiones</a>.</p><p>Edita <code>js/scaledomain.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Cambia el nuevo tercer dato a 400: la salida del dato 50 debe ser 50.</p><p>2. Reordena los valores del vector inicial. d3.max debe seguir encontrando su máximo, sin depender de la última posición.</p><p>3. Comenta la segunda llamada a domain: comprueba que cambiar el array no modifica por sí solo la escala.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://d3js.org/d3-scale">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/scaledomain.js"></script>
+</body></html>

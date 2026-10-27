@@ -1,0 +1,20 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>scale.bandwidth · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>scale.bandwidth</h1><p>Devuelve la anchura de cada banda. En point devuelve 0.</p><p class="notice">Empieza por scaleLinear, domain, range e invert. Después compara categorías con scaleBand y scaleOrdinal. Las escalas logarítmicas, cuantiles e interpolación son pasos posteriores.</p><section><h2>Sintaxis</h2><pre>const escala = d3.scaleBand().domain([&quot;A&quot;, &quot;B&quot;, &quot;C&quot;]).range([0, 300]);
+const anchoBarra = escala.bandwidth();</pre><p><b>Qué representa el nombre de la variable.</b> El título scale indica una escala genérica. En el código, escala es una variable creada previamente; no es una variable que D3 proporcione automáticamente.</p><p><b>Resultado esperado:</b> 100.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+            <p>JavaScript del ejemplo y resultado para scale.bandwidth.</p>
+            <p>Este ejemplo no necesita una figura inicial. Los resultados se escriben en el panel de salida.</p>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. Preparamos una escala sencilla.
+const escala = d3.scaleBand().domain([&quot;A&quot;, &quot;B&quot;, &quot;C&quot;]).range([0, 300]);
+
+// 2. Comparamos valores concretos antes y después del método.
+d3.select(&quot;#salida&quot;).text(
+  &quot;Ancho de cada banda: &quot; + escala.bandwidth()
+);</code></pre>
+            <div id="demo" aria-label="Visualización de scale.bandwidth">
+
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el argumento.</b> bandwidth no recibe argumentos en esta consulta. Devuelve la anchura de una banda, que puedes aplicar al atributo width de un rectángulo.</p><p><b>Qué devuelve en este ejemplo.</b> Para tres categorías en [0,300], sin padding, cada ancho es 100. escala("A") devuelve una posición; escala.bandwidth() devuelve una longitud. En point el ancho es 0.</p><p><b>Vectores y medidas.</b> Un array puede representar datos, categorías, límites, clases o dimensiones. Identifica su significado antes de usar sus posiciones. Consulta <a href="vectores-y-dimensiones.html">vectores y dimensiones</a> y distingue <a href="d3.scaleLinear.html">longitud</a> de <a href="scale.range.html">posición vertical</a>.</p><p>Edita <code>js/scalebandwidth.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Duplica el rango a [0,600]: cada ancho debe pasar a 200 si no cambias la separación.</p><p>2. Modifica una entrada concreta y compara su salida antes de cambiar la figura.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://d3js.org/d3-scale">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/scalebandwidth.js"></script>
+</body></html>

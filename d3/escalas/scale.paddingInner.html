@@ -1,0 +1,22 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>scale.paddingInner · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>scale.paddingInner</h1><p>Separa las bandas interiores; se aplica a scaleBand.</p><p class="notice">Empieza por scaleLinear, domain, range e invert. Después compara categorías con scaleBand y scaleOrdinal. Las escalas logarítmicas, cuantiles e interpolación son pasos posteriores.</p><section><h2>Sintaxis</h2><pre>const escala = d3.scaleBand().domain([&quot;A&quot;, &quot;B&quot;, &quot;C&quot;]).range([0, 300]);
+escala.paddingInner(0.3);</pre><p><b>Qué representa el nombre de la variable.</b> El título scale indica una escala genérica. En el código, escala es una variable creada previamente; no es una variable que D3 proporcione automáticamente.</p><p><b>Resultado esperado:</b> La anchura es menor que el paso.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+            <p>JavaScript del ejemplo y resultado para scale.paddingInner.</p>
+            <p>Este ejemplo no necesita una figura inicial. Los resultados se escriben en el panel de salida.</p>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. Preparamos una escala sencilla.
+const escala = d3.scaleBand().domain([&quot;A&quot;, &quot;B&quot;, &quot;C&quot;]).range([0, 300]);
+escala.paddingInner(0.3);
+
+// 2. Comparamos valores concretos antes y después del método.
+d3.select(&quot;#salida&quot;).text(
+  &quot;Ancho: &quot; + escala.bandwidth() + &quot;\n&quot; +
+  &quot;Paso: &quot; + escala.step()
+);</code></pre>
+            <div id="demo" aria-label="Visualización de scale.paddingInner">
+
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el argumento.</b> paddingInner separa bandas vecinas. 0.3 es una fracción del paso; no significa un hueco de 0.3 píxeles. Solo se aplica a scaleBand.</p><p><b>Qué devuelve en este ejemplo.</b> En el ejemplo, el paso es aproximadamente 111.11 y el ancho 77.78. La separación entre bandas es la diferencia, aproximadamente 33.33.</p><p><b>Vectores y medidas.</b> Un array puede representar datos, categorías, límites, clases o dimensiones. Identifica su significado antes de usar sus posiciones. Consulta <a href="vectores-y-dimensiones.html">vectores y dimensiones</a> y distingue <a href="d3.scaleLinear.html">longitud</a> de <a href="scale.range.html">posición vertical</a>.</p><p>Edita <code>js/scalepaddinginner.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Comprueba que bandwidth() equivale a step() × (1 − 0.3).</p><p>2. Modifica una entrada concreta y compara su salida antes de cambiar la figura.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://d3js.org/d3-scale">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/scalepaddinginner.js"></script>
+</body></html>

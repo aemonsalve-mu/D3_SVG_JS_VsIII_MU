@@ -1,0 +1,35 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>d3.scalePoint · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>d3.scalePoint</h1><p>Distribuye categorías en puntos sin anchura. bandwidth() vale 0; no tiene invert.</p><p class="notice">Empieza por scaleLinear, domain, range e invert. Después compara categorías con scaleBand y scaleOrdinal. Las escalas logarítmicas, cuantiles e interpolación son pasos posteriores.</p><section><h2>Sintaxis</h2><pre>const escala = d3.scalePoint().domain([&quot;Norte&quot;,&quot;Centro&quot;,&quot;Sur&quot;]).range([0,400]);
+const salida = escala(&quot;Norte&quot;);</pre><p><b>Crear y utilizar son dos operaciones.</b> d3.scalePoint crea una función que guardamos en escala. Después, escala(valor) transforma una entrada. El nombre escala es una variable del ejemplo.</p><p><b>Resultado esperado:</b> Norte→0, Centro→200, Sur→400.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+            <p>JavaScript del ejemplo y resultado para d3.scalePoint.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;-20 0 460 100&quot;&gt;
+  &lt;circle id=&quot;marca-a&quot; cy=&quot;40&quot; r=&quot;8&quot; fill=&quot;teal&quot;/&gt;
+  &lt;circle id=&quot;marca-b&quot; cy=&quot;40&quot; r=&quot;8&quot; fill=&quot;teal&quot;/&gt;
+  &lt;circle id=&quot;marca-c&quot; cy=&quot;40&quot; r=&quot;8&quot; fill=&quot;teal&quot;/&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. domain contiene los datos; range, las salidas.
+const escala = d3.scalePoint().domain([&quot;Norte&quot;,&quot;Centro&quot;,&quot;Sur&quot;]).range([0,400]);
+
+// 2. Llamamos a la escala con valores concretos.
+d3.select(&quot;#salida&quot;).text(
+  &quot;Salida 1: &quot; + escala(&quot;Norte&quot;) + &quot;\n&quot; +
+  &quot;Salida 2: &quot; + escala(&quot;Centro&quot;) + &quot;\n&quot; +
+  &quot;Salida 3: &quot; + escala(&quot;Sur&quot;)
+);
+
+// 3. Colocamos las tres marcas usando la escala.
+d3.select(&quot;#marca-a&quot;).attr(&quot;cx&quot;, escala(&quot;Norte&quot;));
+d3.select(&quot;#marca-b&quot;).attr(&quot;cx&quot;, escala(&quot;Centro&quot;));
+d3.select(&quot;#marca-c&quot;).attr(&quot;cx&quot;, escala(&quot;Sur&quot;));</code></pre>
+            <div id="demo" aria-label="Visualización de d3.scalePoint">
+<svg viewBox="-20 0 460 100">
+  <circle id="marca-a" cy="40" r="8" fill="teal"/>
+  <circle id="marca-b" cy="40" r="8" fill="teal"/>
+  <circle id="marca-c" cy="40" r="8" fill="teal"/>
+</svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el argumento.</b> El vector de categorías se distribuye en posiciones puntuales. La salida indica dónde colocar el centro de una marca. La escala no da un ancho de barra.</p><p><b>Qué devuelve en este ejemplo.</b> Con tres categorías, rango [0,400] y sin padding, las posiciones son 0, 200 y 400. bandwidth() devuelve 0; el radio de los círculos se configura aparte.</p><p><b>Vectores y medidas.</b> Un array puede representar datos, categorías, límites, clases o dimensiones. Identifica su significado antes de usar sus posiciones. Consulta <a href="vectores-y-dimensiones.html">vectores y dimensiones</a> y distingue <a href="d3.scaleLinear.html">longitud</a> de <a href="scale.range.html">posición vertical</a>.</p><p>Edita <code>js/d3scalepoint.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Cambia el extremo del rango de 400 a 600: las posiciones deben ser 0, 300 y 600.</p><p>2. Modifica una entrada concreta y compara su salida antes de cambiar la figura.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://d3js.org/d3-scale">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/d3scalepoint.js"></script>
+</body></html>

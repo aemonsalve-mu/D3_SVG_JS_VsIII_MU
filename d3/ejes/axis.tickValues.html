@@ -1,0 +1,37 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>axis.tickValues · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css">
+<style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>axis.tickValues</h1><p>Fija explícitamente las marcas; prevalece sobre ticks.</p><p class="notice">Paso siguiente a las escalas: empieza por axisBottom. El generador prepara las marcas y call las dibuja dentro del grupo SVG.</p><section><h2>Sintaxis</h2><pre>const escala = d3.scaleLinear().domain([0,100]).range([40,520]);
+const eje = d3.axisBottom(escala);
+eje.tickValues([0,25,50,100]);</pre><p><b>Qué son los nombres del ejemplo.</b> dimensiones es el array [560,240]; ancho y alto extraen sus posiciones 0 y 1. escala guarda una función; eje guarda el generador y grupo guarda la selección del elemento g. Son variables creadas aquí, no comandos de D3.</p><p><b>Resultado esperado:</b> Se muestran exactamente los cuatro valores.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+            <p>El código JavaScript de D3 crea y muestra la visualización SVG de axis.tickValues.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg id=&quot;lienzo&quot; viewBox=&quot;0 0 560 240&quot;&gt;
+  &lt;g id=&quot;eje&quot;&gt;&lt;/g&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. [ancho, alto] del lienzo y un margen para las etiquetas.
+const dimensiones = [560, 240];
+const ancho = dimensiones[0];
+const alto = dimensiones[1];
+const margen = 40;
+d3.select(&quot;#lienzo&quot;).attr(&quot;viewBox&quot;, &quot;0 0 &quot; + ancho + &quot; &quot; + alto);
+
+// 2. El dominio son datos; el rango son coordenadas del dibujo.
+const escala = d3.scaleLinear().domain([0, 100]);
+escala.range([margen, ancho - margen]);
+const eje = d3.axisBottom(escala);
+eje.ticks(5);
+
+eje.tickValues([0, 25, 50, 100]);
+
+// 3. El grupo ya existe. Lo colocamos y dibujamos el eje.
+const grupo = d3.select(&quot;#eje&quot;);
+grupo.attr(&quot;transform&quot;, &quot;translate(0,&quot; + (alto - margen) + &quot;)&quot;);
+grupo.call(eje);</code></pre>
+            <div id="demo" aria-label="Visualización de axis.tickValues">
+<svg id="lienzo" viewBox="0 0 560 240">
+  <g id="eje"></g>
+</svg>
+</div>
+        <h3>Cómo leerlo, paso a paso</h3><p><b>Qué controla esta instrucción.</b> Aquí el array sí enumera los valores de datos que se desean mostrar como marcas. No son cuatro dimensiones ni cuatro posiciones SVG directas.</p><p><b>Qué debe verse.</b> Cada valor se coloca usando escala(valor). Con el rango [40,520], las cuatro posiciones son 40,160,280,520. Esta lista prevalece sobre la sugerencia de ticks.</p><p><b>Posición, longitud y orientación son independientes.</b> El rango coloca los valores, transform sitúa el grupo y axisBottom/Top/Left/Right decide el lado de las marcas y etiquetas. call(eje) ejecuta el generador sobre el grupo; crear eje no lo dibuja.</p><p><b>Evita sumar el margen dos veces.</b> En el eje horizontal el rango ya va desde margen hasta ancho − margen y la traslación horizontal es 0. En un eje vertical el rango ya incluye el margen en y y la traslación vertical es 0.</p><p><b>Unidades.</b> Las posiciones y longitudes del dibujo se expresan en unidades del SVG; al mostrarse con otro tamaño CSS no equivalen necesariamente a los mismos píxeles de pantalla. Consulta <a href="../escalas/vectores-y-dimensiones.html">vectores y dimensiones</a> y <a href="../../svg/atributos/svg.viewBox.html">viewBox</a>.</p><p>Edita <code>js/axistickvalues.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Prueba [0,10,100]: comprueba que las marcas no quedan equidistantes porque los datos tampoco lo están.</p><p>2. Cambia una sola posición del vector dimensiones y explica qué medidas deben variar y cuáles deben mantenerse.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://d3js.org/d3-axis">Referencia oficial</a> · Datos sintéticos. SVG no depende de D3.</footer>
+</main>
+<script src="../../vendor/d3.min.js"></script>
+    <script src="js/axistickvalues.js"></script></body></html>

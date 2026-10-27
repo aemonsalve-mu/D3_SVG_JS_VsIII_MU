@@ -1,0 +1,35 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>d3.scaleSequential · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>d3.scaleSequential</h1><p>Asigna una progresión de color a cantidades ordenadas. Usa interpolator, no interpolate; carece de invert.</p><p class="notice">Empieza por scaleLinear, domain, range e invert. Después compara categorías con scaleBand y scaleOrdinal. Las escalas logarítmicas, cuantiles e interpolación son pasos posteriores.</p><section><h2>Sintaxis</h2><pre>const escala = d3.scaleSequential(d3.interpolateViridis).domain([0,100]);
+const salida = escala(50);</pre><p><b>Crear y utilizar son dos operaciones.</b> d3.scaleSequential crea una función que guardamos en escala. Después, escala(valor) transforma una entrada. El nombre escala es una variable del ejemplo.</p><p><b>Resultado esperado:</b> Se obtiene un color por cada valor.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+            <p>JavaScript del ejemplo y resultado para d3.scaleSequential.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 360 100&quot;&gt;
+  &lt;rect id=&quot;color-a&quot; x=&quot;10&quot; y=&quot;10&quot; width=&quot;100&quot; height=&quot;70&quot;/&gt;
+  &lt;rect id=&quot;color-b&quot; x=&quot;130&quot; y=&quot;10&quot; width=&quot;100&quot; height=&quot;70&quot;/&gt;
+  &lt;rect id=&quot;color-c&quot; x=&quot;250&quot; y=&quot;10&quot; width=&quot;100&quot; height=&quot;70&quot;/&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. domain contiene los datos; range, las salidas.
+const escala = d3.scaleSequential(d3.interpolateViridis).domain([0,100]);
+
+// 2. Llamamos a la escala con valores concretos.
+d3.select(&quot;#salida&quot;).text(
+  &quot;Salida 1: &quot; + escala(0) + &quot;\n&quot; +
+  &quot;Salida 2: &quot; + escala(50) + &quot;\n&quot; +
+  &quot;Salida 3: &quot; + escala(100)
+);
+
+// 3. Aplicamos cada color a un rectángulo ya escrito en el HTML.
+d3.select(&quot;#color-a&quot;).attr(&quot;fill&quot;, escala(0));
+d3.select(&quot;#color-b&quot;).attr(&quot;fill&quot;, escala(50));
+d3.select(&quot;#color-c&quot;).attr(&quot;fill&quot;, escala(100));</code></pre>
+            <div id="demo" aria-label="Visualización de d3.scaleSequential">
+<svg viewBox="0 0 360 100">
+  <rect id="color-a" x="10" y="10" width="100" height="70"/>
+  <rect id="color-b" x="130" y="10" width="100" height="70"/>
+  <rect id="color-c" x="250" y="10" width="100" height="70"/>
+</svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el argumento.</b> El dominio tiene dos extremos y un interpolador genera la salida. En este ejemplo las salidas son colores; no representan anchuras o coordenadas.</p><p><b>Qué devuelve en este ejemplo.</b> El dato se normaliza respecto al dominio. Cambiar la gama de color no cambia el tamaño del rectángulo; el tamaño está definido en el HTML.</p><p><b>Vectores y medidas.</b> Un array puede representar datos, categorías, límites, clases o dimensiones. Identifica su significado antes de usar sus posiciones. Consulta <a href="vectores-y-dimensiones.html">vectores y dimensiones</a> y distingue <a href="d3.scaleLinear.html">longitud</a> de <a href="scale.range.html">posición vertical</a>.</p><p>Edita <code>js/d3scalesequential.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Sustituye interpolateViridis por interpolateBlues y comprueba que cambia el color, no la geometría.</p><p>2. Modifica una entrada concreta y compara su salida antes de cambiar la figura.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://d3js.org/d3-scale">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/d3scalesequential.js"></script>
+</body></html>

@@ -1,0 +1,21 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>d3.scaleQuantile · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>d3.scaleQuantile</h1><p>Calcula cortes a partir de toda la muestra. Los empates pueden impedir clases de igual tamaño.</p><p class="notice">Empieza por scaleLinear, domain, range e invert. Después compara categorías con scaleBand y scaleOrdinal. Las escalas logarítmicas, cuantiles e interpolación son pasos posteriores.</p><section><h2>Sintaxis</h2><pre>const escala = d3.scaleQuantile().domain([5,8,9,10,12,15,20,90,100]).range([&quot;Bajo&quot;,&quot;Medio&quot;,&quot;Alto&quot;]);
+const salida = escala(12);</pre><p><b>Crear y utilizar son dos operaciones.</b> d3.scaleQuantile crea una función que guardamos en escala. Después, escala(valor) transforma una entrada. El nombre escala es una variable del ejemplo.</p><p><b>Resultado esperado:</b> Los cortes son aproximadamente 9,67 y 16,67. Las entradas 8, 12 y 90 se clasifican como Bajo, Medio y Alto.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+            <p>JavaScript del ejemplo y resultado para d3.scaleQuantile.</p>
+            <p>Este ejemplo no necesita una figura inicial. Los resultados se escriben en el panel de salida.</p>
+<h3>JavaScript del ejemplo</h3><pre><code>// Los cortes se calculan a partir de toda la muestra.
+const escala = d3.scaleQuantile().domain([5,8,9,10,12,15,20,90,100]).range([&quot;Bajo&quot;,&quot;Medio&quot;,&quot;Alto&quot;]);
+d3.select(&quot;#salida&quot;).text(
+  &quot;Salida 1: &quot; + escala(8) + &quot;\n&quot; +
+  &quot;Salida 2: &quot; + escala(12) + &quot;\n&quot; +
+  &quot;Salida 3: &quot; + escala(90) + &quot;\n&quot; +
+  &quot;Cortes calculados: &quot; + escala.quantiles()
+);</code></pre>
+            <div id="demo" aria-label="Visualización de d3.scaleQuantile">
+
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el argumento.</b> En esta familia domain sí recibe la muestra completa de observaciones. D3 calcula cuantiles a partir de esos datos y del número de clases del rango.</p><p><b>Qué devuelve en este ejemplo.</b> Con tres clases, los cortes son aproximadamente 9.67 y 16.67. Las amplitudes no son iguales; los empates pueden impedir clases con igual número de observaciones.</p><p><b>Vectores y medidas.</b> Un array puede representar datos, categorías, límites, clases o dimensiones. Identifica su significado antes de usar sus posiciones. Consulta <a href="vectores-y-dimensiones.html">vectores y dimensiones</a> y distingue <a href="d3.scaleLinear.html">longitud</a> de <a href="scale.range.html">posición vertical</a>.</p><p>Edita <code>js/d3scalequantile.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Añade tres valores 100 a la muestra y observa cómo cambian los cortes, manteniendo las mismas tres clases.</p><p>2. Modifica una entrada concreta y compara su salida antes de cambiar la figura.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://d3js.org/d3-scale">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/d3scalequantile.js"></script>
+</body></html>

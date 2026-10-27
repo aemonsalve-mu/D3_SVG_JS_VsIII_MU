@@ -1,0 +1,52 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>d3.scaleLinear · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>d3.scaleLinear</h1><p>Con dos extremos numéricos, transforma valores de forma uniforme: a diferencias iguales de entrada corresponden diferencias iguales de salida. Es adecuada para barras con origen cero.</p><p class="notice">Empieza por scaleLinear, domain, range e invert. Después compara categorías con scaleBand y scaleOrdinal. Las escalas logarítmicas, cuantiles e interpolación son pasos posteriores.</p><section><h2>Sintaxis</h2><pre>const escala = d3.scaleLinear();
+escala.domain([0, 100]);
+escala.range([0, 400]);
+const longitud = escala(50);</pre><p><b>Las variables tienen una función concreta.</b> dimensiones guarda [500, 240]; ancho y alto leen sus dos posiciones. datos guarda tres cantidades independientes: 20, 50 y 100. Ninguno de estos nombres es un comando de D3.</p><p><b>Resultado esperado:</b> Tres barras con anchuras 80, 200 y 400; todas tienen altura 30.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+            <p>JavaScript del ejemplo y resultado para d3.scaleLinear.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg id=&quot;lienzo&quot; viewBox=&quot;0 0 500 240&quot;&gt;
+  &lt;g id=&quot;barras&quot; transform=&quot;translate(50,30)&quot; fill=&quot;teal&quot;&gt;
+    &lt;rect y=&quot;0&quot; height=&quot;30&quot;/&gt;
+    &lt;rect y=&quot;60&quot; height=&quot;30&quot;/&gt;
+    &lt;rect y=&quot;120&quot; height=&quot;30&quot;/&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. El tamaño del lienzo se guarda como [ancho, alto].
+const dimensiones = [500, 240];
+const ancho = dimensiones[0];
+const alto = dimensiones[1];
+const margen = 50;
+d3.select(&quot;#lienzo&quot;).attr(&quot;viewBox&quot;, &quot;0 0 &quot; + ancho + &quot; &quot; + alto);
+
+// 2. Este otro vector contiene tres datos, no dimensiones.
+const datos = [20, 50, 100];
+const escala = d3.scaleLinear();
+escala.domain([0, 100]);
+escala.range([0, ancho - 2 * margen]);
+
+// 3. Cada rectángulo recibe un dato. La escala calcula su ancho.
+const barras = d3.select(&quot;#barras&quot;).selectAll(&quot;rect&quot;).data(datos);
+barras.attr(&quot;width&quot;, function(d) {
+  return escala(d);
+});
+
+d3.select(&quot;#salida&quot;).text(
+  &quot;Ancho útil: &quot; + (ancho - 2 * margen) + &quot;\n&quot; +
+  &quot;Dato 20 → ancho &quot; + escala(20) + &quot;\n&quot; +
+  &quot;Dato 50 → ancho &quot; + escala(50) + &quot;\n&quot; +
+  &quot;Dato 100 → ancho &quot; + escala(100)
+);</code></pre>
+            <div id="demo" aria-label="Visualización de d3.scaleLinear">
+<svg id="lienzo" viewBox="0 0 500 240">
+  <g id="barras" transform="translate(50,30)" fill="teal">
+    <rect y="0" height="30"/>
+    <rect y="60" height="30"/>
+    <rect y="120" height="30"/>
+  </g>
+</svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>domain define las entradas.</b> [0, 100] son los dos extremos de la escala. No es la lista de las tres barras. <b>range define las salidas.</b> [0, 400] significa de 0 a 400 unidades de longitud: 500 − 2 × 50 = 400.</p><p><b>Una función que devuelve números.</b> escala(20) devuelve 80; escala(50), 200; escala(100), 400. Con estos extremos, la relación es salida = entrada × 4. La escala por sí sola no dibuja nada.</p><p><b>Un dato por figura.</b> data(datos) asigna 20 al primer rectángulo, 50 al segundo y 100 al tercero. La función de attr recibe ese número como d y devuelve escala(d), un único ancho. La altura de 30 ya está en el HTML.</p><p><b>Posición frente a longitud.</b> translate(50,30) coloca el grupo; width mide desde el borde izquierdo de cada rectángulo. El desplazamiento del grupo no se vuelve a sumar al ancho. Consulta <a href="vectores-y-dimensiones.html">vectores y dimensiones</a>.</p><figure style="margin:20px 0"><div style="overflow-x:auto"><img src="../../assets/diagramas/escala-y-longitud.svg" alt="Una escala transforma cada dato en la longitud de su barra." style="display:block;width:100%;min-width:700px;height:auto"></div><figcaption>Una escala transforma cada dato en la longitud de su barra. <a href="../../assets/diagramas/escala-y-longitud.svg">Abrir infografía a tamaño completo</a>.</figcaption></figure><p>Edita <code>js/d3scalelinear.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Cambia solo el segundo dato de 50 a 75: su ancho debe pasar de 200 a 300.</p><p>2. Cambia solo el máximo del dominio de 100 a 200: las anchuras deben quedar en 40, 100 y 200.</p><p>3. Cambia ancho mediante dimensiones[0], de 500 a 700, manteniendo margen = 50. El rango pasa a [0, 600] y las barras deben medir 120, 300 y 600.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://d3js.org/d3-scale">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/d3scalelinear.js"></script>
+</body></html>

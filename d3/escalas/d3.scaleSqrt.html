@@ -1,0 +1,25 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>d3.scaleSqrt · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>d3.scaleSqrt</h1><p>Raíz cuadrada con signo. Para valores no negativos, si dominio y rango empiezan en 0, el área de las burbujas es proporcional al valor al usar la salida como radio.</p><p class="notice">Empieza por scaleLinear, domain, range e invert. Después compara categorías con scaleBand y scaleOrdinal. Las escalas logarítmicas, cuantiles e interpolación son pasos posteriores.</p><section><h2>Sintaxis</h2><pre>const escala = d3.scaleSqrt().domain([0,100]).range([0,30]);
+const salida = escala(25);</pre><p><b>Crear y utilizar son dos operaciones.</b> d3.scaleSqrt crea una función que guardamos en escala. Después, escala(valor) transforma una entrada. El nombre escala es una variable del ejemplo.</p><p><b>Resultado esperado:</b> 25→15 y 100→30; las áreas guardan proporción 1:4.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+            <p>JavaScript del ejemplo y resultado para d3.scaleSqrt.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 300 100&quot;&gt;&lt;circle id=&quot;pequena&quot; cx=&quot;80&quot; cy=&quot;50&quot; fill=&quot;teal&quot;/&gt;&lt;circle id=&quot;grande&quot; cx=&quot;200&quot; cy=&quot;50&quot; fill=&quot;teal&quot;/&gt;&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. domain contiene los datos; range, las salidas.
+const escala = d3.scaleSqrt().domain([0,100]).range([0,30]);
+
+// 2. Llamamos a la escala con valores concretos.
+d3.select(&quot;#salida&quot;).text(
+  &quot;Salida 1: &quot; + escala(25) + &quot;\n&quot; +
+  &quot;Salida 2: &quot; + escala(100)
+);
+
+// 3. La escala calcula radios; las áreas guardan proporción.
+d3.select(&quot;#pequena&quot;).attr(&quot;r&quot;, escala(25));
+d3.select(&quot;#grande&quot;).attr(&quot;r&quot;, escala(100));</code></pre>
+            <div id="demo" aria-label="Visualización de d3.scaleSqrt">
+<svg viewBox="0 0 300 100"><circle id="pequena" cx="80" cy="50" fill="teal"/><circle id="grande" cx="200" cy="50" fill="teal"/></svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el argumento.</b> El dato representa una cantidad; la salida se usa como radio. [0,30] no son dos radios de dos figuras: son los extremos de salida de una misma escala.</p><p><b>Qué devuelve en este ejemplo.</b> Los datos 25 y 100 producen radios 15 y 30. El diámetro se duplica y el área se multiplica por cuatro. Para áreas proporcionales se necesitan datos no negativos, dominio desde 0 y rango desde 0.</p><p><b>Vectores y medidas.</b> Un array puede representar datos, categorías, límites, clases o dimensiones. Identifica su significado antes de usar sus posiciones. Consulta <a href="vectores-y-dimensiones.html">vectores y dimensiones</a> y distingue <a href="d3.scaleLinear.html">longitud</a> de <a href="scale.range.html">posición vertical</a>.</p><p>Edita <code>js/d3scalesqrt.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Sustituye scaleSqrt por scaleLinear con el mismo dominio y rango. Compara radios y áreas para 25 y 100.</p><p>2. Modifica una entrada concreta y compara su salida antes de cambiar la figura.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://d3js.org/d3-scale">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/d3scalesqrt.js"></script>
+</body></html>

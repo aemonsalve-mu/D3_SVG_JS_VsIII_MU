@@ -1,0 +1,24 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>scale.copy · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>scale.copy</h1><p>Crea otra escala configurable sin modificar la original.</p><p class="notice">Empieza por scaleLinear, domain, range e invert. Después compara categorías con scaleBand y scaleOrdinal. Las escalas logarítmicas, cuantiles e interpolación son pasos posteriores.</p><section><h2>Sintaxis</h2><pre>const original = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+const copia = original.copy();</pre><p><b>Qué representa el nombre de la variable.</b> original y copia son nombres elegidos para guardar dos escalas distintas. No son comandos de D3.</p><p><b>Resultado esperado:</b> a=200; b=100; dominioA sigue [0,100].</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+            <p>JavaScript del ejemplo y resultado para scale.copy.</p>
+            <p>Este ejemplo no necesita una figura inicial. Los resultados se escriben en el panel de salida.</p>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. Preparamos una escala sencilla.
+const original = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+const copia = original.copy();
+copia.domain([0, 200]);
+
+// 2. Comparamos valores concretos antes y después del método.
+d3.select(&quot;#salida&quot;).text(
+  &quot;Original para 50: &quot; + original(50) + &quot;\n&quot; +
+  &quot;Copia para 50: &quot; + copia(50) + &quot;\n&quot; +
+  &quot;Dominio original: &quot; + original.domain()
+);</code></pre>
+            <div id="demo" aria-label="Visualización de scale.copy">
+
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el argumento.</b> original y copia son variables del ejemplo. copy crea otra escala con la misma configuración inicial para poder cambiarla de forma independiente.</p><p><b>Qué devuelve en este ejemplo.</b> Al modificar el dominio de copia a [0,200], copia(50) vale 100, mientras original(50) sigue valiendo 200 y su dominio sigue siendo [0,100].</p><p><b>Vectores y medidas.</b> Un array puede representar datos, categorías, límites, clases o dimensiones. Identifica su significado antes de usar sus posiciones. Consulta <a href="vectores-y-dimensiones.html">vectores y dimensiones</a> y distingue <a href="d3.scaleLinear.html">longitud</a> de <a href="scale.range.html">posición vertical</a>.</p><p>Edita <code>js/scalecopy.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Cambia el rango de copia y comprueba que el rango de original permanece igual.</p><p>2. Modifica una entrada concreta y compara su salida antes de cambiar la figura.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://d3js.org/d3-scale">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/scalecopy.js"></script>
+</body></html>

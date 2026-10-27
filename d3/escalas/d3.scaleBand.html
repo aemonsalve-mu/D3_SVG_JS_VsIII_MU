@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>d3.scaleBand · D3 y SVG</title>
+    <link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style>
+</head>
+
+<body>
+    <header>
+        <div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div>
+    </header>
+    <main>
+        <p class="muted">UN ARCHIVO · UN CONCEPTO</p>
+        <h1>d3.scaleBand</h1>
+        <p>Distribuye categorías en bandas. La salida es el inicio; bandwidth devuelve la anchura. No tiene invert.</p><p class="notice">Empieza por scaleLinear, domain, range e invert. Después compara categorías con scaleBand y scaleOrdinal. Las escalas logarítmicas, cuantiles e interpolación son pasos posteriores.</p>
+        <section>
+            <h2>Sintaxis</h2><pre>const escala = d3.scaleBand().domain([&quot;Norte&quot;,&quot;Centro&quot;,&quot;Sur&quot;]).range([0,400]).padding(.2);
+const salida = escala(&quot;Norte&quot;);</pre><p><b>Crear y utilizar son dos operaciones.</b> d3.scaleBand crea una función que guardamos en escala. Después, escala(valor) transforma una entrada. El nombre escala es una variable del ejemplo.</p>
+            <p><b>Resultado esperado:</b> Se imprimen tres inicios de banda.</p>
+        </section>
+        <section>
+            <h2>Ejemplo paso a paso</h2>
+            <p>JavaScript del ejemplo y resultado para d3.scaleBand.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;-20 0 460 100&quot;&gt;
+  &lt;rect id=&quot;marca-a&quot; y=&quot;20&quot; height=&quot;40&quot; fill=&quot;teal&quot;/&gt;
+  &lt;rect id=&quot;marca-b&quot; y=&quot;20&quot; height=&quot;40&quot; fill=&quot;teal&quot;/&gt;
+  &lt;rect id=&quot;marca-c&quot; y=&quot;20&quot; height=&quot;40&quot; fill=&quot;teal&quot;/&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. domain contiene los datos; range, las salidas.
+const escala = d3.scaleBand().domain([&quot;Norte&quot;,&quot;Centro&quot;,&quot;Sur&quot;]).range([0,400]).padding(.2);
+
+// 2. Llamamos a la escala con valores concretos.
+d3.select(&quot;#salida&quot;).text(
+  &quot;Salida 1: &quot; + escala(&quot;Norte&quot;) + &quot;\n&quot; +
+  &quot;Salida 2: &quot; + escala(&quot;Centro&quot;) + &quot;\n&quot; +
+  &quot;Salida 3: &quot; + escala(&quot;Sur&quot;)
+);
+
+// 3. Colocamos las tres marcas usando la escala.
+d3.select(&quot;#marca-a&quot;).attr(&quot;x&quot;, escala(&quot;Norte&quot;)).attr(&quot;width&quot;, escala.bandwidth());
+d3.select(&quot;#marca-b&quot;).attr(&quot;x&quot;, escala(&quot;Centro&quot;)).attr(&quot;width&quot;, escala.bandwidth());
+d3.select(&quot;#marca-c&quot;).attr(&quot;x&quot;, escala(&quot;Sur&quot;)).attr(&quot;width&quot;, escala.bandwidth());</code></pre>
+            <div id="demo" aria-label="Visualización de d3.scaleBand">
+<svg viewBox="-20 0 460 100">
+  <rect id="marca-a" y="20" height="40" fill="teal"/>
+  <rect id="marca-b" y="20" height="40" fill="teal"/>
+  <rect id="marca-c" y="20" height="40" fill="teal"/>
+</svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el argumento.</b> domain es el vector de categorías; range contiene solo los extremos del espacio disponible. La escala devuelve el inicio de cada banda, no su centro ni su anchura.</p><p><b>Qué devuelve en este ejemplo.</b> Con rango [0,400] y padding(0.2), las posiciones son 25, 150 y 275; bandwidth() vale 100 y step() vale 125. El ancho útil total de 400 se reparte entre categorías y espacios.</p><p><b>Vectores y medidas.</b> Un array puede representar datos, categorías, límites, clases o dimensiones. Identifica su significado antes de usar sus posiciones. Consulta <a href="vectores-y-dimensiones.html">vectores y dimensiones</a> y distingue <a href="d3.scaleLinear.html">longitud</a> de <a href="scale.range.html">posición vertical</a>.</p><p>Edita <code>js/d3scaleband.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section>
+        <section>
+            <h2>Práctica</h2><p>1. Cambia padding de 0.2 a 0. El ancho de banda pasa a 400/3; comprueba también las posiciones.</p><p>2. Modifica una entrada concreta y compara su salida antes de cambiar la figura.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section>
+        <footer><a href="https://d3js.org/d3-scale">Referencia oficial</a> · Datos sintéticos. Las funciones auxiliares
+            print y el panel de salida sirven para observar resultados. SVG no depende de D3.</footer>
+    </main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/d3scaleband.js"></script>
+</body>
+
+</html>

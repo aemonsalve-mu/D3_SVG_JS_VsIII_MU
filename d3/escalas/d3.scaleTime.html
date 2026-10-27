@@ -1,0 +1,25 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>d3.scaleTime · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>d3.scaleTime</h1><p>Transforma fechas en la zona horaria local. Los intervalos de calendario no tienen duración idéntica.</p><p class="notice">Empieza por scaleLinear, domain, range e invert. Después compara categorías con scaleBand y scaleOrdinal. Las escalas logarítmicas, cuantiles e interpolación son pasos posteriores.</p><section><h2>Sintaxis</h2><pre>const escala = d3.scaleTime().domain([new Date(2026,0,1),new Date(2026,0,6)]).range([0,500]);
+const salida = escala(new Date(2026,0,3));</pre><p><b>Crear y utilizar son dos operaciones.</b> d3.scaleTime crea una función que guardamos en escala. Después, escala(valor) transforma una entrada. El nombre escala es una variable del ejemplo.</p><p><b>Resultado esperado:</b> El 1 de enero se sitúa en 0 y el 6 en 500.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+            <p>JavaScript del ejemplo y resultado para d3.scaleTime.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;-20 0 560 100&quot;&gt;&lt;line x1=&quot;0&quot; y1=&quot;50&quot; x2=&quot;500&quot; y2=&quot;50&quot; stroke=&quot;gray&quot;/&gt;&lt;circle id=&quot;marca&quot; cy=&quot;50&quot; r=&quot;8&quot; fill=&quot;teal&quot;/&gt;&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. domain contiene los datos; range, las salidas.
+const escala = d3.scaleTime().domain([new Date(2026,0,1),new Date(2026,0,6)]).range([0,500]);
+
+// 2. Llamamos a la escala con valores concretos.
+d3.select(&quot;#salida&quot;).text(
+  &quot;Salida 1: &quot; + escala(new Date(2026, 0, 1)) + &quot;\n&quot; +
+  &quot;Salida 2: &quot; + escala(new Date(2026, 0, 3)) + &quot;\n&quot; +
+  &quot;Salida 3: &quot; + escala(new Date(2026, 0, 6))
+);
+
+// 3. Solo cambiamos cx: el círculo ya existe en el HTML.
+d3.select(&quot;#marca&quot;).attr(&quot;cx&quot;, escala(new Date(2026, 0, 3)));</code></pre>
+            <div id="demo" aria-label="Visualización de d3.scaleTime">
+<svg viewBox="-20 0 560 100"><line x1="0" y1="50" x2="500" y2="50" stroke="gray"/><circle id="marca" cy="50" r="8" fill="teal"/></svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el argumento.</b> Los extremos son objetos Date. En new Date(2026,0,1), los meses empiezan en 0: 0 es enero. El rango [0,500] contiene posiciones del dibujo.</p><p><b>Qué devuelve en este ejemplo.</b> Las fechas del 1 al 6 de enero se sitúan entre 0 y 500. La escala trabaja con fechas y calendario local; al mostrar un Date como ISO puede aparecer otra hora por la zona horaria.</p><p><b>Vectores y medidas.</b> Un array puede representar datos, categorías, límites, clases o dimensiones. Identifica su significado antes de usar sus posiciones. Consulta <a href="vectores-y-dimensiones.html">vectores y dimensiones</a> y distingue <a href="d3.scaleLinear.html">longitud</a> de <a href="scale.range.html">posición vertical</a>.</p><p>Edita <code>js/d3scaletime.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Cambia solo el extremo del rango a 1000. Las posiciones se duplican; las fechas de entrada siguen siendo las mismas.</p><p>2. Modifica una entrada concreta y compara su salida antes de cambiar la figura.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://d3js.org/d3-scale">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/d3scaletime.js"></script>
+</body></html>

@@ -1,0 +1,35 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>d3.scaleOrdinal · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>d3.scaleOrdinal</h1><p>Asigna salidas discretas a categorías. Explicita el dominio para estabilizar los colores.</p><p class="notice">Empieza por scaleLinear, domain, range e invert. Después compara categorías con scaleBand y scaleOrdinal. Las escalas logarítmicas, cuantiles e interpolación son pasos posteriores.</p><section><h2>Sintaxis</h2><pre>const escala = d3.scaleOrdinal().domain([&quot;Norte&quot;,&quot;Centro&quot;,&quot;Sur&quot;]).range([&quot;teal&quot;,&quot;orange&quot;,&quot;purple&quot;]);
+const salida = escala(&quot;Norte&quot;);</pre><p><b>Crear y utilizar son dos operaciones.</b> d3.scaleOrdinal crea una función que guardamos en escala. Después, escala(valor) transforma una entrada. El nombre escala es una variable del ejemplo.</p><p><b>Resultado esperado:</b> Cada zona recibe su color.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+            <p>JavaScript del ejemplo y resultado para d3.scaleOrdinal.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 360 100&quot;&gt;
+  &lt;rect id=&quot;color-a&quot; x=&quot;10&quot; y=&quot;10&quot; width=&quot;100&quot; height=&quot;70&quot;/&gt;
+  &lt;rect id=&quot;color-b&quot; x=&quot;130&quot; y=&quot;10&quot; width=&quot;100&quot; height=&quot;70&quot;/&gt;
+  &lt;rect id=&quot;color-c&quot; x=&quot;250&quot; y=&quot;10&quot; width=&quot;100&quot; height=&quot;70&quot;/&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. domain contiene los datos; range, las salidas.
+const escala = d3.scaleOrdinal().domain([&quot;Norte&quot;,&quot;Centro&quot;,&quot;Sur&quot;]).range([&quot;teal&quot;,&quot;orange&quot;,&quot;purple&quot;]);
+
+// 2. Llamamos a la escala con valores concretos.
+d3.select(&quot;#salida&quot;).text(
+  &quot;Salida 1: &quot; + escala(&quot;Norte&quot;) + &quot;\n&quot; +
+  &quot;Salida 2: &quot; + escala(&quot;Centro&quot;) + &quot;\n&quot; +
+  &quot;Salida 3: &quot; + escala(&quot;Sur&quot;)
+);
+
+// 3. Aplicamos cada color a un rectángulo ya escrito en el HTML.
+d3.select(&quot;#color-a&quot;).attr(&quot;fill&quot;, escala(&quot;Norte&quot;));
+d3.select(&quot;#color-b&quot;).attr(&quot;fill&quot;, escala(&quot;Centro&quot;));
+d3.select(&quot;#color-c&quot;).attr(&quot;fill&quot;, escala(&quot;Sur&quot;));</code></pre>
+            <div id="demo" aria-label="Visualización de d3.scaleOrdinal">
+<svg viewBox="0 0 360 100">
+  <rect id="color-a" x="10" y="10" width="100" height="70"/>
+  <rect id="color-b" x="130" y="10" width="100" height="70"/>
+  <rect id="color-c" x="250" y="10" width="100" height="70"/>
+</svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el argumento.</b> domain recibe categorías y range una lista de colores. Aquí cada posición del dominio corresponde a la misma posición del rango. No se interpola una distancia numérica.</p><p><b>Qué devuelve en este ejemplo.</b> Norte recibe teal, Centro orange y Sur purple. Si faltan colores, D3 vuelve a utilizarlos. Conviene fijar el dominio para que el orden de llegada no cambie las asignaciones.</p><p><b>Vectores y medidas.</b> Un array puede representar datos, categorías, límites, clases o dimensiones. Identifica su significado antes de usar sus posiciones. Consulta <a href="vectores-y-dimensiones.html">vectores y dimensiones</a> y distingue <a href="d3.scaleLinear.html">longitud</a> de <a href="scale.range.html">posición vertical</a>.</p><p>Edita <code>js/d3scaleordinal.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Intercambia los dos primeros colores del rango y predice qué figuras cambian.</p><p>2. Modifica una entrada concreta y compara su salida antes de cambiar la figura.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://d3js.org/d3-scale">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/d3scaleordinal.js"></script>
+</body></html>
