@@ -1,0 +1,27 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>svg.line · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · SVG / DOM nativo</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>svg.line</h1><p>Segmento entre dos puntos. Necesita stroke para verse.</p><p class="notice">Empieza por svg, rect, circle, line y text. defs, gradientes, recortes, máscaras y símbolos son ampliaciones.</p><section><h2>Sintaxis</h2><h3>Antes de usar JavaScript con SVG</h3><p><code>document.querySelector</code> busca un nodo por su selector. <code>setAttribute</code> escribe un atributo y <code>textContent</code> muestra texto. Estudia primero <a href="../metodos/Document.querySelector.html">la selección del DOM nativo</a> y <a href="../metodos/Element.setAttribute.html">setAttribute</a>. Los corchetes leen posiciones del array, empezando por 0.</p><pre>const inicio = [30, 130];
+const fin = [400, 30];
+const linea = document.querySelector(&quot;#segmento&quot;);
+linea.setAttribute(&quot;x1&quot;, inicio[0]);
+linea.setAttribute(&quot;y1&quot;, inicio[1]);
+linea.setAttribute(&quot;x2&quot;, fin[0]);
+linea.setAttribute(&quot;y2&quot;, fin[1]);</pre><p><b>Qué significa cada medida.</b> Una línea se define con dos puntos: inicio=[x1,y1] y fin=[x2,y2]. Estos vectores contienen posiciones. No tiene atributos width y height como rect.</p><p><b>Resultado esperado:</b> El segmento va de (30,130) a (400,30).</p></section><section>
+            <h2>Ejemplo SVG</h2>
+            <p>Lee primero el marcado SVG. El navegador dibuja estos elementos directamente.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 500 180&quot;&gt;
+  &lt;line id=&quot;segmento&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;100&quot; y2=&quot;0&quot; stroke=&quot;teal&quot; stroke-width=&quot;5&quot;/&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>const inicio = [30, 130];
+const fin = [400, 30];
+const linea = document.querySelector(&quot;#segmento&quot;);
+linea.setAttribute(&quot;x1&quot;, inicio[0]);
+linea.setAttribute(&quot;y1&quot;, inicio[1]);
+linea.setAttribute(&quot;x2&quot;, fin[0]);
+linea.setAttribute(&quot;y2&quot;, fin[1]);</code></pre>
+            <div id="demo" aria-label="Resultado SVG">
+<svg viewBox="0 0 500 180">
+  <line id="segmento" x1="0" y1="0" x2="100" y2="0" stroke="teal" stroke-width="5"/>
+</svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el ejemplo.</b> En el ejemplo, inicio=[30,130] y fin=[400,30]. El cambio horizontal es 370 y el vertical −100. Su longitud no es ni 370 ni 100: se calcula a partir de ambos cambios.</p><p><b>Conexión con los vectores.</b> Los índices empiezan en 0. Antes de aplicar un array, define si sus posiciones contienen coordenadas, tamaños, radios o datos. width y height necesitan una longitud cada uno; una pareja completa no es un único ancho. Consulta <a href="../../d3/escalas/vectores-y-dimensiones.html">vectores y dimensiones</a>.</p><figure style="margin:20px 0"><div style="overflow-x:auto"><img src="../../assets/diagramas/coordenadas-svg.svg" alt="Posición y tamaño se leen en atributos distintos." style="display:block;width:100%;min-width:700px;height:auto"></div><figcaption>Posición y tamaño se leen en atributos distintos. <a href="../../assets/diagramas/coordenadas-svg.svg">Abrir infografía a tamaño completo</a>.</figcaption></figure><p>Edita <code>js/svgline.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Cambia fin a [400,130]: la línea debe quedar horizontal y medir 370 unidades.</p><p>2. Relaciona cada número del código con una medida o propiedad visible. Cambia uno y comprueba tu predicción.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://www.w3.org/TR/SVG2/">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+<script src="js/svgline.js"></script>
+</body></html>

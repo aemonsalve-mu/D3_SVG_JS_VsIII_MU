@@ -1,0 +1,23 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Document.createElementNS · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · SVG / DOM nativo</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>Document.createElementNS</h1><p>Crea elementos en el espacio de nombres SVG; es un método DOM, no D3.</p><p class="notice">Paso siguiente al SVG básico. Empieza por getAttribute y setAttribute; las mediciones y matrices de coordenadas requieren más conocimientos.</p><section><h2>Sintaxis</h2><h3>Antes de usar el DOM del navegador</h3><p><code>document</code> representa esta página. <code>document.querySelector("selector CSS")</code> busca la primera coincidencia y devuelve el nodo del navegador, o <code>null</code> si no existe. No devuelve una selección D3. En este ejemplo el nodo ya está escrito en el HTML.</p><p>Si todavía no conoces esta instrucción, lee primero <a href="Document.querySelector.html">document.querySelector y querySelectorAll</a>. La propiedad <code>textContent</code> escribe texto de un nodo; los métodos de esta ficha se llaman directamente sobre el nodo encontrado.</p><pre>const circulo = document.createElementNS(&quot;http://www.w3.org/2000/svg&quot;, &quot;circle&quot;);
+circulo.setAttribute(&quot;cx&quot;, 330);</pre><p><b>Qué significa cada medida.</b> El espacio de nombres SVG indica qué clase de elemento se crea. Todavía no se dibuja hasta añadirlo al svg existente.</p><p><b>Resultado esperado:</b> Se añade un círculo naranja.</p></section><section>
+            <h2>Ejemplo SVG</h2>
+            <p>Código JavaScript y resultado del ejemplo de Document.createElementNS.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 500 180&quot;&gt;
+  &lt;rect id=&quot;forma&quot; x=&quot;40&quot; y=&quot;30&quot; width=&quot;180&quot; height=&quot;90&quot; fill=&quot;teal&quot;/&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// El espacio de nombres indica que creamos un elemento SVG.
+const circulo = document.createElementNS(&quot;http://www.w3.org/2000/svg&quot;, &quot;circle&quot;);
+circulo.setAttribute(&quot;cx&quot;, 330);
+circulo.setAttribute(&quot;cy&quot;, 80);
+circulo.setAttribute(&quot;r&quot;, 40);
+circulo.setAttribute(&quot;fill&quot;, &quot;orange&quot;);
+// El padre SVG ya está en el HTML.
+document.querySelector(&quot;#demo svg&quot;).appendChild(circulo);</code></pre>
+            <div id="demo" aria-label="Resultado SVG">
+<svg viewBox="0 0 500 180">
+  <rect id="forma" x="40" y="30" width="180" height="90" fill="teal"/>
+</svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el ejemplo.</b> cx=330,cy=80 son el centro; r=40 es un radio y el diámetro es 80. Cada medida se asigna a un atributo concreto, no pasando un vector completo a r.</p><p><b>El nodo y el resultado no son lo mismo.</b> figura o texto es el nodo del DOM. El método puede devolver una longitud, un punto, una caja o una matriz; identifica ese tipo antes de leer sus propiedades. La ficha <a href="Document.querySelector.html">DOM nativo</a> explica cómo se obtiene el nodo.</p><p>Edita <code>js/documentcreateelementns.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Usa r=20 y comprueba que el diámetro se reduce a 40 sin mover el centro.</p><p>2. Relaciona cada número del código con una medida o propiedad visible. Cambia uno y comprueba tu predicción.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://www.w3.org/TR/SVG2/">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+<script src="js/documentcreateelementns.js"></script>
+</body></html>

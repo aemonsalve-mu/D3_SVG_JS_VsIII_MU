@@ -1,0 +1,32 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>svg.linearGradient · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · SVG / DOM nativo</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>svg.linearGradient</h1><p>Define un gradiente lineal reutilizable, habitualmente dentro de defs.</p><p class="notice">Empieza por svg, rect, circle, line y text. defs, gradientes, recortes, máscaras y símbolos son ampliaciones.</p><section><h2>Sintaxis</h2><pre>&lt;linearGradient id=&quot;grad&quot;&gt;
+  &lt;stop offset=&quot;0%&quot; stop-color=&quot;#ccebdc&quot;/&gt;
+  &lt;stop offset=&quot;100%&quot; stop-color=&quot;teal&quot;/&gt;
+&lt;/linearGradient&gt;</pre><p><b>Qué significa cada medida.</b> El gradiente define una transición de pintura, no una figura visible por sí misma. El rectángulo que lo utiliza conserva sus dimensiones.</p><p><b>Resultado esperado:</b> Rectángulo con gradiente.</p></section><section>
+            <h2>Ejemplo SVG</h2>
+            <p>Lee primero el marcado SVG. El navegador dibuja estos elementos directamente.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 500 180&quot; role=&quot;img&quot; aria-label=&quot;Ejemplo linearGradient&quot;&gt;
+  &lt;defs&gt;
+    &lt;linearGradient id=&quot;grad&quot;&gt;
+      &lt;stop offset=&quot;0%&quot; stop-color=&quot;#ccebdc&quot;/&gt;
+      &lt;stop offset=&quot;100%&quot; stop-color=&quot;teal&quot;/&gt;
+    &lt;/linearGradient&gt;
+  &lt;/defs&gt;
+  &lt;rect x=&quot;30&quot; y=&quot;35&quot; width=&quot;400&quot; height=&quot;90&quot; fill=&quot;url(#grad)&quot;/&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// Este elemento SVG se describe directamente en el HTML.
+// No necesita JavaScript para dibujarse.
+// Cambia sus atributos en el HTML y recarga la página.</code></pre>
+            <div id="demo" aria-label="Resultado SVG">
+<svg viewBox="0 0 500 180" role="img" aria-label="Ejemplo linearGradient">
+  <defs>
+    <linearGradient id="grad">
+      <stop offset="0%" stop-color="#ccebdc"/>
+      <stop offset="100%" stop-color="teal"/>
+    </linearGradient>
+  </defs>
+  <rect x="30" y="35" width="400" height="90" fill="url(#grad)"/>
+</svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el ejemplo.</b> Sin cambiar gradientUnits, las coordenadas del gradiente se expresan respecto a la caja del objeto. Los stop de 0% y 100% delimitan los colores a lo largo de esa dirección.</p><p><b>Conexión con los vectores.</b> Los índices empiezan en 0. Antes de aplicar un array, define si sus posiciones contienen coordenadas, tamaños, radios o datos. width y height necesitan una longitud cada uno; una pareja completa no es un único ancho. Consulta <a href="../../d3/escalas/vectores-y-dimensiones.html">vectores y dimensiones</a>.</p><p>Esta ficha se dibuja con SVG declarativo. Para modificarla edita el marcado HTML y recarga. El .js solo contiene comentarios; no necesitas cambiarlo.</p></section><section><h2>Práctica</h2><p>1. Invierte los dos colores y comprueba que el rectángulo conserva su ancho y alto.</p><p>2. Relaciona cada número del código con una medida o propiedad visible. Cambia uno y comprueba tu predicción.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://www.w3.org/TR/SVG2/">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+<script src="js/svglineargradient.js"></script>
+</body></html>

@@ -1,0 +1,17 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>svg.tspan · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · SVG / DOM nativo</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>svg.tspan</h1><p>Fragmentos de texto para estilos o líneas adicionales.</p><p class="notice">Empieza por svg, rect, circle, line y text. defs, gradientes, recortes, máscaras y símbolos son ampliaciones.</p><section><h2>Sintaxis</h2><pre>&lt;tspan&gt;Ventas&lt;/tspan&gt;</pre><p><b>Qué significa cada medida.</b> tspan permite fragmentos dentro de text. x fija una posición y dy añade un desplazamiento relativo respecto a la posición de texto actual.</p><p><b>Resultado esperado:</b> Dos líneas de texto.</p></section><section>
+            <h2>Ejemplo SVG</h2>
+            <p>Lee primero el marcado SVG. El navegador dibuja estos elementos directamente.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 500 180&quot; role=&quot;img&quot; aria-label=&quot;Ejemplo tspan&quot;&gt;
+  &lt;text x=&quot;40&quot; y=&quot;60&quot; font-size=&quot;24&quot;&gt;&lt;tspan&gt;Ventas&lt;/tspan&gt;&lt;tspan x=&quot;40&quot; dy=&quot;35&quot; fill=&quot;teal&quot;&gt;100 k€&lt;/tspan&gt;&lt;/text&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// Este elemento SVG se describe directamente en el HTML.
+// No necesita JavaScript para dibujarse.
+// Cambia sus atributos en el HTML y recarga la página.</code></pre>
+            <div id="demo" aria-label="Resultado SVG">
+<svg viewBox="0 0 500 180" role="img" aria-label="Ejemplo tspan">
+  <text x="40" y="60" font-size="24"><tspan>Ventas</tspan><tspan x="40" dy="35" fill="teal">100 k€</tspan></text>
+</svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el ejemplo.</b> El segundo fragmento usa x=40 y dy=35: vuelve a x=40 y baja 35 unidades. No significa que mida 35 de altura.</p><p><b>Conexión con los vectores.</b> Los índices empiezan en 0. Antes de aplicar un array, define si sus posiciones contienen coordenadas, tamaños, radios o datos. width y height necesitan una longitud cada uno; una pareja completa no es un único ancho. Consulta <a href="../../d3/escalas/vectores-y-dimensiones.html">vectores y dimensiones</a>.</p><p>Esta ficha se dibuja con SVG declarativo. Para modificarla edita el marcado HTML y recarga. El .js solo contiene comentarios; no necesitas cambiarlo.</p></section><section><h2>Práctica</h2><p>1. Cambia dy de 35 a 50 y compara la separación entre las dos líneas.</p><p>2. Relaciona cada número del código con una medida o propiedad visible. Cambia uno y comprueba tu predicción.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://www.w3.org/TR/SVG2/">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+<script src="js/svgtspan.js"></script>
+</body></html>

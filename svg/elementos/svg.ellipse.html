@@ -1,0 +1,22 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>svg.ellipse · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · SVG / DOM nativo</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>svg.ellipse</h1><p>Elipse con radios horizontal y vertical independientes.</p><p class="notice">Empieza por svg, rect, circle, line y text. defs, gradientes, recortes, máscaras y símbolos son ampliaciones.</p><section><h2>Sintaxis</h2><h3>Antes de usar JavaScript con SVG</h3><p><code>document.querySelector</code> busca un nodo por su selector. <code>setAttribute</code> escribe un atributo y <code>textContent</code> muestra texto. Estudia primero <a href="../metodos/Document.querySelector.html">la selección del DOM nativo</a> y <a href="../metodos/Element.setAttribute.html">setAttribute</a>. Los corchetes leen posiciones del array, empezando por 0.</p><pre>const radios = [100, 40];
+const elipse = document.querySelector(&quot;#elipse&quot;);
+elipse.setAttribute(&quot;rx&quot;, radios[0]);
+elipse.setAttribute(&quot;ry&quot;, radios[1]);</pre><p><b>Qué significa cada medida.</b> Una elipse tiene dos radios: rx horizontal y ry vertical. La pareja radios=[100,40] produce anchura 200 y altura 80, porque son diámetros.</p><p><b>Resultado esperado:</b> La elipse tiene radios 100 y 40, por tanto mide 200 × 80.</p></section><section>
+            <h2>Ejemplo SVG</h2>
+            <p>Lee primero el marcado SVG. El navegador dibuja estos elementos directamente.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 500 180&quot;&gt;
+  &lt;ellipse id=&quot;elipse&quot; cx=&quot;180&quot; cy=&quot;85&quot; rx=&quot;60&quot; ry=&quot;20&quot; fill=&quot;teal&quot;/&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>const radios = [100, 40];
+const elipse = document.querySelector(&quot;#elipse&quot;);
+elipse.setAttribute(&quot;rx&quot;, radios[0]);
+elipse.setAttribute(&quot;ry&quot;, radios[1]);
+document.querySelector(&quot;#salida&quot;).textContent = &quot;Ancho: &quot; + (2 * radios[0]) + &quot;\nAlto: &quot; + (2 * radios[1]);</code></pre>
+            <div id="demo" aria-label="Resultado SVG">
+<svg viewBox="0 0 500 180">
+  <ellipse id="elipse" cx="180" cy="85" rx="60" ry="20" fill="teal"/>
+</svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el ejemplo.</b> cx,cy son el centro, no la esquina de una caja. Si rx=ry, se obtiene un círculo. La pareja de radios no es la misma que una pareja de anchura y altura.</p><p><b>Conexión con los vectores.</b> Los índices empiezan en 0. Antes de aplicar un array, define si sus posiciones contienen coordenadas, tamaños, radios o datos. width y height necesitan una longitud cada uno; una pareja completa no es un único ancho. Consulta <a href="../../d3/escalas/vectores-y-dimensiones.html">vectores y dimensiones</a>.</p><p>Edita <code>js/svgellipse.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Prueba [60,60]: debes obtener un círculo de diámetro 120.</p><p>2. Relaciona cada número del código con una medida o propiedad visible. Cambia uno y comprueba tu predicción.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://www.w3.org/TR/SVG2/">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+<script src="js/svgellipse.js"></script>
+</body></html>

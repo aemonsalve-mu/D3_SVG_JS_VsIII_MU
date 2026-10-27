@@ -1,0 +1,32 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Document.querySelector · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · SVG / DOM nativo</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>document.querySelector</h1><p>Método del navegador que busca un selector CSS y devuelve el primer elemento coincidente del DOM. No pertenece a D3 y no necesita esa biblioteca.</p>
+<section><h2>Qué significa cada parte</h2><p><code>document</code> representa el documento HTML abierto. <code>querySelector</code> significa consultar por un selector: <code>"#grupo-a"</code> busca un id, <code>".alumno"</code> una clase y <code>"p"</code> una etiqueta.</p><pre>const elemento = document.querySelector("#grupo-a");</pre><p><code>elemento</code> es un nombre de variable elegido por nosotros. El resultado es el nodo del navegador; no es una selección D3. Si no hay coincidencia devuelve <code>null</code>, que significa ausencia de un elemento. No se deben leer propiedades de null.</p><p><code>elemento.querySelector("p")</code> busca el primer párrafo dentro de ese elemento. No busca entre sus hermanos ni sus ancestros.</p><h3>La variante querySelectorAll</h3><p><code>document.querySelectorAll(".alumno")</code> devuelve una lista llamada NodeList, con todas las coincidencias. Su propiedad <code>length</code> indica cuántos nodos hay. Si no hay coincidencias, la lista tiene longitud 0.</p><p><code>textContent</code> es la propiedad DOM que lee o escribe texto literal de un nodo. No interpreta etiquetas HTML.</p><p><b>Comparación con D3:</b> <code>document.querySelector("#grupo-a")</code> devuelve un nodo DOM; <code>d3.select("#grupo-a")</code> devuelve una selección D3. Para obtener su nodo se utiliza <code>d3.select("#grupo-a").node()</code>. Para leer texto con D3 se utiliza <code>.text()</code>.</p></section>
+<section><h2>Ejemplo paso a paso</h2><h3>HTML inicial dentro de #demo</h3><pre><code>&lt;div id=&quot;grupo-a&quot;&gt;
+  &lt;p class=&quot;alumno&quot;&gt;Ana&lt;/p&gt;
+  &lt;p class=&quot;alumno&quot;&gt;Luis&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;grupo-b&quot;&gt;
+  &lt;p class=&quot;alumno&quot;&gt;Sara&lt;/p&gt;
+&lt;/div&gt;</code></pre><h3>JavaScript del ejemplo</h3><pre><code>// document representa la página HTML que está abierta.
+// querySelector devuelve el primer elemento coincidente, no una selección D3.
+const primero = document.querySelector(&quot;#demo .alumno&quot;);
+
+// Consultar un elemento concreto limita el lugar donde se buscan resultados.
+const grupoB = document.querySelector(&quot;#grupo-b&quot;);
+const alumnaB = grupoB.querySelector(&quot;.alumno&quot;);
+
+// querySelectorAll devuelve una lista de todas las coincidencias.
+const todos = document.querySelectorAll(&quot;#demo .alumno&quot;);
+const salida = document.querySelector(&quot;#salida&quot;);
+
+// textContent lee o escribe texto de un nodo DOM.
+salida.textContent = &quot;Primero: &quot; + primero.textContent + &quot;\n&quot; +
+  &quot;Primera del grupo B: &quot; + alumnaB.textContent + &quot;\n&quot; +
+  &quot;Total: &quot; + todos.length;</code></pre><div id="demo"><div id="grupo-a">
+  <p class="alumno">Ana</p>
+  <p class="alumno">Luis</p>
+</div>
+<div id="grupo-b">
+  <p class="alumno">Sara</p>
+</div></div><pre id="salida" aria-live="polite"></pre><p><b>Resultado esperado:</b> primero Ana, primera del grupo B Sara y total 3. El ejemplo solo lee los alumnos: sus textos no cambian.</p></section>
+<section><h2>Práctica</h2><p>1. Cambia #demo .alumno por #grupo-b .alumno: solo debe encontrarse Sara.</p><p>2. Añade otro alumno al grupo A y observa el nuevo total.</p><p>3. Consulta document.querySelector("#no-existe") en la consola: devuelve null. No intentes leer su textContent.</p><p>Esta ficha prepara la lectura de los métodos nativos SVG. En el recorrido de D3 puedes seguir utilizando <a href="../../d3/selecciones/d3.select.html">d3.select</a>, <a href="../../d3/selecciones/d3.selectAll.html">d3.selectAll</a> y <a href="../../d3/selecciones/selection.node.html">node</a>.</p></section>
+<footer><a href="https://dom.spec.whatwg.org/#dom-parentnode-queryselector">Referencia oficial DOM</a> · API del navegador, independiente de D3.</footer></main><script src="js/documentqueryselector.js"></script></body></html>

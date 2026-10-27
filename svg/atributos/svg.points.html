@@ -1,0 +1,35 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>svg.points · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · SVG / DOM nativo</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>svg.points</h1><p>Lista de pares x,y de polyline y polygon.</p><p class="notice">El HTML define el dibujo inicial. El .js solo cambia un atributo para comparar ambos resultados. Comenta esa instrucción y recarga para ver el estado original.</p><section><h2>Sintaxis</h2><h3>Antes de usar el DOM del navegador</h3><p><code>document</code> representa esta página. <code>document.querySelector("selector CSS")</code> busca la primera coincidencia y devuelve el nodo del navegador, o <code>null</code> si no existe. No devuelve una selección D3. En este ejemplo el nodo ya está escrito en el HTML.</p><p>Si todavía no conoces esta instrucción, lee primero <a href="../metodos/Document.querySelector.html">document.querySelector y querySelectorAll</a>. La propiedad <code>textContent</code> escribe texto de un nodo; los métodos de esta ficha se llaman directamente sobre el nodo encontrado.</p><pre>const puntos = [[30, 130], [130, 40], [260, 110], [400, 30]];
+const puntoA = puntos[0];
+const puntoB = puntos[1];
+const puntoC = puntos[2];
+const puntoD = puntos[3];
+const texto = puntoA[0] + &quot;,&quot; + puntoA[1] + &quot; &quot; +
+  puntoB[0] + &quot;,&quot; + puntoB[1] + &quot; &quot; +
+  puntoC[0] + &quot;,&quot; + puntoC[1] + &quot; &quot; +
+  puntoD[0] + &quot;,&quot; + puntoD[1];
+document.querySelector(&quot;#demo polyline&quot;).setAttribute(&quot;points&quot;, texto);</pre><p><b>Qué significa cada medida.</b> points describe posiciones [x,y], no medidas [ancho,alto]. Cada pareja es un vértice; el orden de las parejas determina el recorrido.</p><p><b>Resultado esperado:</b> La línea pasa por (30,130), (130,40), (260,110) y (400,30).</p></section><section>
+            <h2>Ejemplo SVG</h2>
+            <p>Código JavaScript y resultado del ejemplo de svg.points.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 500 180&quot; role=&quot;img&quot; aria-label=&quot;Ejemplo de points&quot;&gt;
+  &lt;polyline points=&quot;30,130 130,40 260,110 400,30&quot; fill=&quot;none&quot; stroke=&quot;teal&quot; stroke-width=&quot;4&quot;/&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>const puntos = [[30, 130], [130, 40], [260, 110], [400, 30]];
+const puntoA = puntos[0];
+const puntoB = puntos[1];
+const puntoC = puntos[2];
+const puntoD = puntos[3];
+// Cada pareja se escribe como x,y; un espacio separa los puntos.
+const texto = puntoA[0] + &quot;,&quot; + puntoA[1] + &quot; &quot; +
+  puntoB[0] + &quot;,&quot; + puntoB[1] + &quot; &quot; +
+  puntoC[0] + &quot;,&quot; + puntoC[1] + &quot; &quot; +
+  puntoD[0] + &quot;,&quot; + puntoD[1];
+document.querySelector(&quot;#demo polyline&quot;).setAttribute(&quot;points&quot;, texto);
+document.querySelector(&quot;#salida&quot;).textContent = texto;</code></pre>
+            <div id="demo" aria-label="Resultado SVG">
+<svg viewBox="0 0 500 180" role="img" aria-label="Ejemplo de points">
+  <polyline points="30,130 130,40 260,110 400,30" fill="none" stroke="teal" stroke-width="4"/>
+</svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el ejemplo.</b> Un array como [[30,130],[130,40],[260,110],[400,30]] debe convertirse en el texto de coordenadas que espera el atributo. En este ejemplo se accede a cada pareja con índices explícitos.</p><p><b>Conexión con los vectores.</b> Los índices empiezan en 0. Antes de aplicar un array, define si sus posiciones contienen coordenadas, tamaños, radios o datos. width y height necesitan una longitud cada uno; una pareja completa no es un único ancho. Consulta <a href="../../d3/escalas/vectores-y-dimensiones.html">vectores y dimensiones</a>.</p><figure style="margin:20px 0"><div style="overflow-x:auto"><img src="../../assets/diagramas/vectores-y-dimensiones.svg" alt="Los valores del array dependen de su papel en el dibujo." style="display:block;width:100%;min-width:700px;height:auto"></div><figcaption>Los valores del array dependen de su papel en el dibujo. <a href="../../assets/diagramas/vectores-y-dimensiones.svg">Abrir infografía a tamaño completo</a>.</figcaption></figure><p>Edita <code>js/svgpoints.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Cambia solo puntos[1] de [130,40] a [130,100]: el segundo vértice debe bajar 60 unidades.</p><p>2. Relaciona cada número del código con una medida o propiedad visible. Cambia uno y comprueba tu predicción.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://www.w3.org/TR/SVG2/">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+<script src="js/svgpoints.js"></script>
+</body></html>

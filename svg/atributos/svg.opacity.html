@@ -1,0 +1,21 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>svg.opacity · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · SVG / DOM nativo</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>svg.opacity</h1><p>Opacidad global del elemento entre 0 y 1.</p><p class="notice">El HTML define el dibujo inicial. El .js solo cambia un atributo para comparar ambos resultados. Comenta esa instrucción y recarga para ver el estado original.</p><section><h2>Sintaxis</h2><h3>Antes de usar el DOM del navegador</h3><p><code>document</code> representa esta página. <code>document.querySelector("selector CSS")</code> busca la primera coincidencia y devuelve el nodo del navegador, o <code>null</code> si no existe. No devuelve una selección D3. En este ejemplo el nodo ya está escrito en el HTML.</p><p>Si todavía no conoces esta instrucción, lee primero <a href="../metodos/Document.querySelector.html">document.querySelector y querySelectorAll</a>. La propiedad <code>textContent</code> escribe texto de un nodo; los métodos de esta ficha se llaman directamente sobre el nodo encontrado.</p><pre>const figura = document.querySelector(&quot;#demo circle&quot;);
+figura.setAttribute(&quot;opacity&quot;, &quot;0.8&quot;);</pre><p><b>Qué significa cada medida.</b> opacity es un número entre 0 y 1. No es la anchura ni la intensidad de un dato: controla la transparencia global del elemento.</p><p><b>Resultado esperado:</b> El atributo opacity pasa a 0.8. Compara el resultado con el valor escrito en el HTML inicial.</p></section><section>
+            <h2>Ejemplo SVG</h2>
+            <p>Código JavaScript y resultado del ejemplo de svg.opacity.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 500 180&quot; role=&quot;img&quot; aria-label=&quot;Ejemplo de opacity&quot;&gt;
+  &lt;rect x=&quot;40&quot; y=&quot;30&quot; width=&quot;180&quot; height=&quot;100&quot; fill=&quot;orange&quot;/&gt;
+  &lt;circle cx=&quot;220&quot; cy=&quot;85&quot; r=&quot;60&quot; fill=&quot;teal&quot; opacity=&quot;0.5&quot;/&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// La figura ya está en el HTML.
+const figura = document.querySelector(&quot;#demo circle&quot;);
+// Cambiamos únicamente el atributo estudiado.
+figura.setAttribute(&quot;opacity&quot;, &quot;0.8&quot;);</code></pre>
+            <div id="demo" aria-label="Resultado SVG">
+<svg viewBox="0 0 500 180" role="img" aria-label="Ejemplo de opacity">
+  <rect x="40" y="30" width="180" height="100" fill="orange"/>
+  <circle cx="220" cy="85" r="60" fill="teal" opacity="0.5"/>
+</svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el ejemplo.</b> El círculo conserva su centro y radio cuando la opacidad pasa de 0.5 a 0.8. El color observado también depende del fondo.</p><p><b>Conexión con los vectores.</b> Los índices empiezan en 0. Antes de aplicar un array, define si sus posiciones contienen coordenadas, tamaños, radios o datos. width y height necesitan una longitud cada uno; una pareja completa no es un único ancho. Consulta <a href="../../d3/escalas/vectores-y-dimensiones.html">vectores y dimensiones</a>.</p><p>Edita <code>js/svgopacity.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Prueba 0 y 1: desaparece visualmente y vuelve a ser opaco, manteniendo su geometría.</p><p>2. Relaciona cada número del código con una medida o propiedad visible. Cambia uno y comprueba tu predicción.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://www.w3.org/TR/SVG2/">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+<script src="js/svgopacity.js"></script>
+</body></html>

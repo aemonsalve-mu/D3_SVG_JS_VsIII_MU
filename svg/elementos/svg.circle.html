@@ -1,0 +1,27 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>svg.circle · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · SVG / DOM nativo</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>svg.circle</h1><p>Círculo definido por centro y radio.</p><p class="notice">Empieza por svg, rect, circle, line y text. defs, gradientes, recortes, máscaras y símbolos son ampliaciones.</p><section><h2>Sintaxis</h2><h3>Antes de usar JavaScript con SVG</h3><p><code>document.querySelector</code> busca un nodo por su selector. <code>setAttribute</code> escribe un atributo y <code>textContent</code> muestra texto. Estudia primero <a href="../metodos/Document.querySelector.html">la selección del DOM nativo</a> y <a href="../metodos/Element.setAttribute.html">setAttribute</a>. Los corchetes leen posiciones del array, empezando por 0.</p><pre>const radios = [15, 30, 45];
+document.querySelector(&quot;#circulo-a&quot;).setAttribute(&quot;r&quot;, radios[0]);
+document.querySelector(&quot;#circulo-b&quot;).setAttribute(&quot;r&quot;, radios[1]);
+document.querySelector(&quot;#circulo-c&quot;).setAttribute(&quot;r&quot;, radios[2]);</pre><p><b>Qué significa cada medida.</b> Un círculo usa centro cx,cy y radio r. El vector radios=[15,30,45] contiene un radio por círculo, no [ancho,alto,profundidad].</p><p><b>Resultado esperado:</b> Tres círculos con radios 15,30,45 y diámetros 30,60,90.</p></section><section>
+            <h2>Ejemplo SVG</h2>
+            <p>Lee primero el marcado SVG. El navegador dibuja estos elementos directamente.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 400 180&quot;&gt;
+  &lt;circle id=&quot;circulo-a&quot; cx=&quot;70&quot; cy=&quot;90&quot; r=&quot;10&quot; fill=&quot;teal&quot;/&gt;
+  &lt;circle id=&quot;circulo-b&quot; cx=&quot;180&quot; cy=&quot;90&quot; r=&quot;10&quot; fill=&quot;teal&quot;/&gt;
+  &lt;circle id=&quot;circulo-c&quot; cx=&quot;300&quot; cy=&quot;90&quot; r=&quot;10&quot; fill=&quot;teal&quot;/&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>const radios = [15, 30, 45];
+// Un número del vector para cada círculo del HTML.
+document.querySelector(&quot;#circulo-a&quot;).setAttribute(&quot;r&quot;, radios[0]);
+document.querySelector(&quot;#circulo-b&quot;).setAttribute(&quot;r&quot;, radios[1]);
+document.querySelector(&quot;#circulo-c&quot;).setAttribute(&quot;r&quot;, radios[2]);
+document.querySelector(&quot;#salida&quot;).textContent = &quot;Radios: &quot; + radios + &quot;\nDiámetros: 30,60,90&quot;;</code></pre>
+            <div id="demo" aria-label="Resultado SVG">
+<svg viewBox="0 0 400 180">
+  <circle id="circulo-a" cx="70" cy="90" r="10" fill="teal"/>
+  <circle id="circulo-b" cx="180" cy="90" r="10" fill="teal"/>
+  <circle id="circulo-c" cx="300" cy="90" r="10" fill="teal"/>
+</svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el ejemplo.</b> El diámetro es 2r y el área es πr². Los diámetros son 30,60,90; duplicar el radio multiplica el área por cuatro. Para representar cantidades mediante áreas, consulta scaleSqrt.</p><p><b>Conexión con los vectores.</b> Los índices empiezan en 0. Antes de aplicar un array, define si sus posiciones contienen coordenadas, tamaños, radios o datos. width y height necesitan una longitud cada uno; una pareja completa no es un único ancho. Consulta <a href="../../d3/escalas/vectores-y-dimensiones.html">vectores y dimensiones</a>.</p><p>Edita <code>js/svgcircle.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Cambia solo radios[1] a 45: el segundo círculo debe igualar el tamaño del tercero, conservando su centro.</p><p>2. Relaciona cada número del código con una medida o propiedad visible. Cambia uno y comprueba tu predicción.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://www.w3.org/TR/SVG2/">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+<script src="js/svgcircle.js"></script>
+</body></html>

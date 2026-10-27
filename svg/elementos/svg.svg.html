@@ -1,0 +1,24 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>svg.svg · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · SVG / DOM nativo</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>svg.svg</h1><p>Contenedor vectorial. viewBox define las coordenadas internas; CSS controla el tamaño mostrado.</p><p class="notice">Empieza por svg, rect, circle, line y text. defs, gradientes, recortes, máscaras y símbolos son ampliaciones.</p><section><h2>Sintaxis</h2><h3>Antes de usar JavaScript con SVG</h3><p><code>document.querySelector</code> busca un nodo por su selector. <code>setAttribute</code> escribe un atributo y <code>textContent</code> muestra texto. Estudia primero <a href="../metodos/Document.querySelector.html">la selección del DOM nativo</a> y <a href="../metodos/Element.setAttribute.html">setAttribute</a>. Los corchetes leen posiciones del array, empezando por 0.</p><pre>const dimensiones = [500, 180];
+const ancho = dimensiones[0];
+const alto = dimensiones[1];
+const lienzo = document.querySelector(&quot;#lienzo&quot;);
+lienzo.setAttribute(&quot;viewBox&quot;, &quot;0 0 &quot; + ancho + &quot; &quot; + alto);</pre><p><b>Qué significa cada medida.</b> svg contiene el dibujo. [500,180] define aquí ancho y alto de su sistema interno; se escriben en viewBox después de los dos ceros de origen.</p><p><b>Resultado esperado:</b> El sistema de coordenadas es de 500 × 180; el rectángulo mide 150 × 80.</p></section><section>
+            <h2>Ejemplo SVG</h2>
+            <p>Lee primero el marcado SVG. El navegador dibuja estos elementos directamente.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg id=&quot;lienzo&quot; viewBox=&quot;0 0 500 180&quot;&gt;
+  &lt;rect x=&quot;20&quot; y=&quot;20&quot; width=&quot;150&quot; height=&quot;80&quot; fill=&quot;teal&quot;/&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>const dimensiones = [500, 180];
+const ancho = dimensiones[0];
+const alto = dimensiones[1];
+const lienzo = document.querySelector(&quot;#lienzo&quot;);
+lienzo.setAttribute(&quot;viewBox&quot;, &quot;0 0 &quot; + ancho + &quot; &quot; + alto);
+document.querySelector(&quot;#salida&quot;).textContent = &quot;Ancho interno: &quot; + ancho + &quot;\nAlto interno: &quot; + alto;</code></pre>
+            <div id="demo" aria-label="Resultado SVG">
+<svg id="lienzo" viewBox="0 0 500 180">
+  <rect x="20" y="20" width="150" height="80" fill="teal"/>
+</svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el ejemplo.</b> La anchura visible depende del CSS. Cambiar el vector a [1000,360] conserva la proporción del lienzo y cambia la relación entre unidades internas y pantalla.</p><p><b>Conexión con los vectores.</b> Los índices empiezan en 0. Antes de aplicar un array, define si sus posiciones contienen coordenadas, tamaños, radios o datos. width y height necesitan una longitud cada uno; una pareja completa no es un único ancho. Consulta <a href="../../d3/escalas/vectores-y-dimensiones.html">vectores y dimensiones</a>.</p><figure style="margin:20px 0"><div style="overflow-x:auto"><img src="../../assets/diagramas/vectores-y-dimensiones.svg" alt="Los valores del array dependen de su papel en el dibujo." style="display:block;width:100%;min-width:700px;height:auto"></div><figcaption>Los valores del array dependen de su papel en el dibujo. <a href="../../assets/diagramas/vectores-y-dimensiones.svg">Abrir infografía a tamaño completo</a>.</figcaption></figure><p>Edita <code>js/svgsvg.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Cambia dimensiones a [1000,360] y comprueba que el rectángulo no duplica automáticamente sus atributos width y height.</p><p>2. Relaciona cada número del código con una medida o propiedad visible. Cambia uno y comprueba tu predicción.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://www.w3.org/TR/SVG2/">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+<script src="js/svgsvg.js"></script>
+</body></html>

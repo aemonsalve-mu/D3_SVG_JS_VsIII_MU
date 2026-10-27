@@ -1,0 +1,23 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>svg.rect · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · SVG / DOM nativo</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>svg.rect</h1><p>Rectángulo definido por posición, anchura y altura.</p><p class="notice">Empieza por svg, rect, circle, line y text. defs, gradientes, recortes, máscaras y símbolos son ampliaciones.</p><section><h2>Sintaxis</h2><h3>Antes de usar JavaScript con SVG</h3><p><code>document.querySelector</code> busca un nodo por su selector. <code>setAttribute</code> escribe un atributo y <code>textContent</code> muestra texto. Estudia primero <a href="../metodos/Document.querySelector.html">la selección del DOM nativo</a> y <a href="../metodos/Element.setAttribute.html">setAttribute</a>. Los corchetes leen posiciones del array, empezando por 0.</p><pre>const medida = [200, 90];
+const rectangulo = document.querySelector(&quot;#rectangulo&quot;);
+rectangulo.setAttribute(&quot;width&quot;, medida[0]);
+rectangulo.setAttribute(&quot;height&quot;, medida[1]);</pre><p><b>Qué significa cada medida.</b> Un rectángulo necesita posición x,y y tamaño width,height. La pareja medida=[200,90] se interpreta como [ancho,alto]; medida[0] vale 200 y medida[1] vale 90.</p><p><b>Resultado esperado:</b> El rectángulo pasa de 100 × 40 a 200 × 90; la esquina sigue en (30,30).</p></section><section>
+            <h2>Ejemplo SVG</h2>
+            <p>Lee primero el marcado SVG. El navegador dibuja estos elementos directamente.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 500 180&quot;&gt;
+  &lt;rect id=&quot;rectangulo&quot; x=&quot;30&quot; y=&quot;30&quot; width=&quot;100&quot; height=&quot;40&quot; rx=&quot;10&quot; fill=&quot;teal&quot;/&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>const medida = [200, 90];
+const rectangulo = document.querySelector(&quot;#rectangulo&quot;);
+// La primera posición es el ancho; la segunda, el alto.
+rectangulo.setAttribute(&quot;width&quot;, medida[0]);
+rectangulo.setAttribute(&quot;height&quot;, medida[1]);
+document.querySelector(&quot;#salida&quot;).textContent = &quot;Ancho: &quot; + medida[0] + &quot;\nAlto: &quot; + medida[1];</code></pre>
+            <div id="demo" aria-label="Resultado SVG">
+<svg viewBox="0 0 500 180">
+  <rect id="rectangulo" x="30" y="30" width="100" height="40" rx="10" fill="teal"/>
+</svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el ejemplo.</b> El ejemplo escribe cada componente en un atributo distinto. x=30,y=30 sitúan la esquina superior izquierda; no se suman al ancho. rx redondea las esquinas, no cambia el tamaño total del rectángulo.</p><p><b>Conexión con los vectores.</b> Los índices empiezan en 0. Antes de aplicar un array, define si sus posiciones contienen coordenadas, tamaños, radios o datos. width y height necesitan una longitud cada uno; una pareja completa no es un único ancho. Consulta <a href="../../d3/escalas/vectores-y-dimensiones.html">vectores y dimensiones</a>.</p><figure style="margin:20px 0"><div style="overflow-x:auto"><img src="../../assets/diagramas/coordenadas-svg.svg" alt="Posición y tamaño se leen en atributos distintos." style="display:block;width:100%;min-width:700px;height:auto"></div><figcaption>Posición y tamaño se leen en atributos distintos. <a href="../../assets/diagramas/coordenadas-svg.svg">Abrir infografía a tamaño completo</a>.</figcaption></figure><p>Edita <code>js/svgrect.js</code> para cambiar el cálculo y recarga el HTML. El bloque de código mostrado es una copia para leer. Las etiquetas y los atributos iniciales se encuentran en el propio HTML.</p></section><section><h2>Práctica</h2><p>1. Cambia medida a [300,50]. El ancho debe aumentar y la altura disminuir; la esquina superior izquierda debe permanecer en (30,30).</p><p>2. Relaciona cada número del código con una medida o propiedad visible. Cambia uno y comprueba tu predicción.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://www.w3.org/TR/SVG2/">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+<script src="js/svgrect.js"></script>
+</body></html>

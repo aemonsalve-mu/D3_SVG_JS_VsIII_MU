@@ -1,0 +1,17 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>svg.path · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · SVG / DOM nativo</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>svg.path</h1><p>Geometría mediante comandos: M mover, L línea, C curva y Z cerrar.</p><p class="notice">Empieza por svg, rect, circle, line y text. defs, gradientes, recortes, máscaras y símbolos son ampliaciones.</p><section><h2>Sintaxis</h2><pre>&lt;path d=&quot;M30,130 C100,10 250,10 400,130&quot; fill=&quot;none&quot; stroke=&quot;teal&quot; stroke-width=&quot;4&quot;/&gt;</pre><p><b>Qué significa cada medida.</b> path describe geometría con instrucciones. M30,130 mueve el inicio; C100,10 250,10 400,130 define una curva cúbica con dos puntos de control y un extremo.</p><p><b>Resultado esperado:</b> Una curva cúbica.</p></section><section>
+            <h2>Ejemplo SVG</h2>
+            <p>Lee primero el marcado SVG. El navegador dibuja estos elementos directamente.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 500 180&quot; role=&quot;img&quot; aria-label=&quot;Ejemplo path&quot;&gt;
+  &lt;path d=&quot;M30,130 C100,10 250,10 400,130&quot; fill=&quot;none&quot; stroke=&quot;teal&quot; stroke-width=&quot;4&quot;/&gt;
+&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// Este elemento SVG se describe directamente en el HTML.
+// No necesita JavaScript para dibujarse.
+// Cambia sus atributos en el HTML y recarga la página.</code></pre>
+            <div id="demo" aria-label="Resultado SVG">
+<svg viewBox="0 0 500 180" role="img" aria-label="Ejemplo path">
+  <path d="M30,130 C100,10 250,10 400,130" fill="none" stroke="teal" stroke-width="4"/>
+</svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Cómo se interpreta el ejemplo.</b> Los seis números de C son tres parejas de coordenadas. Los puntos de control orientan la curva; no son width, height ni necesariamente puntos por los que pase.</p><p><b>Conexión con los vectores.</b> Los índices empiezan en 0. Antes de aplicar un array, define si sus posiciones contienen coordenadas, tamaños, radios o datos. width y height necesitan una longitud cada uno; una pareja completa no es un único ancho. Consulta <a href="../../d3/escalas/vectores-y-dimensiones.html">vectores y dimensiones</a>.</p><p>Esta ficha se dibuja con SVG declarativo. Para modificarla edita el marcado HTML y recarga. El .js solo contiene comentarios; no necesitas cambiarlo.</p></section><section><h2>Práctica</h2><p>1. Cambia las dos coordenadas y de control de 10 a 60 y observa cómo baja la curvatura.</p><p>2. Relaciona cada número del código con una medida o propiedad visible. Cambia uno y comprueba tu predicción.</p><p>Cambia una sola medida cada vez. Predice primero el resultado, recarga y compáralo con tu predicción.</p></section><footer><a href="https://www.w3.org/TR/SVG2/">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+<script src="js/svgpath.js"></script>
+</body></html>
