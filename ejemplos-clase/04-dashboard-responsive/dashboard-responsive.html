@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard responsive: dos gráficos por fila</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../clase.css">
+<link rel="stylesheet" href="dashboard-responsive.css">
+</head>
+<body>
+<header><div><a href="../index.html">Ejemplos para clase</a> · <a href="../03-dashboard/index.html">Dashboard paso a paso</a> · <a href="LEEME.md">Cómo funciona esta versión</a></div></header>
+<main>
+<h1>Ventas y objetivos de la librería</h1>
+<p class="introduccion">Versión extra del caso 3: dos gráficos por fila en pantallas amplias. Enero-junio · Ejemplares vendidos.</p>
+<div class="cabecera-panel"><div class="filtros" role="group" aria-label="Canal de ventas"><button type="button" id="filtro-total" aria-pressed="true">Total</button><button type="button" id="filtro-tienda" aria-pressed="false">Tienda</button><button type="button" id="filtro-online" aria-pressed="false">Online</button></div><button type="button" id="imprimir">Imprimir / guardar PDF</button></div>
+<p id="estado" aria-live="polite"></p>
+<div class="indicadores">
+<div class="indicador"><p>Ventas del período</p><strong id="indicador-total"></strong><p>Ejemplares vendidos</p></div>
+<div class="indicador"><p>Objetivo del período</p><strong id="indicador-objetivo"></strong><p>Ejemplares previstos</p></div>
+<div class="indicador"><p>Cumplimiento del período</p><strong id="indicador-cumple"></strong><p>Ventas / objetivo</p></div>
+<div class="indicador"><p>Cambio enero-junio</p><strong id="indicador-variacion"></strong><p>(Junio − enero) / enero</p></div>
+</div>
+<div class="graficos">
+<section aria-labelledby="encabezado-ventas"><h2 id="encabezado-ventas">Ventas frente a objetivos</h2><p class="leyenda"><span><span class="muestra tienda"></span>Ventas</span><span><span class="objetivo"></span>Objetivo</span></p><div class="marco-grafico"><svg id="ventas-mensuales" viewBox="0 0 600 320" role="img" aria-labelledby="titulo-mensuales">
+  <title id="titulo-mensuales">Ventas y objetivos mensuales del canal seleccionado</title>
+  <text x="70" y="22">Ejemplares: ventas y objetivo</text>
+  <g id="ventas-x"></g><g id="ventas-y"></g>
+  <g id="barras-ventas" fill="#00766d">
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+  </g>
+  <g id="marcas-objetivo" stroke="#173e3b" stroke-width="3">
+    <line></line>
+    <line></line>
+    <line></line>
+    <line></line>
+    <line></line>
+    <line></line>
+  </g>
+  <g id="cifras-ventas" text-anchor="middle">
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+  </g>
+</svg></div><p class="nota-grafico">Escala fija: 0–300 ejemplares, para comparar canales.</p></section>
+<section aria-labelledby="encabezado-cumple"><h2 id="encabezado-cumple">Cumplimiento de cada mes</h2><p class="leyenda">Línea discontinua: 100 % del objetivo.</p><div class="marco-grafico"><svg id="cumplimiento" viewBox="0 0 600 320" role="img" aria-labelledby="titulo-cumplimiento">
+  <title id="titulo-cumplimiento">Cumplimiento mensual del objetivo del canal seleccionado</title>
+  <text x="90" y="22">Ventas / objetivo del mes</text>
+  <g id="cumple-x"></g><g id="cumple-y"></g>
+  <g id="barras-cumple" fill="#00766d">
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+  </g>
+  <line id="referencia-100" stroke="#173e3b" stroke-dasharray="5 4" stroke-width="2"></line>
+  <g id="cifras-cumple" text-anchor="end">
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+  </g>
+</svg></div><p class="nota-grafico">Ventas / objetivo mensual. Los porcentajes usan punto decimal.</p></section>
+</div>
+<details class="apoyo"><summary>Consultar la tabla del canal seleccionado: <span id="nombre-canal">Total</span></summary><div class="marco-tabla"><table id="tabla-dashboard"><caption>Ventas y objetivos mensuales del canal seleccionado; cantidades en ejemplares</caption><thead><tr><th scope="col">Mes</th><th scope="col">Ventas</th><th scope="col">Objetivo</th><th scope="col">Cumplimiento</th></tr></thead><tbody>    <tr><th scope="row" class="mes"></th><td class="ventas"></td><td class="meta"></td><td class="cumple"></td></tr>
+    <tr><th scope="row" class="mes"></th><td class="ventas"></td><td class="meta"></td><td class="cumple"></td></tr>
+    <tr><th scope="row" class="mes"></th><td class="ventas"></td><td class="meta"></td><td class="cumple"></td></tr>
+    <tr><th scope="row" class="mes"></th><td class="ventas"></td><td class="meta"></td><td class="cumple"></td></tr>
+    <tr><th scope="row" class="mes"></th><td class="ventas"></td><td class="meta"></td><td class="cumple"></td></tr>
+    <tr><th scope="row" class="mes"></th><td class="ventas"></td><td class="meta"></td><td class="cumple"></td></tr></tbody></table></div></details>
+<footer>Fuente: datos sintéticos de clase. Objetivos de planificación ficticios. No son datos de ingresos ni beneficios. <span class="enlaces"><a href="LEEME.md">Explicación de CSS y dimensiones</a> · <a href="../datos/ventas.csv" download>CSV</a></span></footer>
+</main>
+<script src="../../vendor/d3.min.js"></script>
+<script src="../datos/ventas.js"></script>
+<script src="js/dashboard-responsive.js"></script>
+</body>
+</html>

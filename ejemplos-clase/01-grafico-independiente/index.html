@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gráfico independiente · D3 y SVG</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../clase.css">
+</head>
+<body>
+<header><div><a href="../index.html">Ejemplos para clase</a> · <a href="../../index.html">Índice de conceptos</a></div></header>
+<main><p class="muted">CASO 1 · UN GRÁFICO INDEPENDIENTE · 35 MINUTOS</p><h1>¿Cómo evolucionan las ventas mensuales?</h1><p>Un gráfico independiente debe poder entenderse por sí solo: pregunta, título, período, unidad, ejes y fuente. Aquí comparamos las ventas de enero a junio de una librería universitaria.</p><p><a href="GUIA_CLASE.md">Guía para impartir la clase</a> · <a href="../datos/ventas.csv" download>Datos CSV</a> · <a href="../datos/ventas.js">Datos JavaScript</a></p>
+<section><h2>Antes de programar</h2><p><b>Objetivo:</b> construir un gráfico de barras y explicar qué representa cada dimensión. Resultado inicial: 100, 120, 140, 170, 210 y 260 ejemplares; total del período, 1000.</p><p>Necesitas <a href="../../d3/selecciones/d3.selectAll.html">selectAll</a>, <a href="../../d3/selecciones/selection.data.html">data</a>, <a href="../../d3/escalas/d3.scaleBand.html">scaleBand</a>, <a href="../../d3/escalas/d3.scaleLinear.html">scaleLinear</a> y <a href="../../d3/ejes/d3.axisBottom.html">ejes</a>. El código de la ficha los reúne sin añadir herramientas externas.</p><h3>Leer un registro</h3><pre><code>const enero = datos[0];
+const totalEnero = enero.tienda + enero.online;</code></pre><p><code>datos</code> es un array. Su primera posición es <code>datos[0]</code>. Cada objeto representa un mes; el punto accede a una propiedad con nombre, como <code>tienda</code>. <code>d</code> es el nombre que damos al registro recibido por una función; no es un comando de D3. <code>return</code> entrega el valor calculado.</p></section>
+<section><h2>El gráfico y sus cifras</h2><div class="marco-grafico"><svg id="grafico" viewBox="0 0 640 360" role="img" aria-labelledby="titulo-grafico descripcion-grafico">
+  <title id="titulo-grafico">Ejemplares vendidos por mes</title>
+  <desc id="descripcion-grafico">El eje vertical comienza en cero. Las cifras están escritas encima de las barras y en la tabla.</desc>
+  <text x="70" y="22">Ejemplares vendidos</text>
+  <g id="eje-x"></g>
+  <g id="eje-y"></g>
+  <g id="barras" fill="#00766d">
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+  </g>
+  <g id="etiquetas" text-anchor="middle">
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+  </g>
+</svg></div><p id="resumen" aria-live="polite"></p><div class="marco-tabla"><table id="tabla-datos"><caption>Ventas mensuales: tienda + online</caption><thead><tr><th scope="col">Mes</th><th scope="col">Ejemplares</th></tr></thead><tbody>    <tr><th class="mes" scope="row"></th><td class="ventas"></td></tr>
+    <tr><th class="mes" scope="row"></th><td class="ventas"></td></tr>
+    <tr><th class="mes" scope="row"></th><td class="ventas"></td></tr>
+    <tr><th class="mes" scope="row"></th><td class="ventas"></td></tr>
+    <tr><th class="mes" scope="row"></th><td class="ventas"></td></tr>
+    <tr><th class="mes" scope="row"></th><td class="ventas"></td></tr></tbody></table></div><p class="muted">Fuente: datos sintéticos de clase. Período: enero-junio, sin año asignado. Unidad: ejemplares vendidos. Se suman dos canales distintos.</p></section>
+<section><h2>Cómo se construye, paso a paso</h2><ol><li>El HTML contiene seis rectángulos, seis etiquetas y dos grupos para los ejes.</li><li><code>dimensiones = [640, 360]</code> proporciona ancho y alto. La base queda en 360 − 70 = 290. El área útil mide 540 × 250 unidades SVG.</li><li><code>x</code> reparte el intervalo [70, 610] entre los seis meses. <code>x.bandwidth()</code> devuelve el ancho de cada barra; <code>padding(0.25)</code> añade separación.</li><li><code>y</code> convierte [0, 300] en [290, 40]. Los números grandes quedan más arriba porque la coordenada y crece hacia abajo.</li><li>Para enero, y(100) ≈ 206,67; su altura es 290 − 206,67 ≈ 83,33. La posición y y la altura son medidas distintas.</li><li><code>data(datos)</code> asigna un registro a cada rectángulo existente. Aquí no crea nuevos nodos.</li><li>Las etiquetas usan las mismas escalas. El eje vertical parte de cero para que las longitudes se puedan comparar.</li></ol><p><code>d3.sum(datos, función)</code> suma los valores que devuelve la función para cada registro. <code>datos.length</code> es el número de registros; <code>datos.length - 1</code> es el índice del último.</p><p>En la tabla, <code>filas.select(".ventas")</code> busca una celda dentro de cada fila y transmite a esa celda el dato de su fila, como en <a href="../../d3/selecciones/selection.select.html">selection.select</a>.</p></section><section><h2>HTML inicial del gráfico</h2><p>Los elementos ya están escritos en el HTML. D3 asigna los datos y modifica sus atributos; no creamos nodos nuevos en este ejemplo.</p><pre><code>&lt;svg id=&quot;grafico&quot; viewBox=&quot;0 0 640 360&quot; role=&quot;img&quot; aria-labelledby=&quot;titulo-grafico descripcion-grafico&quot;&gt;
+  &lt;title id=&quot;titulo-grafico&quot;&gt;Ejemplares vendidos por mes&lt;/title&gt;
+  &lt;desc id=&quot;descripcion-grafico&quot;&gt;El eje vertical comienza en cero. Las cifras están escritas encima de las barras y en la tabla.&lt;/desc&gt;
+  &lt;text x=&quot;70&quot; y=&quot;22&quot;&gt;Ejemplares vendidos&lt;/text&gt;
+  &lt;g id=&quot;eje-x&quot;&gt;&lt;/g&gt;
+  &lt;g id=&quot;eje-y&quot;&gt;&lt;/g&gt;
+  &lt;g id=&quot;barras&quot; fill=&quot;#00766d&quot;&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+  &lt;/g&gt;
+  &lt;g id=&quot;etiquetas&quot; text-anchor=&quot;middle&quot;&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;</code></pre><h2>JavaScript del ejemplo</h2><p>Este bloque reproduce el archivo de la subcarpeta <code>js/</code>. Primero se cargan D3 y <code>../datos/ventas.js</code>, y después este código.</p><pre><code>// 1. [ancho, alto] son medidas del SVG, no valores de ventas.
+const dimensiones = [640, 360];
+const ancho = dimensiones[0];
+const alto = dimensiones[1];
+const margenIzquierdo = 70;
+const margenDerecho = 30;
+const margenSuperior = 40;
+const margenInferior = 70;
+const base = alto - margenInferior;
+d3.select(&quot;#grafico&quot;).attr(&quot;viewBox&quot;, &quot;0 0 &quot; + ancho + &quot; &quot; + alto);
+
+// 2. Una escala para meses y otra para cantidades.
+const x = d3.scaleBand();
+x.domain(meses);
+x.range([margenIzquierdo, ancho - margenDerecho]);
+x.padding(0.25);
+const y = d3.scaleLinear();
+y.domain([0, 300]);
+y.range([base, margenSuperior]);
+
+// 3. El grupo del eje se coloca en su posición del dibujo.
+d3.select(&quot;#eje-x&quot;).attr(&quot;transform&quot;, &quot;translate(0,&quot; + base + &quot;)&quot;);
+d3.select(&quot;#eje-x&quot;).call(d3.axisBottom(x));
+d3.select(&quot;#eje-y&quot;).attr(&quot;transform&quot;, &quot;translate(&quot; + margenIzquierdo + &quot;,0)&quot;);
+d3.select(&quot;#eje-y&quot;).call(d3.axisLeft(y).ticks(6));
+
+// 4. Cada rectángulo recibe un mes. d es un objeto de datos.
+const barras = d3.select(&quot;#barras&quot;).selectAll(&quot;rect&quot;).data(datos);
+barras.attr(&quot;x&quot;, function(d) { return x(d.mes); });
+barras.attr(&quot;y&quot;, function(d) { return y(d.tienda + d.online); });
+barras.attr(&quot;width&quot;, x.bandwidth());
+barras.attr(&quot;height&quot;, function(d) { return base - y(d.tienda + d.online); });
+
+// 5. Las etiquetas usan los mismos datos y escalas.
+const etiquetas = d3.select(&quot;#etiquetas&quot;).selectAll(&quot;text&quot;).data(datos);
+etiquetas.attr(&quot;x&quot;, function(d) { return x(d.mes) + x.bandwidth() / 2; });
+etiquetas.attr(&quot;y&quot;, function(d) { return y(d.tienda + d.online) - 10; });
+etiquetas.text(function(d) { return d.tienda + d.online; });
+
+// 6. La tabla ofrece una lectura exacta de las cifras.
+const filas = d3.select(&quot;#tabla-datos&quot;).selectAll(&quot;tbody tr&quot;).data(datos);
+filas.select(&quot;.mes&quot;).text(function(d) { return d.mes; });
+filas.select(&quot;.ventas&quot;).text(function(d) { return d.tienda + d.online; });
+
+// 7. d3.sum recorre los meses y suma la cantidad que devuelve la función.
+const total = d3.sum(datos, function(d) { return d.tienda + d.online; });
+const primero = datos[0].tienda + datos[0].online;
+const ultimo = datos[datos.length - 1].tienda + datos[datos.length - 1].online;
+d3.select(&quot;#resumen&quot;).text(&quot;Total del período: &quot; + total + &quot; ejemplares. Primer mes: &quot; + primero + &quot;. Último mes: &quot; + ultimo + &quot;.&quot;);</code></pre></section>
+<section><h2>Práctica para el estudiante</h2><ol><li>Antes de tocar el código, predice qué cambia si el lienzo pasa a [800, 360]. Después modifica <code>dimensiones</code> en <code>js/grafico.js</code>. Se ensancha el área útil, pero no cambian los datos.</li><li>En <code>../datos/ventas.js</code>, cambia las ventas online de junio de 130 a 150. Recarga. La última barra debe mostrar 280 y el total debe ser 1020.</li><li>Cambia el dominio vertical a [0, 600]. Las barras deben medir la mitad en altura; las cifras no cambian. Explica por qué no conviene cambiar escalas entre gráficos que se comparan.</li><li>Redacta una conclusión de una frase e indica qué no permite saber este gráfico: costes, beneficios o causas del crecimiento.</li></ol><p><b>Criterio de logro:</b> el gráfico se entiende sin explicación oral y el estudiante puede justificar los valores de x, y, width y height.</p><p><a href="../02-storytelling/index.html">Siguiente caso: convertir gráficos en una historia</a></p></section><footer>Datos sintéticos de una librería universitaria. No representan una empresa real. Referencias: <a href="https://d3js.org/d3-scale/band">scaleBand</a>, <a href="https://d3js.org/d3-axis">ejes</a> y <a href="https://d3js.org/d3-selection/joining">asignación de datos</a>.</footer></main>
+<script src="../../vendor/d3.min.js"></script>
+<script src="../datos/ventas.js"></script>
+<script src="js/grafico.js"></script>
+</body>
+</html>

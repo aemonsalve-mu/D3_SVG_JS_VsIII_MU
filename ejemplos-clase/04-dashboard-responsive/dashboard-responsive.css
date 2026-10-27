@@ -1,0 +1,62 @@
+/* Reglas exclusivas de la versión extra. Los estilos del temario se conservan. */
+body { font-size: 15px; line-height: 1.4; }
+header { padding: 6px 22px; }
+header div { max-width: 1232px; }
+main { max-width: 1280px; padding: 10px 24px; }
+h1 { font-size: 26px; margin: 0 0 4px; }
+.introduccion { margin: 0 0 6px; }
+.cabecera-panel { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.filtros button, #imprimir { padding: 6px 14px; margin: 4px 8px 4px 0; }
+#estado { margin: 4px 0 8px; }
+.indicadores { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.indicador { padding: 8px 14px; }
+.indicador strong { font-size: 27px; line-height: 1.15; }
+.indicador p { font-size: 13px; line-height: 1.35; }
+/* Dos columnas de igual anchura. El contenido puede reducir su tamaño. */
+.graficos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 12px; }
+.graficos section { min-width: 0; margin: 0; padding: 12px; }
+.graficos h2 { font-size: 19px; line-height: 1.25; margin: 0 0 6px; }
+.leyenda { min-height: 24px; font-size: 12px; gap: 12px; margin: 0 0 4px; }
+.marco-grafico { overflow: visible; }
+.marco-grafico svg { width: 100%; min-width: 0; height: auto; }
+.marco-grafico svg text { font-size: 16px; }
+.nota-grafico { font-size: 12px; margin: 0; }
+.apoyo { margin-top: 10px; }
+.apoyo summary { padding: 2px 0; }
+footer { font-size: 12px; margin: 8px 0 0; }
+/* En pantallas estrechas, cada gráfico ocupa una fila completa. */
+@media (max-width: 959px) {
+  .graficos { grid-template-columns: 1fr; }
+  .indicadores { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 550px) {
+  main { padding: 14px; }
+  header { padding: 10px 14px; }
+  h1 { font-size: 25px; }
+  .graficos { gap: 12px; }
+  .graficos section { padding: 10px; }
+  /* Letras mayores dentro del SVG compensan su reducción en el móvil. */
+  .marco-grafico svg text { font-size: 24px; }
+  .indicador { padding: 9px; }
+  .indicador strong { font-size: 24px; }
+}
+/* Una hoja A4 horizontal. Los apoyos de clase se consultan en pantalla. */
+@page { size: A4 landscape; margin: 10mm; }
+@media print {
+  body { background: white; font-size: 11px; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  header, .cabecera-panel, .apoyo, .enlaces { display: none; }
+  main { max-width: none; padding: 0; }
+  h1 { font-size: 22px; }
+  .introduccion { margin-bottom: 5px; }
+  #estado { margin: 4px 0 8px; }
+  .indicadores { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .indicador { padding: 8px 10px; }
+  .indicador strong { font-size: 22px; }
+  .indicador p { font-size: 10px; }
+  .graficos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+  .graficos section { padding: 10px; break-inside: avoid; }
+  .graficos h2 { font-size: 15px; }
+  .marco-grafico svg text { font-size: 16px; }
+  .leyenda, .nota-grafico { font-size: 10px; }
+  footer { font-size: 10px; }
+}

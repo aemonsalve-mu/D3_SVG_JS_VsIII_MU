@@ -1,0 +1,19 @@
+/* Complemento local: conserva la tipografía, los colores y las secciones del temario. */
+.marco-grafico, .marco-tabla { overflow-x: auto; max-width: 100%; }
+.marco-grafico svg { display: block; width: 100%; min-width: 540px; height: auto; }
+.marco-grafico svg text { font-family: system-ui, sans-serif; font-size: 14px; fill: #173e3b; }
+table { width: 100%; border-collapse: collapse; }
+caption { text-align: left; font-weight: bold; margin-bottom: 10px; }
+th, td { padding: 9px 12px; text-align: right; border-bottom: 1px solid #d6e0d7; }
+th:first-child, td:first-child { text-align: left; }
+.indicadores { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.indicador { background: #e9f3ec; padding: 16px; border-radius: 6px; }
+.indicador p { margin: 0; }
+.indicador strong { display: block; font-size: 30px; }
+.leyenda { display: flex; gap: 20px; flex-wrap: wrap; }
+.muestra { display: inline-block; width: 16px; height: 12px; margin-right: 7px; }
+.tienda { background: #00766d; }
+.online { background: #9c6500; }
+.objetivo { display: inline-block; width: 22px; border-top: 3px solid #173e3b; vertical-align: middle; margin-right: 7px; }
+.filtros button[aria-pressed="true"] { background: #123e3b; outline: 3px solid #ca8500; outline-offset: 2px; }
+summary { cursor: pointer; color: #006c65; padding: 8px 0; }

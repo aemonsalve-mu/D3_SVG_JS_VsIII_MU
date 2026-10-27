@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard de ventas · D3 y SVG</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../clase.css">
+</head>
+<body>
+<header><div><a href="../index.html">Ejemplos para clase</a> · <a href="../../index.html">Índice de conceptos</a></div></header>
+<main><p class="muted">CASO 3 · DASHBOARD CON UN FILTRO · 55 MINUTOS</p><h1>¿Qué canal se acerca a sus objetivos?</h1><p>Un dashboard reúne indicadores y gráficos para revisar una situación y explorarla. Este ejemplo permite comparar ventas y objetivos sin perder de vista qué canal se está observando.</p><p><a href="GUIA_CLASE.md">Guía para impartir la clase</a> · <a href="../datos/ventas.csv" download>Datos CSV</a></p>
+<section><h2>Panel de seguimiento: enero-junio</h2><p>Selecciona un canal. Los cuatro indicadores, los dos gráficos y la tabla responderán al mismo filtro.</p><div class="filtros" role="group" aria-label="Canal de ventas"><button type="button" id="filtro-total" aria-pressed="true">Total</button><button type="button" id="filtro-tienda" aria-pressed="false">Tienda</button><button type="button" id="filtro-online" aria-pressed="false">Online</button></div><p id="estado" aria-live="polite"></p><div class="indicadores"><div class="indicador"><p>Ventas del período</p><strong id="indicador-total"></strong><p>Ejemplares vendidos</p></div><div class="indicador"><p>Objetivo del período</p><strong id="indicador-objetivo"></strong><p>Ejemplares previstos</p></div><div class="indicador"><p>Cumplimiento del período</p><strong id="indicador-cumple"></strong><p>Total vendido / objetivo total</p></div><div class="indicador"><p>Cambio enero-junio</p><strong id="indicador-variacion"></strong><p>(Junio − enero) / enero</p></div></div></section>
+<section><h2>Ventas frente a objetivos</h2><p class="leyenda"><span><span class="muestra tienda"></span>Barra: ventas</span><span><span class="objetivo"></span>Marca horizontal: objetivo</span></p><div class="marco-grafico"><svg id="ventas-mensuales" viewBox="0 0 640 360" role="img" aria-labelledby="titulo-mensuales">
+  <title id="titulo-mensuales">Ventas y objetivos mensuales del canal seleccionado</title>
+  <text x="70" y="22">Ejemplares: ventas y objetivo</text>
+  <g id="ventas-x"></g><g id="ventas-y"></g>
+  <g id="barras-ventas" fill="#00766d">
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+  </g>
+  <g id="marcas-objetivo" stroke="#173e3b" stroke-width="3">
+    <line></line>
+    <line></line>
+    <line></line>
+    <line></line>
+    <line></line>
+    <line></line>
+  </g>
+  <g id="cifras-ventas" text-anchor="middle">
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+  </g>
+</svg></div><p>La escala se mantiene en 0–300 para los tres filtros. Así, al cambiar de canal no se altera el significado de las alturas.</p></section>
+<section><h2>Cumplimiento de cada mes</h2><div class="marco-grafico"><svg id="cumplimiento" viewBox="0 0 640 360" role="img" aria-labelledby="titulo-cumplimiento">
+  <title id="titulo-cumplimiento">Cumplimiento mensual del objetivo del canal seleccionado</title>
+  <text x="90" y="22">Ventas / objetivo del mes</text>
+  <g id="cumple-x"></g><g id="cumple-y"></g>
+  <g id="barras-cumple" fill="#00766d">
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+  </g>
+  <line id="referencia-100" stroke="#173e3b" stroke-dasharray="5 4" stroke-width="2"></line>
+  <g id="cifras-cumple" text-anchor="end">
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+  </g>
+</svg></div><p>La línea discontinua marca el 100 %. A su izquierda, las ventas quedan por debajo del objetivo; a su derecha, lo superan. Esta vista permite comparar proporciones, mientras que la anterior conserva las cantidades. Los porcentajes se alinean en una columna a la derecha para que la referencia del 100 % no atraviese las cifras.</p></section>
+<section><h2>Cifras para comprobar el panel: <span id="nombre-canal">Total</span></h2><div class="marco-tabla"><table id="tabla-dashboard"><caption>Ventas y objetivos mensuales del canal seleccionado; cantidades en ejemplares</caption><thead><tr><th scope="col">Mes</th><th scope="col">Ventas</th><th scope="col">Objetivo</th><th scope="col">Cumplimiento</th></tr></thead><tbody>    <tr><th scope="row" class="mes"></th><td class="ventas"></td><td class="meta"></td><td class="cumple"></td></tr>
+    <tr><th scope="row" class="mes"></th><td class="ventas"></td><td class="meta"></td><td class="cumple"></td></tr>
+    <tr><th scope="row" class="mes"></th><td class="ventas"></td><td class="meta"></td><td class="cumple"></td></tr>
+    <tr><th scope="row" class="mes"></th><td class="ventas"></td><td class="meta"></td><td class="cumple"></td></tr>
+    <tr><th scope="row" class="mes"></th><td class="ventas"></td><td class="meta"></td><td class="cumple"></td></tr>
+    <tr><th scope="row" class="mes"></th><td class="ventas"></td><td class="meta"></td><td class="cumple"></td></tr></tbody></table></div><p class="muted">Fuente: datos sintéticos de clase. Los objetivos son valores de planificación inventados para el ejercicio, no predicciones de un modelo. Los porcentajes se muestran redondeados y el formato predeterminado de D3 usa punto decimal.</p></section>
+<section><h2>Antes de programar: conceptos nuevos</h2><p>Trabaja primero el <a href="../01-grafico-independiente/index.html">gráfico independiente</a>. Para la interacción, revisa <a href="../../d3/selecciones/selection.on.html">selection.on</a>. No necesitamos librerías de dashboards.</p><dl><dt><code>let canal = "Total"</code></dt><dd>Guarda el filtro actual. Usamos let porque su valor cambia. const se usa para referencias que no se reasignan.</dd><dt><code>function ventaDelMes(d)</code></dt><dd>Una función que escribimos para devolver ventas de un registro según el canal. No pertenece a D3.</dd><dt><code>if</code> y <code>===</code></dt><dd>if comprueba una condición; === compara sin convertir tipos. Si el canal es "Tienda", return entrega d.tienda y termina esa llamada.</dd><dt><code>actualizar(nuevoCanal)</code></dt><dd>Reúne las instrucciones que deben repetirse al cambiar de filtro. nuevoCanal recibe el texto del botón; canal lo conserva para los cálculos.</dd><dt><code>d3.sum(datos, ventaDelMes)</code></dt><dd>D3 llama a ventaDelMes para cada registro y suma sus resultados. Pasamos la función, sin paréntesis, para que D3 la llame con cada dato.</dd><dt><code>on("click", function() {...})</code></dt><dd>Registra qué instrucciones ejecutar al pulsar un botón. No las ejecuta durante el registro.</dd></dl><pre><code>function ventaDelMes(d) {
+  if (canal === &quot;Tienda&quot;) { return d.tienda; }
+  if (canal === &quot;Online&quot;) { return d.online; }
+  return d.tienda + d.online;
+}</code></pre><p>Las funciones son el único paso adicional de organización: permiten aplicar la misma regla a indicadores, barras y tabla. No se introduce una clase, una aplicación de componentes ni un constructor de gráficos.</p></section>
+<section><h2>Leer los cálculos con cuidado</h2><p>Los cálculos numéricos de esta explicación corresponden a los datos iniciales. El panel recalcula sus cifras con los datos que estén guardados en ventas.js.</p><p><b>Cumplimiento del período:</b> 1000 / 1040 ≈ 96,2 %. Se calcula con la suma de ventas y la suma de objetivos; no promediando sin ponderar los seis porcentajes mensuales.</p><p><b>Cambio entre extremos:</b> (260 − 100) / 100 = 160 %. Este indicador compara junio con enero. No es la variación del total semestral respecto de otro semestre.</p><p><b>Dimensiones:</b> ambos gráficos usan [640, 360] y base = 360 − 70 = 290. El primer gráfico transforma unidades de venta; el segundo transforma cocientes. En el segundo, 1 significa 100 % y su dominio [0, 1.5] llega al 150 %.</p><p>La función actualizar usa los mismos datos sin eliminarlos: cambia qué propiedad se lee. Este filtro selecciona un canal, no meses ni filas. Las escalas y el período permanecen iguales.</p></section>
+<section><h2>HTML inicial y JavaScript</h2><p>Las seis barras, las seis marcas de objetivo y las seis filas ya existen en el HTML. Las etiquetas de ventas se colocan por encima de la barra y del objetivo. <code>Math.max(a, b)</code> es una función de JavaScript que devuelve el mayor de dos números; aquí evita que una marca de objetivo cruce una etiqueta.</p><details><summary>Ver el HTML inicial de los dos gráficos</summary><pre><code>&lt;svg id=&quot;ventas-mensuales&quot; viewBox=&quot;0 0 640 360&quot; role=&quot;img&quot; aria-labelledby=&quot;titulo-mensuales&quot;&gt;
+  &lt;title id=&quot;titulo-mensuales&quot;&gt;Ventas y objetivos mensuales del canal seleccionado&lt;/title&gt;
+  &lt;text x=&quot;70&quot; y=&quot;22&quot;&gt;Ejemplares: ventas y objetivo&lt;/text&gt;
+  &lt;g id=&quot;ventas-x&quot;&gt;&lt;/g&gt;&lt;g id=&quot;ventas-y&quot;&gt;&lt;/g&gt;
+  &lt;g id=&quot;barras-ventas&quot; fill=&quot;#00766d&quot;&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+  &lt;/g&gt;
+  &lt;g id=&quot;marcas-objetivo&quot; stroke=&quot;#173e3b&quot; stroke-width=&quot;3&quot;&gt;
+    &lt;line&gt;&lt;/line&gt;
+    &lt;line&gt;&lt;/line&gt;
+    &lt;line&gt;&lt;/line&gt;
+    &lt;line&gt;&lt;/line&gt;
+    &lt;line&gt;&lt;/line&gt;
+    &lt;line&gt;&lt;/line&gt;
+  &lt;/g&gt;
+  &lt;g id=&quot;cifras-ventas&quot; text-anchor=&quot;middle&quot;&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+
+&lt;svg id=&quot;cumplimiento&quot; viewBox=&quot;0 0 640 360&quot; role=&quot;img&quot; aria-labelledby=&quot;titulo-cumplimiento&quot;&gt;
+  &lt;title id=&quot;titulo-cumplimiento&quot;&gt;Cumplimiento mensual del objetivo del canal seleccionado&lt;/title&gt;
+  &lt;text x=&quot;90&quot; y=&quot;22&quot;&gt;Ventas / objetivo del mes&lt;/text&gt;
+  &lt;g id=&quot;cumple-x&quot;&gt;&lt;/g&gt;&lt;g id=&quot;cumple-y&quot;&gt;&lt;/g&gt;
+  &lt;g id=&quot;barras-cumple&quot; fill=&quot;#00766d&quot;&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+  &lt;/g&gt;
+  &lt;line id=&quot;referencia-100&quot; stroke=&quot;#173e3b&quot; stroke-dasharray=&quot;5 4&quot; stroke-width=&quot;2&quot;&gt;&lt;/line&gt;
+  &lt;g id=&quot;cifras-cumple&quot; text-anchor=&quot;end&quot;&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;</code></pre></details><details><summary>Ver todo el JavaScript del dashboard</summary><pre><code>// 1. El único estado que puede cambiar es el canal seleccionado.
+let canal = &quot;Total&quot;;
+const dimensiones = [640, 360];
+const ancho = dimensiones[0];
+const alto = dimensiones[1];
+const margenIzquierdo = 70;
+const margenDerecho = 30;
+const margenSuperior = 40;
+const margenInferior = 70;
+const base = alto - margenInferior;
+const porcentaje = d3.format(&quot;.1%&quot;);
+const porcentajeEje = d3.format(&quot;.0%&quot;);
+
+// 2. Dos funciones escritas por nosotros, no comandos de D3.
+// Reciben un mes y devuelven la cifra del canal seleccionado.
+function ventaDelMes(d) {
+  if (canal === &quot;Tienda&quot;) { return d.tienda; }
+  if (canal === &quot;Online&quot;) { return d.online; }
+  return d.tienda + d.online;
+}
+function objetivoDelMes(d) {
+  if (canal === &quot;Tienda&quot;) { return d.objetivoTienda; }
+  if (canal === &quot;Online&quot;) { return d.objetivoOnline; }
+  return d.objetivoTienda + d.objetivoOnline;
+}
+
+// 3. Las escalas se mantienen fijas para comparar los filtros.
+const x = d3.scaleBand().domain(meses).range([margenIzquierdo, ancho - margenDerecho]).padding(0.25);
+const y = d3.scaleLinear().domain([0, 300]).range([base, margenSuperior]);
+d3.select(&quot;#ventas-mensuales&quot;).attr(&quot;viewBox&quot;, &quot;0 0 &quot; + ancho + &quot; &quot; + alto);
+d3.select(&quot;#ventas-x&quot;).attr(&quot;transform&quot;, &quot;translate(0,&quot; + base + &quot;)&quot;).call(d3.axisBottom(x));
+d3.select(&quot;#ventas-y&quot;).attr(&quot;transform&quot;, &quot;translate(&quot; + margenIzquierdo + &quot;,0)&quot;).call(d3.axisLeft(y).ticks(6));
+
+// 4. Segundo gráfico: 1 equivale al 100 % del objetivo.
+// Reservamos 100 unidades a la derecha para una columna de porcentajes.
+const xCumple = d3.scaleLinear().domain([0, 1.5]).range([90, ancho - 100]);
+const yCumple = d3.scaleBand().domain(meses).range([margenSuperior, base]).padding(0.3);
+d3.select(&quot;#cumplimiento&quot;).attr(&quot;viewBox&quot;, &quot;0 0 &quot; + ancho + &quot; &quot; + alto);
+d3.select(&quot;#cumple-x&quot;).attr(&quot;transform&quot;, &quot;translate(0,&quot; + base + &quot;)&quot;).call(d3.axisBottom(xCumple).tickValues([0, 0.5, 1, 1.5]).tickFormat(porcentajeEje));
+d3.select(&quot;#cumple-y&quot;).attr(&quot;transform&quot;, &quot;translate(90,0)&quot;).call(d3.axisLeft(yCumple));
+d3.select(&quot;#referencia-100&quot;).attr(&quot;x1&quot;, xCumple(1)).attr(&quot;x2&quot;, xCumple(1));
+d3.select(&quot;#referencia-100&quot;).attr(&quot;y1&quot;, margenSuperior).attr(&quot;y2&quot;, base);
+
+// 5. actualiza todo lo que depende del canal.
+function actualizar(nuevoCanal) {
+  canal = nuevoCanal;
+  const total = d3.sum(datos, ventaDelMes);
+  const objetivo = d3.sum(datos, objetivoDelMes);
+  const primero = ventaDelMes(datos[0]);
+  const ultimo = ventaDelMes(datos[datos.length - 1]);
+  const variacion = (ultimo - primero) / primero;
+
+  // Indicadores: el cumplimiento del período usa sumas, no la media de porcentajes.
+  d3.select(&quot;#indicador-total&quot;).text(total);
+  d3.select(&quot;#indicador-objetivo&quot;).text(objetivo);
+  d3.select(&quot;#indicador-cumple&quot;).text(porcentaje(total / objetivo));
+  d3.select(&quot;#indicador-variacion&quot;).text(porcentaje(variacion));
+  d3.select(&quot;#estado&quot;).text(&quot;Canal: &quot; + canal + &quot;. Enero-junio: &quot; + total + &quot; ejemplares frente a un objetivo de &quot; + objetivo + &quot;.&quot;);
+  d3.select(&quot;#titulo-mensuales&quot;).text(&quot;Ventas y objetivos mensuales: &quot; + canal);
+  d3.select(&quot;#titulo-cumplimiento&quot;).text(&quot;Cumplimiento mensual del objetivo: &quot; + canal);
+  d3.select(&quot;#nombre-canal&quot;).text(canal);
+
+  // Primer gráfico: barra real y marca horizontal del objetivo.
+  const barras = d3.select(&quot;#barras-ventas&quot;).selectAll(&quot;rect&quot;).data(datos);
+  barras.attr(&quot;x&quot;, function(d) { return x(d.mes); });
+  barras.attr(&quot;y&quot;, function(d) { return y(ventaDelMes(d)); });
+  barras.attr(&quot;width&quot;, x.bandwidth());
+  barras.attr(&quot;height&quot;, function(d) { return base - y(ventaDelMes(d)); });
+  const objetivos = d3.select(&quot;#marcas-objetivo&quot;).selectAll(&quot;line&quot;).data(datos);
+  objetivos.attr(&quot;x1&quot;, function(d) { return x(d.mes); });
+  objetivos.attr(&quot;x2&quot;, function(d) { return x(d.mes) + x.bandwidth(); });
+  objetivos.attr(&quot;y1&quot;, function(d) { return y(objetivoDelMes(d)); });
+  objetivos.attr(&quot;y2&quot;, function(d) { return y(objetivoDelMes(d)); });
+  const cifras = d3.select(&quot;#cifras-ventas&quot;).selectAll(&quot;text&quot;).data(datos);
+  cifras.attr(&quot;x&quot;, function(d) { return x(d.mes) + x.bandwidth() / 2; });
+  // Math.max elige el mayor de dos números para dejar la etiqueta por encima de ambas marcas.
+  cifras.attr(&quot;y&quot;, function(d) { return y(Math.max(ventaDelMes(d), objetivoDelMes(d))) - 10; });
+  cifras.text(ventaDelMes);
+
+  // Segundo gráfico: cociente ventas / objetivo para cada mes.
+  const barrasCumple = d3.select(&quot;#barras-cumple&quot;).selectAll(&quot;rect&quot;).data(datos);
+  barrasCumple.attr(&quot;x&quot;, xCumple(0));
+  barrasCumple.attr(&quot;y&quot;, function(d) { return yCumple(d.mes); });
+  barrasCumple.attr(&quot;width&quot;, function(d) { return xCumple(ventaDelMes(d) / objetivoDelMes(d)) - xCumple(0); });
+  barrasCumple.attr(&quot;height&quot;, yCumple.bandwidth());
+  const cifrasCumple = d3.select(&quot;#cifras-cumple&quot;).selectAll(&quot;text&quot;).data(datos);
+  cifrasCumple.attr(&quot;x&quot;, ancho - 15);
+  cifrasCumple.attr(&quot;y&quot;, function(d) { return yCumple(d.mes) + yCumple.bandwidth() / 2 + 5; });
+  cifrasCumple.text(function(d) { return porcentaje(ventaDelMes(d) / objetivoDelMes(d)); });
+
+  // La tabla responde al mismo filtro que los gráficos.
+  const filas = d3.select(&quot;#tabla-dashboard&quot;).selectAll(&quot;tbody tr&quot;).data(datos);
+  filas.select(&quot;.mes&quot;).text(function(d) { return d.mes; });
+  filas.select(&quot;.ventas&quot;).text(ventaDelMes);
+  filas.select(&quot;.meta&quot;).text(objetivoDelMes);
+  filas.select(&quot;.cumple&quot;).text(function(d) { return porcentaje(ventaDelMes(d) / objetivoDelMes(d)); });
+
+  // aria-pressed indica qué botón está activo, también a lectores de pantalla.
+  d3.select(&quot;#filtro-total&quot;).attr(&quot;aria-pressed&quot;, canal === &quot;Total&quot;);
+  d3.select(&quot;#filtro-tienda&quot;).attr(&quot;aria-pressed&quot;, canal === &quot;Tienda&quot;);
+  d3.select(&quot;#filtro-online&quot;).attr(&quot;aria-pressed&quot;, canal === &quot;Online&quot;);
+}
+
+// 6. Cada clic llama a nuestra función con el nombre del canal.
+d3.select(&quot;#filtro-total&quot;).on(&quot;click&quot;, function() { actualizar(&quot;Total&quot;); });
+d3.select(&quot;#filtro-tienda&quot;).on(&quot;click&quot;, function() { actualizar(&quot;Tienda&quot;); });
+d3.select(&quot;#filtro-online&quot;).on(&quot;click&quot;, function() { actualizar(&quot;Online&quot;); });
+
+// 7. Dibuja la primera vista sin esperar a que alguien pulse un botón.
+actualizar(&quot;Total&quot;);</code></pre></details></section>
+<section><h2>Práctica para el estudiante</h2><ol><li>Sin pulsar nada, predice los indicadores de Tienda y Online; después compruébalos con los filtros y la tabla.</li><li>En junio, el total cumple el 104 % del objetivo. Comprueba si los dos canales lo alcanzan individualmente y explica por qué el total puede ocultar diferencias.</li><li>En ventas.js, cambia el objetivo online de junio de 115 a 130. Las ventas deben conservarse; el objetivo total del período pasa a 1055 y junio online queda en 100 %.</li><li>Cambia dimensiones a [800, 400]. La base pasa a 330 y las escalas usan el nuevo espacio. Los indicadores deben conservar sus cifras.</li><li>Presenta una lectura del panel en treinta segundos: filtro, evidencia, pregunta pendiente. No interpretes ventas como beneficio.</li></ol><p><b>Criterio de logro:</b> un cambio de filtro mantiene coherentes los indicadores, los gráficos y la tabla, y el estudiante sabe explicar la función actualizar.</p><p class="notice">Versión inicial: seis meses, ventas y objetivos positivos; escala mensual hasta 300 y cumplimiento hasta 150 %. Si amplías los datos, revisa dominios y nodos. No hay actualización automática desde una base de datos.</p></section><footer>Datos sintéticos de una librería universitaria. No representan una empresa real. Referencias: <a href="https://d3js.org/d3-scale/band">scaleBand</a>, <a href="https://d3js.org/d3-axis">ejes</a> y <a href="https://d3js.org/d3-selection/joining">asignación de datos</a>.</footer></main>
+<script src="../../vendor/d3.min.js"></script>
+<script src="../datos/ventas.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

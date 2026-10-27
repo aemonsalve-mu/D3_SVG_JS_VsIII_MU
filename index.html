@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>D3 y SVG · Un archivo por concepto</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+    <header>
+        <div>D3 / SVG · Archivos de clase</div>
+    </header>
+    <main>
+        <h1>Un archivo por concepto</h1>
+        <p>Abre el archivo que quieras enseñar. Cada concepto tiene su propia página HTML con explicación, código y
+            resultado.</p>
+        <p><a href="infografias.html">Ver las infografías de coordenadas, escalas y dimensiones</a></p>
+        <p class="notice">147 fichas independientes del temario: cada archivo se abre directamente, con los recursos
+            locales de la carpeta. Elementos, atributos y métodos SVG se distinguen expresamente. No es una reproducción
+            exhaustiva de todas las APIs de D3 y SVG.</p><label for="buscar">Buscar un archivo o concepto</label><input
+            type="search" id="buscar" placeholder="Ej.: selectAll, domain, circle, getBBox">
+        <nav><a href="#d3-selecciones">D3 · selección, DOM, datos y eventos</a><a href="#d3-escalas">D3 · escalas y sus
+                métodos</a><a href="#d3-ejes">D3 · ejes y sus métodos</a><a href="#d3-transiciones-y-formas">D3 ·
+                transiciones y formas</a><a href="#svg-elementos">SVG · elementos</a><a href="#svg-atributos">SVG ·
+                atributos</a><a href="#svg-metodos">SVG · métodos nativos y DOM</a></nav>
+        <section id="ejemplos-clase">
+            <h2>Aplicar lo aprendido: gráficos, storytelling y dashboards</h2>
+            <p>Tres ejemplos para clase con los mismos datos, código comentado y guías de prácticas.</p>
+            <a href="ejemplos-clase/index.html">Abrir el recorrido de ejemplos para clase</a>
+        </section>
+        <section id="d3-selecciones">
+            <h2>D3 · selección, DOM, datos y eventos</h2>
+            <div class="grid"><a class="ficha" href="d3/selecciones/d3.select.html"><b>d3.select</b><small>Selecciona la
+                        primera coincidencia de un selector CSS. No crea el elemento.</small></a><a class="ficha"
+                    href="d3/selecciones/d3.selectAll.html"><b>d3.selectAll</b><small>Selecciona todos los elementos
+                        coincidentes. El resultado es una selección D3, no un array.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.select.html"><b>selection.select</b><small>Busca el primer
+                        descendiente de cada padre seleccionado y propaga el dato del padre.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.selectAll.html"><b>selection.selectAll</b><small>Busca todos los
+                        descendientes por padre. Crea grupos y permite enlazar arrays anidados.</small></a><a
+                    class="ficha"
+                    href="d3/selecciones/selection.selectChild.html"><b>selection.selectChild</b><small>Selecciona el
+                        primer hijo directo coincidente de cada padre.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.selectChildren.html"><b>selection.selectChildren</b><small>Selecciona
+                        todos los hijos directos que coinciden.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.filter.html"><b>selection.filter</b><small>Conserva nodos que cumplen
+                        un selector o una condición sobre sus datos.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.attr.html"><b>selection.attr</b><small>Lee el atributo del primer
+                        nodo o lo escribe en todos. null elimina el atributo.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.style.html"><b>selection.style</b><small>Lee o establece una
+                        propiedad CSS. Un callback calcula un valor por dato.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.classed.html"><b>selection.classed</b><small>Activa o desactiva
+                        clases CSS sin reemplazar las otras clases.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.property.html"><b>selection.property</b><small>Lee o modifica una
+                        propiedad viva del DOM, como checked o value.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.text.html"><b>selection.text</b><small>Establece texto literal.
+                        Reemplaza los nodos hijos; no interpreta etiquetas.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.html.html"><b>selection.html</b><small>Reemplaza el contenido con
+                        HTML. Utiliza únicamente contenido de confianza.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.append.html"><b>selection.append</b><small>Crea un hijo al final de
+                        cada elemento seleccionado.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.insert.html"><b>selection.insert</b><small>Crea un hijo antes del
+                        nodo que indique el segundo selector.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.remove.html"><b>selection.remove</b><small>Retira del DOM los nodos
+                        seleccionados.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.clone.html"><b>selection.clone</b><small>Clona nodos y los inserta a
+                        continuación de los originales. true incluye descendientes.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.raise.html"><b>selection.raise</b><small>Mueve cada nodo al final de
+                        los hijos de su padre; se pinta por encima en SVG.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.lower.html"><b>selection.lower</b><small>Mueve cada nodo al principio
+                        de los hijos de su padre.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.sort.html"><b>selection.sort</b><small>Ordena nodos según un
+                        comparador de datos y actualiza el orden DOM.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.order.html"><b>selection.order</b><small>Reordena el DOM para que
+                        coincida con el orden actual de la selección.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.each.html"><b>selection.each</b><small>Ejecuta una función por nodo.
+                        Con función normal, this es el nodo actual.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.call.html"><b>selection.call</b><small>Pasa la selección completa a
+                        una función reutilizable y devuelve la selección.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.node.html"><b>selection.node</b><small>Devuelve el primer nodo DOM no nulo, o null si la selección está vacía; no devuelve una selección.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.nodes.html"><b>selection.nodes</b><small>Devuelve un array plano con
+                        los nodos DOM de la selección.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.size.html"><b>selection.size</b><small>Cuenta los nodos no nulos de
+                        la selección.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.empty.html"><b>selection.empty</b><small>Indica si la selección no
+                        contiene nodos.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.datum.html"><b>selection.datum</b><small>Asigna un dato por nodo sin
+                        calcular enter, update y exit.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.data.html"><b>selection.data</b><small>Empareja datos y nodos; por
+                        defecto usa índices. Una clave estable conserva identidad.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.enter.html"><b>selection.enter</b><small>Devuelve los marcadores de
+                        datos sin nodo; append crea esos nodos.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.exit.html"><b>selection.exit</b><small>Devuelve los nodos sin correspondencia en los nuevos datos; conservan su dato anterior hasta que se modifique o elimine.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.join.html"><b>selection.join</b><small>Combina creación,
+                        actualización, eliminación y orden. Evita duplicar marcas en cada actualización.</small></a><a
+                    class="ficha" href="d3/selecciones/selection.merge.html"><b>selection.merge</b><small>Combina grupos
+                        compatibles por posición; se usa con enter y update en el patrón clásico.</small></a><a
+                    class="ficha" href="d3/selecciones/selection.on.html"><b>selection.on</b><small>Registra un evento.
+                        En D3 v7 el callback recibe event y d.</small></a><a class="ficha"
+                    href="d3/selecciones/selection.dispatch.html"><b>selection.dispatch</b><small>Dispara un evento DOM
+                        sobre los nodos seleccionados.</small></a><a class="ficha"
+                    href="d3/selecciones/d3.pointer.html"><b>d3.pointer</b><small>Convierte el puntero al sistema de
+                        coordenadas local del nodo indicado.</small></a></div>
+        </section>
+        <section id="d3-escalas">
+            <h2>D3 · escalas y sus métodos</h2>
+            <div class="grid"><a class="ficha" href="d3/escalas/vectores-y-dimensiones.html"><b>Vectores y dimensiones</b><small>Guía previa: datos, pares [ancho,alto], viewBox y medidas por figura, con infografías.</small></a><a class="ficha"
+                    href="d3/escalas/d3.scaleLinear.html"><b>d3.scaleLinear</b><small>Con dominio y rango numéricos de dos valores, aplica una transformación afín: diferencias iguales producen diferencias iguales. Adecuada para barras con origen cero.</small></a><a class="ficha"
+                    href="d3/escalas/d3.scaleTime.html"><b>d3.scaleTime</b><small>Transforma fechas en la zona horaria
+                        local. Los intervalos de calendario no tienen duración idéntica.</small></a><a class="ficha"
+                    href="d3/escalas/d3.scaleUtc.html"><b>d3.scaleUtc</b><small>Transforma fechas en UTC; útil para
+                        comparar series entre zonas horarias.</small></a><a class="ficha"
+                    href="d3/escalas/d3.scaleOrdinal.html"><b>d3.scaleOrdinal</b><small>Asigna salidas discretas a
+                        categorías. Explicita el dominio para estabilizar los colores.</small></a><a class="ficha"
+                    href="d3/escalas/d3.scaleBand.html"><b>d3.scaleBand</b><small>Distribuye categorías en bandas. La
+                        salida es el inicio; bandwidth devuelve la anchura. No tiene invert.</small></a><a class="ficha"
+                    href="d3/escalas/d3.scalePoint.html"><b>d3.scalePoint</b><small>Distribuye categorías en puntos sin
+                        anchura. bandwidth() vale 0; no tiene invert.</small></a><a class="ficha"
+                    href="d3/escalas/d3.scaleLog.html"><b>d3.scaleLog</b><small>Representa factores multiplicativos. El
+                        dominio no puede incluir ni cruzar cero.</small></a><a class="ficha"
+                    href="d3/escalas/d3.scalePow.html"><b>d3.scalePow</b><small>Aplica una potencia preservando el
+                        signo. Con exponente 2 enfatiza valores altos.</small></a><a class="ficha"
+                    href="d3/escalas/d3.scaleSqrt.html"><b>d3.scaleSqrt</b><small>Raíz cuadrada con signo. Para valores no negativos, si dominio y rango empiezan en 0, el área de las burbujas es proporcional al valor al usar la salida como radio.</small></a><a
+                    class="ficha" href="d3/escalas/d3.scaleSymlog.html"><b>d3.scaleSymlog</b><small>Transformación suave
+                        que admite cero y negativos; constant regula la zona casi lineal.</small></a><a class="ficha"
+                    href="d3/escalas/d3.scaleQuantize.html"><b>d3.scaleQuantize</b><small>Divide un intervalo en clases
+                        de igual anchura; no equilibra el número de observaciones.</small></a><a class="ficha"
+                    href="d3/escalas/d3.scaleQuantile.html"><b>d3.scaleQuantile</b><small>Calcula cortes a partir de
+                        toda la muestra. Los empates pueden impedir clases de igual tamaño.</small></a><a class="ficha"
+                    href="d3/escalas/d3.scaleThreshold.html"><b>d3.scaleThreshold</b><small>Clasifica con cortes de
+                        negocio ordenados. N cortes requieren N+1 salidas.</small></a><a class="ficha"
+                    href="d3/escalas/d3.scaleSequential.html"><b>d3.scaleSequential</b><small>Asigna una progresión de
+                        color a cantidades ordenadas. Usa interpolator, no interpolate; carece de invert.</small></a><a
+                    class="ficha" href="d3/escalas/d3.scaleDiverging.html"><b>d3.scaleDiverging</b><small>Usa tres
+                        valores de dominio: mínimo, centro significativo y máximo. Carece de invert.</small></a><a
+                    class="ficha" href="d3/escalas/scale.domain.html"><b>scale.domain</b><small>Configura las entradas
+                        de la escala; sin argumentos devuelve su dominio. Las fechas y categorías también pueden ser
+                        dominios.</small></a><a class="ficha"
+                    href="d3/escalas/scale.range.html"><b>scale.range</b><small>Configura las salidas visuales. Una y
+                        habitual usa rango descendente porque SVG crece hacia abajo.</small></a><a class="ficha"
+                    href="d3/escalas/scale.invert.html"><b>scale.invert</b><small>Recupera un dato desde una salida
+                        numérica. No existe en todas las familias ni invierte un rango de colores.</small></a><a
+                    class="ficha" href="d3/escalas/scale.ticks.html"><b>scale.ticks</b><small>Sugiere valores legibles;
+                        la cantidad es orientativa. Band y point no lo implementan.</small></a><a class="ficha"
+                    href="d3/escalas/scale.tickFormat.html"><b>scale.tickFormat</b><small>Devuelve un formateador
+                        adecuado a las marcas; no cambia los datos.</small></a><a class="ficha"
+                    href="d3/escalas/scale.nice.html"><b>scale.nice</b><small>Expande los extremos a valores cómodos;
+                        modifica el dominio. Reaplícalo si vuelves a cambiar domain.</small></a><a class="ficha"
+                    href="d3/escalas/scale.clamp.html"><b>scale.clamp</b><small>Limita salidas e inversas al dominio y
+                        rango. No corrige errores de los datos originales.</small></a><a class="ficha"
+                    href="d3/escalas/scale.interpolate.html"><b>scale.interpolate</b><small>Define la fábrica de
+                        interpolación de una escala continua compatible. Para secuenciales usa
+                        interpolator.</small></a><a class="ficha"
+                    href="d3/escalas/scale.interpolator.html"><b>scale.interpolator</b><small>Define la función que
+                        recibe t y produce el color en sequential y diverging.</small></a><a class="ficha"
+                    href="d3/escalas/scale.copy.html"><b>scale.copy</b><small>Crea otra escala configurable sin
+                        modificar la original.</small></a><a class="ficha"
+                    href="d3/escalas/scale.unknown.html"><b>scale.unknown</b><small>Configura la salida para entradas no
+                        válidas según la familia. En ordinal evita ampliar el dominio implícito.</small></a><a
+                    class="ficha" href="d3/escalas/scale.rangeRound.html"><b>scale.rangeRound</b><small>Asigna un rango
+                        con interpolación redondeada para posiciones numéricas.</small></a><a class="ficha"
+                    href="d3/escalas/scale.padding.html"><b>scale.padding</b><small>Reserva separación en band y espacio
+                        exterior en point. Reduce la anchura útil de las bandas.</small></a><a class="ficha"
+                    href="d3/escalas/scale.paddingInner.html"><b>scale.paddingInner</b><small>Separa las bandas
+                        interiores; se aplica a scaleBand.</small></a><a class="ficha"
+                    href="d3/escalas/scale.paddingOuter.html"><b>scale.paddingOuter</b><small>Reserva espacio en ambos
+                        extremos del intervalo de bandas.</small></a><a class="ficha"
+                    href="d3/escalas/scale.align.html"><b>scale.align</b><small>Distribuye el espacio sobrante de band o point. En un rango horizontal ascendente: 0 alinea a la izquierda; .5 centra; 1 alinea a la derecha.</small></a><a class="ficha"
+                    href="d3/escalas/scale.bandwidth.html"><b>scale.bandwidth</b><small>Devuelve la anchura de cada
+                        banda. En point devuelve 0.</small></a><a class="ficha"
+                    href="d3/escalas/scale.step.html"><b>scale.step</b><small>Devuelve la distancia entre posiciones
+                        consecutivas de band o point.</small></a><a class="ficha"
+                    href="d3/escalas/scale.round.html"><b>scale.round</b><small>Activa posiciones enteras en band o
+                        point. Puede generar espacio sobrante.</small></a><a class="ficha"
+                    href="d3/escalas/scale.exponent.html"><b>scale.exponent</b><small>Configura la potencia de scalePow;
+                        .5 equivale a raíz cuadrada.</small></a><a class="ficha"
+                    href="d3/escalas/scale.base.html"><b>scale.base</b><small>Configura la base de ticks de scaleLog. No
+                        cambia posiciones normalizadas con dominio fijo.</small></a><a class="ficha"
+                    href="d3/escalas/scale.constant.html"><b>scale.constant</b><small>Controla la región suave alrededor
+                        de cero en symlog.</small></a><a class="ficha"
+                    href="d3/escalas/scale.invertExtent.html"><b>scale.invertExtent</b><small>Devuelve los límites de una clase en quantize, quantile y threshold. En threshold, la clase incluye el límite inferior y excluye el superior; undefined indica un extremo sin límite.</small></a><a class="ficha"
+                    href="d3/escalas/scale.quantiles.html"><b>scale.quantiles</b><small>Devuelve los cortes calculados a
+                        partir de la muestra de scaleQuantile.</small></a><a class="ficha"
+                    href="d3/escalas/scale.thresholds.html"><b>scale.thresholds</b><small>Devuelve los cortes
+                        equidistantes de scaleQuantize.</small></a></div>
+        </section>
+        <section id="d3-ejes">
+            <h2>D3 · ejes y sus métodos</h2>
+            <div class="grid"><a class="ficha" href="d3/ejes/d3.axisBottom.html"><b>d3.axisBottom</b><small>Crea un generador de eje inferior. Se dibuja al aplicarlo a una selección o transición, normalmente mediante call.</small></a><a class="ficha"
+                    href="d3/ejes/d3.axisTop.html"><b>d3.axisTop</b><small>Crea un generador de eje superior. Se dibuja al aplicarlo a una selección o transición, normalmente mediante call.</small></a><a class="ficha"
+                    href="d3/ejes/d3.axisLeft.html"><b>d3.axisLeft</b><small>Crea un generador de eje izquierdo. Se dibuja al aplicarlo a una selección o transición, normalmente mediante call.</small></a><a class="ficha"
+                    href="d3/ejes/d3.axisRight.html"><b>d3.axisRight</b><small>Crea un generador de eje derecho. Se dibuja al aplicarlo a una selección o transición, normalmente mediante call.</small></a><a class="ficha"
+                    href="d3/ejes/axis.scale.html"><b>axis.scale</b><small>Asigna una nueva escala al
+                        generador.</small></a><a class="ficha"
+                    href="d3/ejes/axis.ticks.html"><b>axis.ticks</b><small>Sugiere cantidad o intervalo de marcas. No
+                        afecta a band/point.</small></a><a class="ficha"
+                    href="d3/ejes/axis.tickArguments.html"><b>axis.tickArguments</b><small>Asigna los argumentos que se
+                        pasan a ticks y tickFormat de la escala.</small></a><a class="ficha"
+                    href="d3/ejes/axis.tickValues.html"><b>axis.tickValues</b><small>Fija explícitamente las marcas;
+                        prevalece sobre ticks.</small></a><a class="ficha"
+                    href="d3/ejes/axis.tickFormat.html"><b>axis.tickFormat</b><small>Define el texto de las etiquetas
+                        del eje.</small></a><a class="ficha"
+                    href="d3/ejes/axis.tickSize.html"><b>axis.tickSize</b><small>Configura el tamaño interior y exterior
+                        de las marcas.</small></a><a class="ficha"
+                    href="d3/ejes/axis.tickSizeInner.html"><b>axis.tickSizeInner</b><small>Configura las marcas
+                        internas; valores negativos permiten crear rejillas.</small></a><a class="ficha"
+                    href="d3/ejes/axis.tickSizeOuter.html"><b>axis.tickSizeOuter</b><small>Configura la longitud de los remates del path del dominio; el valor 0 los elimina.</small></a><a class="ficha"
+                    href="d3/ejes/axis.tickPadding.html"><b>axis.tickPadding</b><small>Separa el texto de las
+                        marcas.</small></a><a class="ficha"
+                    href="d3/ejes/axis.offset.html"><b>axis.offset</b><small>Controla el desplazamiento en píxeles del
+                        eje para el ajuste del trazo.</small></a></div>
+        </section>
+        <section id="d3-transiciones-y-formas">
+            <h2>D3 · transiciones y formas</h2>
+            <div class="grid"><a class="ficha"
+                    href="d3/transiciones-y-formas/selection.transition.html"><b>selection.transition</b><small>Inicia
+                        una transición de atributos o estilos. No sustituye el enlace de datos.</small></a><a
+                    class="ficha"
+                    href="d3/transiciones-y-formas/selection.interrupt.html"><b>selection.interrupt</b><small>Interrumpe la transición activa y cancela las pendientes del nombre indicado en los nodos seleccionados. Sin nombre, actúa sobre las transiciones sin nombre; no afecta a los descendientes.</small></a><a class="ficha"
+                    href="d3/transiciones-y-formas/transition.duration.html"><b>transition.duration</b><small>Duración
+                        en milisegundos.</small></a><a class="ficha"
+                    href="d3/transiciones-y-formas/transition.delay.html"><b>transition.delay</b><small>Espera previa en
+                        milisegundos.</small></a><a class="ficha"
+                    href="d3/transiciones-y-formas/transition.ease.html"><b>transition.ease</b><small>Función de ritmo
+                        de la animación.</small></a><a class="ficha"
+                    href="d3/transiciones-y-formas/d3.line.html"><b>d3.line</b><small>Genera el atributo d de un path
+                        desde una serie; no crea nodos.</small></a><a class="ficha"
+                    href="d3/transiciones-y-formas/d3.area.html"><b>d3.area</b><small>Genera un path cerrado entre dos
+                        límites.</small></a><a class="ficha"
+                    href="d3/transiciones-y-formas/d3.arc.html"><b>d3.arc</b><small>Genera sectores y anillos a partir
+                        de radios y ángulos en radianes.</small></a><a class="ficha"
+                    href="d3/transiciones-y-formas/d3.pie.html"><b>d3.pie</b><small>Calcula ángulos proporcionales a valores positivos; no dibuja. Su salida suele combinarse con d3.arc para generar sectores.</small></a><a class="ficha"
+                    href="d3/transiciones-y-formas/d3.symbol.html"><b>d3.symbol</b><small>Genera paths para símbolos.
+                        size representa área, no radio.</small></a><a class="ficha"
+                    href="d3/transiciones-y-formas/d3.path.html"><b>d3.path</b><small>Construye un path con
+                        instrucciones similares a Canvas y lo serializa.</small></a></div>
+        </section>
+        <section id="svg-elementos">
+            <h2>SVG · elementos</h2>
+            <div class="grid"><a class="ficha" href="svg/elementos/svg.svg.html"><b>svg.svg</b><small>Contenedor
+                        vectorial. viewBox define las coordenadas internas; CSS controla el tamaño
+                        mostrado.</small></a><a class="ficha" href="svg/elementos/svg.g.html"><b>svg.g</b><small>Agrupa
+                        elementos y aplica una transformación común.</small></a><a class="ficha"
+                    href="svg/elementos/svg.rect.html"><b>svg.rect</b><small>Rectángulo definido por posición, anchura y
+                        altura.</small></a><a class="ficha"
+                    href="svg/elementos/svg.circle.html"><b>svg.circle</b><small>Círculo definido por centro y
+                        radio.</small></a><a class="ficha"
+                    href="svg/elementos/svg.ellipse.html"><b>svg.ellipse</b><small>Elipse con radios horizontal y
+                        vertical independientes.</small></a><a class="ficha"
+                    href="svg/elementos/svg.line.html"><b>svg.line</b><small>Segmento entre dos puntos. Necesita stroke
+                        para verse.</small></a><a class="ficha"
+                    href="svg/elementos/svg.polyline.html"><b>svg.polyline</b><small>Secuencia abierta de segmentos; usa
+                        fill none si no quieres relleno.</small></a><a class="ficha"
+                    href="svg/elementos/svg.polygon.html"><b>svg.polygon</b><small>Secuencia cerrada de
+                        segmentos.</small></a><a class="ficha"
+                    href="svg/elementos/svg.path.html"><b>svg.path</b><small>Geometría mediante comandos: M mover, L
+                        línea, C curva y Z cerrar.</small></a><a class="ficha"
+                    href="svg/elementos/svg.text.html"><b>svg.text</b><small>Texto vectorial con posición y
+                        anclaje.</small></a><a class="ficha"
+                    href="svg/elementos/svg.tspan.html"><b>svg.tspan</b><small>Fragmentos de texto para estilos o líneas
+                        adicionales.</small></a><a class="ficha"
+                    href="svg/elementos/svg.defs.html"><b>svg.defs</b><small>Almacena definiciones que se usan por
+                        referencia; no las pinta directamente.</small></a><a class="ficha"
+                    href="svg/elementos/svg.linearGradient.html"><b>svg.linearGradient</b><small>Define un gradiente lineal reutilizable, habitualmente dentro de defs.</small></a><a class="ficha"
+                    href="svg/elementos/svg.stop.html"><b>svg.stop</b><small>Establece colores y posiciones en un
+                        gradiente.</small></a><a class="ficha"
+                    href="svg/elementos/svg.clipPath.html"><b>svg.clipPath</b><small>Recorta la región visible sin
+                        cambiar la geometría original.</small></a><a class="ficha"
+                    href="svg/elementos/svg.mask.html"><b>svg.mask</b><small>Usa luminancia o alfa para controlar
+                        visibilidad; blanco muestra y negro oculta en esta máscara.</small></a><a class="ficha"
+                    href="svg/elementos/svg.symbol.html"><b>svg.symbol</b><small>Define una figura reutilizable con su
+                        propio viewBox.</small></a><a class="ficha"
+                    href="svg/elementos/svg.use.html"><b>svg.use</b><small>Reutiliza un elemento por referencia
+                        href.</small></a><a class="ficha"
+                    href="svg/elementos/svg.title.html"><b>svg.title</b><small>Nombre accesible breve del SVG; también
+                        puede aparecer como tooltip nativo.</small></a><a class="ficha"
+                    href="svg/elementos/svg.desc.html"><b>svg.desc</b><small>Descripción textual más larga. Vincúlala
+                        con aria-describedby cuando proceda.</small></a></div>
+        </section>
+        <section id="svg-atributos">
+            <h2>SVG · atributos</h2>
+            <div class="grid"><a class="ficha" href="svg/atributos/svg.viewBox.html"><b>svg.viewBox</b><small>Define x
+                        mínimo, y mínimo, ancho y alto del sistema de coordenadas. No son necesariamente píxeles
+                        CSS.</small></a><a class="ficha"
+                    href="svg/atributos/svg.preserveAspectRatio.html"><b>svg.preserveAspectRatio</b><small>Controla
+                        alineación y ajuste al encajar viewBox en un viewport.</small></a><a class="ficha"
+                    href="svg/atributos/svg.fill.html"><b>svg.fill</b><small>Pintura del relleno: un color o una referencia a gradiente o patrón; none lo suprime.</small></a><a class="ficha"
+                    href="svg/atributos/svg.stroke.html"><b>svg.stroke</b><small>Pintura del contorno: un color o una referencia a gradiente o patrón; none lo suprime.</small></a><a class="ficha"
+                    href="svg/atributos/svg.stroke-width.html"><b>svg.stroke-width</b><small>Grosor del contorno en
+                        unidades SVG.</small></a><a class="ficha"
+                    href="svg/atributos/svg.opacity.html"><b>svg.opacity</b><small>Opacidad global del elemento entre 0
+                        y 1.</small></a><a class="ficha"
+                    href="svg/atributos/svg.transform.html"><b>svg.transform</b><small>Compone traslación, rotación o
+                        escalado. El orden de transformaciones importa.</small></a><a class="ficha"
+                    href="svg/atributos/svg.d.html"><b>svg.d</b><small>Cadena de comandos de una geometría
+                        path.</small></a><a class="ficha"
+                    href="svg/atributos/svg.points.html"><b>svg.points</b><small>Lista de pares x,y de polyline y
+                        polygon.</small></a><a class="ficha"
+                    href="svg/atributos/svg.text-anchor.html"><b>svg.text-anchor</b><small>Alinea el texto respecto a su punto de anclaje: start, middle o end. Inicio y final dependen de la dirección de escritura.</small></a><a class="ficha"
+                    href="svg/atributos/svg.stroke-dasharray.html"><b>svg.stroke-dasharray</b><small>Alterna longitudes
+                        de trazo y hueco.</small></a></div>
+        </section>
+        <section id="svg-metodos">
+            <h2>SVG · métodos nativos y DOM</h2>
+            <div class="grid"><a class="ficha" href="svg/metodos/Document.querySelector.html"><b>document.querySelector</b><small>Antes de los métodos SVG: document, nodos DOM, selectores, querySelectorAll y textContent.</small></a><a class="ficha"
+                    href="svg/metodos/Element.setAttribute.html"><b>Element.setAttribute</b><small>Método del DOM usado
+                        también en SVG. Cambia un atributo sin D3.</small></a><a class="ficha"
+                    href="svg/metodos/Element.getAttribute.html"><b>Element.getAttribute</b><small>Devuelve el atributo como texto, o null si no existe.</small></a><a class="ficha"
+                    href="svg/metodos/Element.removeAttribute.html"><b>Element.removeAttribute</b><small>Retira un
+                        atributo; se aplica el valor por defecto o heredado.</small></a><a class="ficha"
+                    href="svg/metodos/SVGGraphicsElement.getBBox.html"><b>SVGGraphicsElement.getBBox</b><small>Obtiene la caja geométrica en coordenadas locales SVG, sin aplicar las transformaciones del elemento ni de sus ancestros. Por defecto no incluye el trazo.</small></a><a
+                    class="ficha"
+                    href="svg/metodos/Element.getBoundingClientRect.html"><b>Element.getBoundingClientRect</b><small>Devuelve
+                        la caja del elemento en píxeles CSS respecto al viewport.</small></a><a class="ficha"
+                    href="svg/metodos/SVGGraphicsElement.getCTM.html"><b>SVGGraphicsElement.getCTM</b><small>Devuelve la
+                        matriz que transforma coordenadas al viewport SVG del elemento.</small></a><a class="ficha"
+                    href="svg/metodos/SVGGraphicsElement.getScreenCTM.html"><b>SVGGraphicsElement.getScreenCTM</b><small>Devuelve
+                        la matriz que transforma coordenadas locales a coordenadas del viewport de
+                        pantalla.</small></a><a class="ficha"
+                    href="svg/metodos/SVGGeometryElement.getTotalLength.html"><b>SVGGeometryElement.getTotalLength</b><small>Calcula
+                        la longitud total de la geometría en unidades SVG.</small></a><a class="ficha"
+                    href="svg/metodos/SVGGeometryElement.getPointAtLength.html"><b>SVGGeometryElement.getPointAtLength</b><small>Devuelve
+                        el punto situado a una distancia recorrida sobre la geometría.</small></a><a class="ficha"
+                    href="svg/metodos/SVGGeometryElement.isPointInFill.html"><b>SVGGeometryElement.isPointInFill</b><small>Comprueba
+                        pertenencia al área rellena usando coordenadas locales.</small></a><a class="ficha"
+                    href="svg/metodos/SVGGeometryElement.isPointInStroke.html"><b>SVGGeometryElement.isPointInStroke</b><small>Comprueba
+                        pertenencia al área del trazo en coordenadas locales.</small></a><a class="ficha"
+                    href="svg/metodos/SVGTextContentElement.getComputedTextLength.html"><b>SVGTextContentElement.getComputedTextLength</b><small>Mide
+                        el avance calculado del texto renderizado.</small></a><a class="ficha"
+                    href="svg/metodos/Document.createElementNS.html"><b>Document.createElementNS</b><small>Crea
+                        elementos en el espacio de nombres SVG; es un método DOM, no D3.</small></a></div>
+        </section>
+        <section id="carga-datos">
+            <h2>Carga de archivos y orígenes de datos</h2>
+            <p>CSV, JSON, Excel XLS/XLSX, ODS, XML, GeoJSON, binarios y otros formatos: cada uno con HTML y archivo de
+                muestra.</p><a href="carga-datos/index.html">Abrir las 28 fichas de carga de datos</a>
+        </section>
+        <footer>D3 7.9.0 · Copia local y licencia en vendor. <a href="LEEME.md">Guía de archivos</a> · <a
+                href="https://d3js.org/api">API completa oficial D3</a> · <a href="https://www.w3.org/TR/SVG2/">SVG
+                2</a></footer>
+    </main>
+    <script>document.querySelector('#buscar').addEventListener('input', function () { const q = this.value.toLocaleLowerCase('es'); document.querySelectorAll('.ficha').forEach(a => a.hidden = !a.textContent.toLocaleLowerCase('es').includes(q)); });</script>
+</body>
+
+</html>

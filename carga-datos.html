@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Cargar datos para D3</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+  <header>
+    <div><a href="index.html">← Índice general D3 y SVG</a></div>
+  </header>
+  <main>
+    <h1>Cargar datos para D3</h1>
+    <p>28 páginas independientes: cada formato o forma de carga tiene su HTML,
+      su archivo de ejemplo y el código para interpretarlo.</p>
+    <section><h2>Aprender a leer archivos reales</h2><p>El objetivo de estas fichas es abrir archivos externos, interpretar su formato y consultar sus datos con instrucciones sencillas. CSV, TSV, JSON y Excel forman parte del recorrido principal.</p><ol><li><a href="carga-datos/csv.html">CSV</a>: leer ventas.csv con d3.csv, consultar filas y convertir una columna numérica.</li><li><a href="carga-datos/tsv.html">TSV</a>: leer ventas.tsv con d3.tsv y comparar el separador.</li><li><a href="carga-datos/json.html">JSON</a>: leer ventas.json con d3.json y acceder a sus objetos.</li><li>Excel: leer directamente <a href="carga-datos/xlsx.html">XLSX</a>, <a href="carga-datos/xls.html">XLS</a> y <a href="carga-datos/ods.html">ODS</a>. D3 obtiene los bytes y SheetJS interpreta la hoja.</li><li>Continuar con TXT, variantes CSV, XML, HTML, NDJSON, GeoJSON, recursos gráficos, binarios y GZIP. Cada formato tiene su archivo y su lector.</li></ol><p>Inicia el <a href="carga-datos/index.html#servidor">servidor HTTP local</a> y abre la ficha: su .js lee automáticamente el archivo de la carpeta datos. Revisa el resultado, modifica el archivo y recarga para comprobar el cambio.</p><p>Los fragmentos con texto incrustado son apoyo para interpretar el formato. <a href="carga-datos/inline.html">Datos escritos en el código</a> es una comparación: esa ficha no lee un archivo.</p></section><section>
+      <h2>Cómo utilizar los ejemplos</h2>
+      <ol>
+        <li>Abre una ficha de la lista.</li>
+        <li>Abre el archivo de muestra y lee el .js que lo carga.</li>
+        <li>Consulta las filas leídas y comprueba sus columnas.</li>
+        <li>Modifica una instrucción en el .js y recarga el HTML.</li>
+        <li>Modifica el archivo de datos, guárdalo y recarga la página. Para seleccionar un archivo del ordenador usa el laboratorio desplegable.</li>
+      </ol>
+      <p>Selector, arrastrar y soltar y ejemplos incrustados funcionan sin servidor. La carga por URL requiere HTTP. Los
+        archivos de texto usan UTF-8; si un archivo utiliza otra codificación, configura TextDecoder con su codificación
+        real.</p>
+      <p><a href="carga-datos/index.html">Ver la guía completa, las bibliotecas y cómo iniciar el servidor</a></p>
+    </section>
+    <section id="archivos-ejemplo"><h2>Archivos de ejemplo para descargar</h2><p>21 archivos reales para practicar. CSV, TSV, JSON, XLSX, XLS y ODS contienen las mismas cuatro zonas: Norte, Centro, Sur y Oeste; sus ventas suman 265 miles de euros. Los formatos especializados tienen muestras propias.</p><p>Descarga un archivo, examina su estructura y úsalo con su ficha. Para cambiar el archivo que lee un .js, modifica la ruta de la llamada de carga. Conserva los nombres de las columnas si mantienes el código del ejemplo.</p><div class="grid"><a href="carga-datos/datos/ventas.csv" download><b>ventas.csv</b><small>CSV con comas</small></a><a href="carga-datos/datos/ventas.tsv" download><b>ventas.tsv</b><small>TSV con tabuladores</small></a><a href="carga-datos/datos/ventas.json" download><b>ventas.json</b><small>JSON: array de filas</small></a><a href="carga-datos/datos/ventas.xlsx" download><b>ventas.xlsx</b><small>Libro Excel XLSX</small></a><a href="carga-datos/datos/ventas.xls" download><b>ventas.xls</b><small>Libro XLS binario BIFF2</small></a><a href="carga-datos/datos/ventas.ods" download><b>ventas.ods</b><small>Hoja OpenDocument ODS</small></a><a href="carga-datos/datos/marca.svg" download><b>marca.svg</b><small>Imagen: d3.image y dimensiones</small></a><a href="carga-datos/datos/respuesta-api.json" download><b>respuesta-api.json</b><small>API REST y paginación: respuesta de ejemplo</small></a><a href="carga-datos/datos/ventas-es.csv" download><b>ventas-es.csv</b><small>CSV español: punto y coma y decimal con coma</small></a><a href="carga-datos/datos/ventas-fechas.csv" download><b>ventas-fechas.csv</b><small>CSV con fechas: UTC y tipos explícitos</small></a><a href="carga-datos/datos/ventas-fijo.txt" download><b>ventas-fijo.txt</b><small>TXT con campos de ancho fijo</small></a><a href="carga-datos/datos/ventas-invalidas.csv" download><b>ventas-invalidas.csv</b><small>Validar vacíos y números antes del gráfico</small></a><a href="carga-datos/datos/ventas-sin-cabecera.csv" download><b>ventas-sin-cabecera.csv</b><small>CSV sin cabeceras: csvParseRows</small></a><a href="carga-datos/datos/ventas-tabla.html" download><b>ventas-tabla.html</b><small>HTML: leer una tabla</small></a><a href="carga-datos/datos/ventas.bin" download><b>ventas.bin</b><small>Binario: ArrayBuffer y DataView</small></a><a href="carga-datos/datos/ventas.csv.gz" download><b>ventas.csv.gz</b><small>CSV comprimido GZIP</small></a><a href="carga-datos/datos/ventas.ndjson" download><b>ventas.ndjson</b><small>NDJSON o JSON Lines</small></a><a href="carga-datos/datos/ventas.psv" download><b>ventas.psv</b><small>DSV con separador personalizado</small></a><a href="carga-datos/datos/ventas.xml" download><b>ventas.xml</b><small>XML: seleccionar nodos y convertir a filas</small></a><a href="carga-datos/datos/zonas.geojson" download><b>zonas.geojson</b><small>GeoJSON: datos geográficos</small></a><a href="carga-datos/datos/zonas.txt" download><b>zonas.txt</b><small>TXT: una observación por línea</small></a></div><p>El archivo XLS es un binario BIFF2 auténtico. XLSX y ODS son libros reales, no archivos de texto renombrados. Para practicar la edición de una hoja utiliza XLSX u ODS. El CSV de validación contiene errores intencionados.</p></section><section>
+      <h2>Elige un ejemplo</h2>
+      <div class="grid"><a href="carga-datos/csv.html"><b>CSV con coma</b><small>Archivo · ventas.csv</small></a><a
+          href="carga-datos/csv-punto-coma.html"><b>CSV español: punto y coma y decimal con
+            coma</b><small>Archivo · ventas-es.csv</small></a><a href="carga-datos/tsv.html"><b>TSV:
+            tabuladores</b><small>Archivo · ventas.tsv</small></a><a href="carga-datos/dsv.html"><b>DSV con separador
+            personalizado</b><small>Archivo · ventas.psv</small></a><a href="carga-datos/json.html"><b>JSON: array de
+            objetos</b><small>Archivo · ventas.json</small></a><a href="carga-datos/json-anidado.html"><b>JSON anidado y respuesta
+            de API</b><small>Archivo · respuesta-api.json</small></a><a href="carga-datos/ndjson.html"><b>NDJSON o JSON
+            Lines</b><small>Archivo · ventas.ndjson</small></a><a href="carga-datos/txt.html"><b>TXT: una observación por
+            línea</b><small>Archivo · zonas.txt</small></a><a href="carga-datos/ancho-fijo.html"><b>TXT con campos de ancho
+            fijo</b><small>Archivo · ventas-fijo.txt</small></a><a href="carga-datos/xml.html"><b>XML: seleccionar nodos y
+            convertir a filas</b><small>Archivo · ventas.xml</small></a><a href="carga-datos/html-tabla.html"><b>HTML: leer una
+            tabla</b><small>Archivo · ventas-tabla.html</small></a><a href="carga-datos/xlsx.html"><b>Excel
+            XLSX</b><small>Archivo · ventas.xlsx</small></a><a href="carga-datos/xls.html"><b>Excel
+            XLS</b><small>Archivo · ventas.xls</small></a><a href="carga-datos/ods.html"><b>OpenDocument
+            ODS</b><small>Archivo · ventas.ods</small></a><a href="carga-datos/geojson.html"><b>GeoJSON: datos
+            geográficos</b><small>Archivo · zonas.geojson</small></a><a href="carga-datos/binario.html"><b>Binario: ArrayBuffer y
+            DataView</b><small>Archivo · ventas.bin</small></a><a href="carga-datos/svg.html"><b>SVG: cargar un recurso
+            vectorial</b><small>Archivo · marca.svg</small></a><a href="carga-datos/blob.html"><b>Blob: leer metadatos de un
+            recurso</b><small>Archivo · marca.svg</small></a><a href="carga-datos/imagen.html"><b>Imagen: d3.image y
+            dimensiones</b><small>Archivo · marca.svg</small></a><a href="carga-datos/autotype.html"><b>d3.autoType: conversión
+            automática y códigos</b><small>Archivo · ventas.csv</small></a><a href="carga-datos/validacion.html"><b>Validar vacíos
+            y números antes del gráfico</b><small>Archivo · ventas-invalidas.csv</small></a><a
+          href="carga-datos/inline.html"><b>Datos definidos directamente en
+            JavaScript</b><small>Comparación sin lectura · ventas.json</small></a><a href="carga-datos/fetch.html"><b>Fetch nativo: comprobar HTTP
+            y leer JSON</b><small>Archivo · ventas.json</small></a><a href="carga-datos/api.html"><b>API REST y paginación:
+            respuesta de ejemplo</b><small>Archivo · respuesta-api.json</small></a><a
+          href="carga-datos/promise-all.html"><b>Varios archivos con Promise.all</b><small>Archivo · ventas.json</small></a><a
+          href="carga-datos/csv-sin-cabecera.html"><b>CSV sin cabeceras:
+            csvParseRows</b><small>Archivo · ventas-sin-cabecera.csv</small></a><a href="carga-datos/fechas.html"><b>CSV con
+            fechas: UTC y tipos explícitos</b><small>Archivo · ventas-fechas.csv</small></a><a href="carga-datos/gzip.html"><b>CSV
+            comprimido GZIP</b><small>Archivo · ventas.csv.gz</small></a></div>
+    </section>
+    <section>
+      <h2>Selector de archivos: alternativas</h2>
+      <p>La vía moderna para texto es <code>await archivo.text()</code>; para Excel o binarios,
+        <code>await archivo.arrayBuffer()</code>. Las fichas usan la segunda y decodifican el texto después.</p>
+      <p>También se puede usar FileReader. Este ejemplo recibe el File obtenido de un input:</p>
+      <pre>const texto = await new Promise((resolve,reject) =&gt; {
+  const lector = new FileReader();
+  lector.onload = () =&gt; resolve(lector.result);
+  lector.onerror = () =&gt; reject(lector.error);
+  lector.readAsText(archivo, "utf-8");
+});
+const filas = d3.csvParse(texto);</pre>
+      <p>Leer texto ya pegado o definido en el código no necesita fetch: usa d3.csvParse, d3.tsvParse o JSON.parse. Leer
+        una base de datos suele requerir una API; D3 no abre directamente una conexión SQL desde el HTML.</p>
+    </section>
+    <section>
+      <h2>Excel</h2>
+      <p>Los ejemplos XLS, XLSX y ODS usan <a
+          href="https://docs.sheetjs.com/docs/getting-started/installation/standalone/">SheetJS 0.20.3</a>. Requieren
+        Internet mientras no se añada una copia local de la biblioteca en vendor. D3 por sí solo no lee Excel.</p>
+    </section>
+    <footer>Datos sintéticos. La muestra principal contiene cuatro zonas y ventas por 265 k€. <a
+        href="https://d3js.org/d3-fetch">Referencia oficial de carga de D3</a>.</footer>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Storytelling con gráficos · D3 y SVG</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../clase.css">
+</head>
+<body>
+<header><div><a href="../index.html">Ejemplos para clase</a> · <a href="../../index.html">Índice de conceptos</a></div></header>
+<main><p class="muted">CASO 2 · STORYTELLING CON GRÁFICOS INDEPENDIENTES · 45 MINUTOS</p><h1>Del crecimiento total a una decisión que debemos investigar</h1><p>Storytelling significa ordenar la evidencia para que una audiencia comprenda un hallazgo y su relevancia. Cada gráfico debe sostenerse por sí mismo; la secuencia establece la relación entre ellos. Los titulares y gráficos se recalculan al cambiar ventas.js; los párrafos de cálculo explican las cifras iniciales.</p><p><a href="GUIA_CLASE.md">Guía para impartir la clase</a> · <a href="../datos/ventas.csv" download>Datos CSV</a></p><section><h2>Antes de programar</h2><p><b>Pregunta de la responsable de la librería:</b> ¿cómo están cambiando las ventas y qué canal conviene estudiar antes de planificar recursos?</p><p>Completa primero el <a href="../01-grafico-independiente/index.html">caso 1</a>. Aquí añadimos <a href="../../d3/transiciones-y-formas/d3.line.html">d3.line</a>: un generador que convierte una secuencia de datos en el atributo <code>d</code> de un path. Sus funciones <code>x</code> e <code>y</code> indican dónde colocar cada punto. Los meses mantienen el orden de enero a junio; unir puntos no prueba qué sucedió entre las observaciones.</p><pre><code>const porcentaje = d3.format(&quot;.0%&quot;);
+const texto = porcentaje(0.5); // &quot;50%&quot;</code></pre><p><code>d3.format</code> devuelve una función que convierte números en texto. <code>.0%</code> muestra porcentajes sin decimales y <code>.2%</code> muestra dos. Se le pasa 0.5 para obtener 50%, no 50. El formato predeterminado de D3 usa punto decimal.</p></section>
+<section><p class="muted">1 · QUÉ CAMBIÓ</p><h2 id="mensaje-total">Evolución del total mensual</h2><p>La primera vista establece el contexto: misma unidad y misma población de ventas durante seis meses.</p><div class="marco-grafico"><svg id="tendencia" viewBox="0 0 640 360" role="img" aria-labelledby="titulo-tendencia">
+  <title id="titulo-tendencia">Evolución mensual de los ejemplares vendidos</title>
+  <text x="70" y="22">Ejemplares vendidos</text>
+  <g id="tendencia-x"></g><g id="tendencia-y"></g>
+  <path id="linea-total" fill="none" stroke="#00766d" stroke-width="3"></path>
+  <g id="puntos" fill="#00766d">
+    <circle r="5"></circle>
+    <circle r="5"></circle>
+    <circle r="5"></circle>
+    <circle r="5"></circle>
+    <circle r="5"></circle>
+    <circle r="5"></circle>
+  </g>
+  <g id="cifras-total" text-anchor="middle">
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+    <text></text>
+  </g>
+</svg></div><p class="muted">Fuente: datos sintéticos de la librería. Enero-junio. Total mensual = tienda + online. Escala vertical: 0–300 ejemplares.</p><p>Con los datos iniciales, el aumento absoluto es 260 − 100 = 160. El aumento relativo es 160 / 100 = 160 %. El último valor equivale al 260 % del primero: esa cifra no es el porcentaje de aumento.</p></section>
+<section><p class="muted">2 · CÓMO SE DESCOMPONE EL CAMBIO</p><h2 id="mensaje-canales">Comparación de canales</h2><p>El total ocultaba dos trayectorias. Separar los canales permite ver qué cantidades componen cada mes.</p><p class="leyenda"><span><span class="muestra tienda"></span>Tienda: barra izquierda</span><span><span class="muestra online"></span>Online: barra derecha</span></p><div class="marco-grafico"><svg id="canales" viewBox="0 0 640 360" role="img" aria-labelledby="titulo-canales">
+  <title id="titulo-canales">Comparación mensual entre tienda y online</title>
+  <text x="70" y="22">Ejemplares vendidos</text>
+  <g id="canales-x"></g><g id="canales-y"></g>
+  <g id="barras-tienda" fill="#00766d">
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+  </g>
+  <g id="barras-online" fill="#9c6500">
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+    <rect></rect>
+  </g>
+</svg></div><p id="dato-tienda"></p><p id="dato-online"></p><p class="muted">Fuente: los mismos datos sintéticos. Enero-junio. Unidad: ejemplares. El orden y los colores de los canales se mantienen en la siguiente vista. Las dos primeras vistas comparten el intervalo vertical [0, 300].</p><p>Participación online = ventas online del mes / ventas totales del mes. En los datos iniciales, pasar del 20 % al 50 % supone <b>30 puntos porcentuales</b>, no un aumento relativo del 30 %.</p></section>
+<section><p class="muted">3 · QUÉ PARTE DEL AUMENTO CORRESPONDE A CADA CANAL</p><h2 id="mensaje-aporte">Aportación al aumento neto</h2><div class="marco-grafico"><svg id="aportaciones" viewBox="0 0 640 230" role="img" aria-labelledby="titulo-aportaciones">
+  <title id="titulo-aportaciones">Aumento absoluto entre enero y junio por canal</title>
+  <text x="100" y="22">Aumento de ejemplares: junio menos enero</text>
+  <g id="aporte-x"></g><g id="aporte-y"></g>
+  <g id="barras-aporte"><rect fill="#00766d"></rect><rect fill="#9c6500"></rect></g>
+  <g id="cifras-aporte"><text></text><text></text></g>
+</svg></div><p>La tercera vista compara diferencias entre junio y enero: con los datos iniciales, 50 unidades de tienda y 110 de online. No muestra ventas acumuladas del semestre. La participación online en el aumento es 110 / 160 = 68,75 %; su participación en las ventas de junio es 130 / 260 = 50 %. Son preguntas y denominadores distintos.</p><p class="muted">Fuente: los mismos datos sintéticos. Comparación junio menos enero. Unidad: aumento de ejemplares vendidos, con origen cero.</p><h3>Propuesta para investigar</h3><p>Revisar la capacidad de preparación y entrega del canal online antes de decidir si se reasignan recursos. Hacen falta datos de carga de trabajo, costes, márgenes, tiempos y satisfacción. El crecimiento de ventas por sí solo no demuestra rentabilidad ni necesidad de contratar.</p><p class="notice">La descomposición es aritmética. No demuestra que una campaña causara el aumento: no tenemos datos sobre campañas, estacionalidad ni un grupo de comparación.</p></section>
+<section><h2>Comprobar la historia</h2><div class="marco-tabla"><table id="tabla-historia"><caption>Datos que sustentan los tres gráficos: ejemplares vendidos</caption><thead><tr><th scope="col">Mes</th><th scope="col">Tienda</th><th scope="col">Online</th><th scope="col">Total</th></tr></thead><tbody>    <tr><th scope="row" class="mes"></th><td class="tienda-dato"></td><td class="online-dato"></td><td class="total-dato"></td></tr>
+    <tr><th scope="row" class="mes"></th><td class="tienda-dato"></td><td class="online-dato"></td><td class="total-dato"></td></tr>
+    <tr><th scope="row" class="mes"></th><td class="tienda-dato"></td><td class="online-dato"></td><td class="total-dato"></td></tr>
+    <tr><th scope="row" class="mes"></th><td class="tienda-dato"></td><td class="online-dato"></td><td class="total-dato"></td></tr>
+    <tr><th scope="row" class="mes"></th><td class="tienda-dato"></td><td class="online-dato"></td><td class="total-dato"></td></tr>
+    <tr><th scope="row" class="mes"></th><td class="tienda-dato"></td><td class="online-dato"></td><td class="total-dato"></td></tr></tbody></table></div><p><b>Diseño narrativo:</b> pregunta concreta → evolución → desglose → alcance y decisión pendiente. Los títulos expresan hallazgos verificables; el color identifica canales y no sirve de decoración.</p></section>
+<section><h2>Leer las dimensiones y el código</h2><p>Las dos primeras vistas usan <code>dimensiones = [640, 360]</code>, una base de 290 y las mismas escalas. Las barras de cada canal ocupan la mitad de <code>x.bandwidth()</code>. La segunda barra empieza después de la primera: <code>x(d.mes) + anchoBarra</code>.</p><p>La tercera vista usa otro vector, <code>[640, 230]</code>, porque necesita solo dos filas. Su escala horizontal devuelve posiciones: el ancho de una barra es <code>xAporte(d.aumento) - xAporte(0)</code>. Su dominio llega a 160; si pruebas aumentos mayores, amplíalo.</p><p>No hay funciones que construyan gráficos ocultando instrucciones. El archivo se lee por bloques: línea, comparación, diferencias y titulares. <code>linea(datos)</code> calcula la ruta; <code>attr("d", ...)</code> la asigna al path.</p><details><summary>Ver el HTML inicial de los tres gráficos</summary><pre><code>&lt;svg id=&quot;tendencia&quot; viewBox=&quot;0 0 640 360&quot; role=&quot;img&quot; aria-labelledby=&quot;titulo-tendencia&quot;&gt;
+  &lt;title id=&quot;titulo-tendencia&quot;&gt;Evolución mensual de los ejemplares vendidos&lt;/title&gt;
+  &lt;text x=&quot;70&quot; y=&quot;22&quot;&gt;Ejemplares vendidos&lt;/text&gt;
+  &lt;g id=&quot;tendencia-x&quot;&gt;&lt;/g&gt;&lt;g id=&quot;tendencia-y&quot;&gt;&lt;/g&gt;
+  &lt;path id=&quot;linea-total&quot; fill=&quot;none&quot; stroke=&quot;#00766d&quot; stroke-width=&quot;3&quot;&gt;&lt;/path&gt;
+  &lt;g id=&quot;puntos&quot; fill=&quot;#00766d&quot;&gt;
+    &lt;circle r=&quot;5&quot;&gt;&lt;/circle&gt;
+    &lt;circle r=&quot;5&quot;&gt;&lt;/circle&gt;
+    &lt;circle r=&quot;5&quot;&gt;&lt;/circle&gt;
+    &lt;circle r=&quot;5&quot;&gt;&lt;/circle&gt;
+    &lt;circle r=&quot;5&quot;&gt;&lt;/circle&gt;
+    &lt;circle r=&quot;5&quot;&gt;&lt;/circle&gt;
+  &lt;/g&gt;
+  &lt;g id=&quot;cifras-total&quot; text-anchor=&quot;middle&quot;&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+    &lt;text&gt;&lt;/text&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+
+&lt;svg id=&quot;canales&quot; viewBox=&quot;0 0 640 360&quot; role=&quot;img&quot; aria-labelledby=&quot;titulo-canales&quot;&gt;
+  &lt;title id=&quot;titulo-canales&quot;&gt;Comparación mensual entre tienda y online&lt;/title&gt;
+  &lt;text x=&quot;70&quot; y=&quot;22&quot;&gt;Ejemplares vendidos&lt;/text&gt;
+  &lt;g id=&quot;canales-x&quot;&gt;&lt;/g&gt;&lt;g id=&quot;canales-y&quot;&gt;&lt;/g&gt;
+  &lt;g id=&quot;barras-tienda&quot; fill=&quot;#00766d&quot;&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+  &lt;/g&gt;
+  &lt;g id=&quot;barras-online&quot; fill=&quot;#9c6500&quot;&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+    &lt;rect&gt;&lt;/rect&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+
+&lt;svg id=&quot;aportaciones&quot; viewBox=&quot;0 0 640 230&quot; role=&quot;img&quot; aria-labelledby=&quot;titulo-aportaciones&quot;&gt;
+  &lt;title id=&quot;titulo-aportaciones&quot;&gt;Aumento absoluto entre enero y junio por canal&lt;/title&gt;
+  &lt;text x=&quot;100&quot; y=&quot;22&quot;&gt;Aumento de ejemplares: junio menos enero&lt;/text&gt;
+  &lt;g id=&quot;aporte-x&quot;&gt;&lt;/g&gt;&lt;g id=&quot;aporte-y&quot;&gt;&lt;/g&gt;
+  &lt;g id=&quot;barras-aporte&quot;&gt;&lt;rect fill=&quot;#00766d&quot;&gt;&lt;/rect&gt;&lt;rect fill=&quot;#9c6500&quot;&gt;&lt;/rect&gt;&lt;/g&gt;
+  &lt;g id=&quot;cifras-aporte&quot;&gt;&lt;text&gt;&lt;/text&gt;&lt;text&gt;&lt;/text&gt;&lt;/g&gt;
+&lt;/svg&gt;</code></pre></details><details><summary>Ver todo el JavaScript del ejemplo</summary><pre><code>// 1. Las dos primeras vistas comparten dimensiones y escalas.
+const dimensiones = [640, 360];
+const ancho = dimensiones[0];
+const alto = dimensiones[1];
+const margenIzquierdo = 70;
+const margenDerecho = 30;
+const margenSuperior = 40;
+const margenInferior = 70;
+const base = alto - margenInferior;
+d3.select(&quot;#tendencia&quot;).attr(&quot;viewBox&quot;, &quot;0 0 &quot; + ancho + &quot; &quot; + alto);
+d3.select(&quot;#canales&quot;).attr(&quot;viewBox&quot;, &quot;0 0 &quot; + ancho + &quot; &quot; + alto);
+const x = d3.scaleBand().domain(meses).range([margenIzquierdo, ancho - margenDerecho]).padding(0.25);
+const y = d3.scaleLinear().domain([0, 300]).range([base, margenSuperior]);
+
+// 2. Primer gráfico: puntos mensuales unidos en orden temporal.
+d3.select(&quot;#tendencia-x&quot;).attr(&quot;transform&quot;, &quot;translate(0,&quot; + base + &quot;)&quot;).call(d3.axisBottom(x));
+d3.select(&quot;#tendencia-y&quot;).attr(&quot;transform&quot;, &quot;translate(&quot; + margenIzquierdo + &quot;,0)&quot;).call(d3.axisLeft(y).ticks(6));
+const linea = d3.line();
+linea.x(function(d) { return x(d.mes) + x.bandwidth() / 2; });
+linea.y(function(d) { return y(d.tienda + d.online); });
+d3.select(&quot;#linea-total&quot;).attr(&quot;d&quot;, linea(datos));
+const puntos = d3.select(&quot;#puntos&quot;).selectAll(&quot;circle&quot;).data(datos);
+puntos.attr(&quot;cx&quot;, function(d) { return x(d.mes) + x.bandwidth() / 2; });
+puntos.attr(&quot;cy&quot;, function(d) { return y(d.tienda + d.online); });
+const cifras = d3.select(&quot;#cifras-total&quot;).selectAll(&quot;text&quot;).data(datos);
+cifras.attr(&quot;x&quot;, function(d) { return x(d.mes) + x.bandwidth() / 2; });
+cifras.attr(&quot;y&quot;, function(d) { return y(d.tienda + d.online) - 12; });
+cifras.text(function(d) { return d.tienda + d.online; });
+
+// 3. Segundo gráfico: dos barras dentro de la banda de cada mes.
+d3.select(&quot;#canales-x&quot;).attr(&quot;transform&quot;, &quot;translate(0,&quot; + base + &quot;)&quot;).call(d3.axisBottom(x));
+d3.select(&quot;#canales-y&quot;).attr(&quot;transform&quot;, &quot;translate(&quot; + margenIzquierdo + &quot;,0)&quot;).call(d3.axisLeft(y).ticks(6));
+const anchoBarra = x.bandwidth() / 2;
+const tienda = d3.select(&quot;#barras-tienda&quot;).selectAll(&quot;rect&quot;).data(datos);
+tienda.attr(&quot;x&quot;, function(d) { return x(d.mes); });
+tienda.attr(&quot;y&quot;, function(d) { return y(d.tienda); });
+tienda.attr(&quot;width&quot;, anchoBarra);
+tienda.attr(&quot;height&quot;, function(d) { return base - y(d.tienda); });
+const online = d3.select(&quot;#barras-online&quot;).selectAll(&quot;rect&quot;).data(datos);
+online.attr(&quot;x&quot;, function(d) { return x(d.mes) + anchoBarra; });
+online.attr(&quot;y&quot;, function(d) { return y(d.online); });
+online.attr(&quot;width&quot;, anchoBarra);
+online.attr(&quot;height&quot;, function(d) { return base - y(d.online); });
+
+// 4. Calculamos diferencias entre el último y el primer mes.
+const primero = datos[0];
+const ultimo = datos[datos.length - 1];
+const totalInicial = primero.tienda + primero.online;
+const totalFinal = ultimo.tienda + ultimo.online;
+const aumentoTotal = totalFinal - totalInicial;
+const aumentoTienda = ultimo.tienda - primero.tienda;
+const aumentoOnline = ultimo.online - primero.online;
+const aportes = [
+  {canal: &quot;Tienda&quot;, aumento: aumentoTienda},
+  {canal: &quot;Online&quot;, aumento: aumentoOnline}
+];
+
+// 5. Tercer gráfico: longitudes horizontales para las diferencias.
+const dimensionesAporte = [640, 230];
+const anchoAporte = dimensionesAporte[0];
+const altoAporte = dimensionesAporte[1];
+const baseAporte = altoAporte - 60;
+d3.select(&quot;#aportaciones&quot;).attr(&quot;viewBox&quot;, &quot;0 0 &quot; + anchoAporte + &quot; &quot; + altoAporte);
+const xAporte = d3.scaleLinear().domain([0, 160]).range([100, anchoAporte - 70]);
+const yAporte = d3.scaleBand().domain([&quot;Tienda&quot;, &quot;Online&quot;]).range([40, baseAporte]).padding(0.35);
+d3.select(&quot;#aporte-x&quot;).attr(&quot;transform&quot;, &quot;translate(0,&quot; + baseAporte + &quot;)&quot;).call(d3.axisBottom(xAporte).tickValues([0, 40, 80, 120, 160]));
+d3.select(&quot;#aporte-y&quot;).attr(&quot;transform&quot;, &quot;translate(100,0)&quot;).call(d3.axisLeft(yAporte));
+const barrasAporte = d3.select(&quot;#barras-aporte&quot;).selectAll(&quot;rect&quot;).data(aportes);
+barrasAporte.attr(&quot;x&quot;, xAporte(0));
+barrasAporte.attr(&quot;y&quot;, function(d) { return yAporte(d.canal); });
+barrasAporte.attr(&quot;width&quot;, function(d) { return xAporte(d.aumento) - xAporte(0); });
+barrasAporte.attr(&quot;height&quot;, yAporte.bandwidth());
+const cifrasAporte = d3.select(&quot;#cifras-aporte&quot;).selectAll(&quot;text&quot;).data(aportes);
+cifrasAporte.attr(&quot;x&quot;, function(d) { return xAporte(d.aumento) + 10; });
+cifrasAporte.attr(&quot;y&quot;, function(d) { return yAporte(d.canal) + yAporte.bandwidth() / 2 + 5; });
+cifrasAporte.text(function(d) { return &quot;+&quot; + d.aumento; });
+
+// 6. Los titulares se calculan a partir de los datos, no de cifras copiadas.
+const porcentaje = d3.format(&quot;.0%&quot;);
+const porcentajeDetalle = d3.format(&quot;.2%&quot;);
+d3.select(&quot;#mensaje-total&quot;).text(&quot;De &quot; + totalInicial + &quot; a &quot; + totalFinal + &quot; ejemplares: un aumento del &quot; + porcentaje(aumentoTotal / totalInicial));
+d3.select(&quot;#mensaje-canales&quot;).text(&quot;Online pasa del &quot; + porcentaje(primero.online / totalInicial) + &quot; al &quot; + porcentaje(ultimo.online / totalFinal) + &quot; de las ventas mensuales&quot;);
+d3.select(&quot;#mensaje-aporte&quot;).text(&quot;Online aporta &quot; + aumentoOnline + &quot; de las &quot; + aumentoTotal + &quot; unidades del aumento neto: &quot; + porcentajeDetalle(aumentoOnline / aumentoTotal));
+d3.select(&quot;#dato-tienda&quot;).text(&quot;Tienda: &quot; + primero.tienda + &quot; → &quot; + ultimo.tienda + &quot; (aumento: &quot; + aumentoTienda + &quot;).&quot;);
+d3.select(&quot;#dato-online&quot;).text(&quot;Online: &quot; + primero.online + &quot; → &quot; + ultimo.online + &quot; (aumento: &quot; + aumentoOnline + &quot;).&quot;);
+
+// 7. Una tabla permite comprobar las dos series y su suma.
+const filas = d3.select(&quot;#tabla-historia&quot;).selectAll(&quot;tbody tr&quot;).data(datos);
+filas.select(&quot;.mes&quot;).text(function(d) { return d.mes; });
+filas.select(&quot;.tienda-dato&quot;).text(function(d) { return d.tienda; });
+filas.select(&quot;.online-dato&quot;).text(function(d) { return d.online; });
+filas.select(&quot;.total-dato&quot;).text(function(d) { return d.tienda + d.online; });</code></pre></details></section>
+<section><h2>Práctica para el estudiante</h2><ol><li>Presenta la secuencia en noventa segundos. Debe contener pregunta, dos evidencias y una propuesta condicionada a más información.</li><li>En ventas.js, cambia online de junio a 90. Comprueba: total final 220; aumento total 120; aumento online 70; aportación online al aumento 58,33 %. Explica cómo cambia el mensaje. Restaura el dato.</li><li>Escribe tres frases que distingan aumento de ventas, participación de un canal y aportación al aumento.</li><li>Propón un título que no atribuya causas que los datos no demuestran. Explica qué información recogerías antes de contratar o reasignar presupuesto.</li></ol><p><b>Criterio de logro:</b> las cifras de la narración se pueden verificar y cada gráfico responde a una pregunta distinta, sin cambiar la unidad ni esconder la escala.</p><p><a href="../03-dashboard/index.html">Siguiente caso: explorar los datos mediante un dashboard</a></p></section><footer>Datos sintéticos de una librería universitaria. No representan una empresa real. Referencias: <a href="https://d3js.org/d3-scale/band">scaleBand</a>, <a href="https://d3js.org/d3-axis">ejes</a> y <a href="https://d3js.org/d3-selection/joining">asignación de datos</a>.</footer></main>
+<script src="../../vendor/d3.min.js"></script>
+<script src="../datos/ventas.js"></script>
+<script src="js/historia.js"></script>
+</body>
+</html>
