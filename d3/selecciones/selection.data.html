@@ -1,0 +1,28 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>selection.data · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>selection.data</h1><p>Empareja valores y nodos por grupo. Sin clave usa posiciones: primer dato con primer nodo. Devuelve la selección de actualización; no crea ni elimina nodos.</p><section><h2>Sintaxis</h2><pre>seleccion.data([dato1, dato2, dato3])</pre><p><b>Resultado esperado:</b> Venta: 40, Venta: 70 y Venta: 100. Contadores 3, 1 y 0. El dato 55 no tiene párrafo.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+<p>El HTML ya contiene los elementos iniciales. El archivo <code>js/selectiondata.js</code> se carga al final de la página, después de D3. Para probar cambios, edita ese archivo y recarga el HTML; el bloque mostrado aquí es una copia para leer.</p>
+<h3>HTML inicial dentro de #demo</h3><pre><code>&lt;div id=&quot;lista&quot;&gt;&lt;p&gt;Texto A&lt;/p&gt;&lt;p&gt;Texto B&lt;/p&gt;&lt;p&gt;Texto C&lt;/p&gt;&lt;/div&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>const parrafos = d3.select(&quot;#lista&quot;).selectAll(&quot;p&quot;);
+// 1. data asocia números; todavía no cambia los textos.
+const enlace = parrafos.data([40, 70, 100, 55]);
+// 2. Tenemos tres nodos, pero cuatro datos.
+const actualizados = enlace.size();
+const nuevos = enlace.enter().size();
+const sobrantes = enlace.exit().size();
+// 3. text muestra los datos que ya tienen un nodo.
+enlace.text(function(d) {
+  return &quot;Venta: &quot; + d;
+});
+d3.select(&quot;#salida&quot;).text(&quot;Con nodo: &quot; + actualizados + &quot;\nSin nodo todavía: &quot; + nuevos + &quot;\nNodos sobrantes: &quot; + sobrantes);</code></pre>
+<h3>Resultado</h3><div id="demo" aria-label="Ejemplo de selection.data">
+<div id="lista"><p>Texto A</p><p>Texto B</p><p>Texto C</p></div>
+</div>
+<pre id="salida" aria-live="polite"></pre>
+<h3>Cómo leerlo</h3><p>Un array es una lista entre corchetes. Aquí no necesitamos objetos ni funciones flecha.</p>
+<p>enter representa datos sin nodo; exit, nodos sin correspondencia en los datos nuevos.</p>
+<p>Con varios contenedores, selectAll crea grupos y data empareja por grupo. Una clave, explicada en order, permite emparejar por identidad.</p>
+<p>Si todavía no distingues una selección singular de una múltiple, vuelve a <a href="d3.select.html">d3.select</a> y <a href="d3.selectAll.html">d3.selectAll</a>.</p><p>En <code>function(d)</code>, <code>d</code> es el dato del nodo. <code>return</code> entrega el resultado que D3 utilizará. Si aparece <code>i</code>, es el índice dentro del grupo y empieza en 0.</p></section><section><h2>Práctica</h2><p>1. Usa [40, 70]: hay dos nodos de actualización y uno de salida, aunque los tres sigan visibles.</p><p>2. Comenta text y comprueba que data no cambia las palabras del HTML.</p><p>Predice el resultado antes de editar el .js. Recarga la página para volver a partir del HTML inicial.</p></section><footer><a href="https://d3js.org/d3-selection/joining">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar resultados. Cada HTML carga su ejemplo desde la carpeta js. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/selectiondata.js"></script>
+</body></html>

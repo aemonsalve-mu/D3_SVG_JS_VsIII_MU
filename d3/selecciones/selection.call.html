@@ -1,0 +1,23 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>selection.call · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>selection.call</h1><p>Entrega la selección completa a una función y devuelve esa selección para poder seguir encadenando métodos.</p><section><h2>Sintaxis</h2><pre>seleccion.call(funcion, argumento)</pre><p><b>Resultado esperado:</b> Norte verde; Sur naranja y en negrita.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+<p>El HTML ya contiene los elementos iniciales. El archivo <code>js/selectioncall.js</code> se carga al final de la página, después de D3. Para probar cambios, edita ese archivo y recarga el HTML; el bloque mostrado aquí es una copia para leer.</p>
+<h3>HTML inicial dentro de #demo</h3><pre><code>&lt;p id=&quot;norte&quot;&gt;Norte&lt;/p&gt;&lt;p id=&quot;sur&quot;&gt;Sur&lt;/p&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. Esta función recibe una selección y un color.
+function colorear(seleccion, color) {
+  seleccion.style(&quot;color&quot;, color);
+}
+// 2. call entrega los argumentos a la función.
+d3.select(&quot;#norte&quot;).call(colorear, &quot;teal&quot;);
+// 3. Reutilizamos la función y seguimos con style.
+d3.select(&quot;#sur&quot;).call(colorear, &quot;orange&quot;).style(&quot;font-weight&quot;, &quot;bold&quot;);</code></pre>
+<h3>Resultado</h3><div id="demo" aria-label="Ejemplo de selection.call">
+<p id="norte">Norte</p><p id="sur">Sur</p>
+</div>
+<pre id="salida" aria-live="polite"></pre>
+<h3>Cómo leerlo</h3><p>call ejecuta la función una vez con la selección completa; each la ejecuta por nodo.</p>
+<p>Escribe call(colorear, &quot;teal&quot;), sin ejecutar antes colorear().</p>
+<p>Si todavía no distingues una selección singular de una múltiple, vuelve a <a href="d3.select.html">d3.select</a> y <a href="d3.selectAll.html">d3.selectAll</a>.</p></section><section><h2>Práctica</h2><p>1. Selecciona los dos párrafos y aplica call una sola vez.</p><p>2. Añade un fondo desde la función.</p><p>Predice el resultado antes de editar el .js. Recarga la página para volver a partir del HTML inicial.</p></section><footer><a href="https://d3js.org/d3-selection/control-flow">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar resultados. Cada HTML carga su ejemplo desde la carpeta js. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/selectioncall.js"></script>
+</body></html>

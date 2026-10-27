@@ -1,0 +1,23 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>selection.attr · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>selection.attr</h1><p>Escribe un atributo en todos los nodos seleccionados; con un argumento lee el atributo del primer nodo. null elimina el atributo.</p><section><h2>Sintaxis</h2><pre>seleccion.attr(&quot;nombre&quot;, valor)</pre><p><b>Resultado esperado:</b> Los dos radios pasan de 20 a 30. Solo el primer círculo queda naranja.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+<p>El HTML ya contiene los elementos iniciales. El archivo <code>js/selectionattr.js</code> se carga al final de la página, después de D3. Para probar cambios, edita ese archivo y recarga el HTML; el bloque mostrado aquí es una copia para leer.</p>
+<h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 300 110&quot;&gt;&lt;circle cx=&quot;70&quot; cy=&quot;55&quot; r=&quot;20&quot; fill=&quot;teal&quot;/&gt;&lt;circle cx=&quot;210&quot; cy=&quot;55&quot; r=&quot;20&quot; fill=&quot;teal&quot;/&gt;&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>const circulos = d3.select(&quot;#demo&quot;).selectAll(&quot;circle&quot;);
+// 1. La lectura devuelve texto: el radio del primer círculo.
+const antes = circulos.attr(&quot;r&quot;);
+// 2. La escritura cambia AMBOS círculos.
+circulos.attr(&quot;r&quot;, 30);
+// 3. Una selección singular cambia solo el primero.
+d3.select(&quot;#demo circle&quot;).attr(&quot;fill&quot;, &quot;orange&quot;);
+d3.select(&quot;#salida&quot;).text(&quot;Radio inicial: &quot; + antes + &quot;\nRadio final: &quot; + circulos.attr(&quot;r&quot;));</code></pre>
+<h3>Resultado</h3><div id="demo" aria-label="Ejemplo de selection.attr">
+<svg viewBox="0 0 300 110"><circle cx="70" cy="55" r="20" fill="teal"/><circle cx="210" cy="55" r="20" fill="teal"/></svg>
+</div>
+<pre id="salida" aria-live="polite"></pre>
+<h3>Cómo leerlo</h3><p>cx, cy, r y fill son atributos SVG. El SVG ya está escrito en el HTML.</p>
+<p>attr(&quot;r&quot;) lee; attr(&quot;r&quot;, 30) escribe. El número de argumentos cambia la operación.</p>
+<p>Si todavía no distingues una selección singular de una múltiple, vuelve a <a href="d3.select.html">d3.select</a> y <a href="d3.selectAll.html">d3.selectAll</a>.</p></section><section><h2>Práctica</h2><p>1. Prueba attr(&quot;fill&quot;, null) para quitar el atributo.</p><p>2. Añade un id al segundo círculo y selecciónalo por ese id.</p><p>Predice el resultado antes de editar el .js. Recarga la página para volver a partir del HTML inicial.</p></section><footer><a href="https://d3js.org/d3-selection/modifying">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar resultados. Cada HTML carga su ejemplo desde la carpeta js. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/selectionattr.js"></script>
+</body></html>

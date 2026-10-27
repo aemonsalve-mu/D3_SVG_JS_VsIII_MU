@@ -1,0 +1,21 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>selection.style · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>selection.style</h1><p>Escribe una propiedad CSS en los nodos seleccionados. Sin el segundo argumento lee el estilo del primer nodo; null retira la declaración en línea.</p><section><h2>Sintaxis</h2><pre>seleccion.style(&quot;propiedad CSS&quot;, &quot;valor&quot;)</pre><p><b>Resultado esperado:</b> Las tres zonas tienen texto verde y fondo verde claro; solo Norte está en negrita.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+<p>El HTML ya contiene los elementos iniciales. El archivo <code>js/selectionstyle.js</code> se carga al final de la página, después de D3. Para probar cambios, edita ese archivo y recarga el HTML; el bloque mostrado aquí es una copia para leer.</p>
+<h3>HTML inicial dentro de #demo</h3><pre><code>&lt;p class=&quot;zona&quot;&gt;Norte&lt;/p&gt;&lt;p class=&quot;zona&quot;&gt;Centro&lt;/p&gt;&lt;p class=&quot;zona&quot;&gt;Sur&lt;/p&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. Una instrucción cambia los tres párrafos.
+d3.selectAll(&quot;#demo .zona&quot;).style(&quot;color&quot;, &quot;teal&quot;);
+// 2. select cambia solo el primero.
+d3.select(&quot;#demo .zona&quot;).style(&quot;font-weight&quot;, &quot;bold&quot;);
+// 3. background y font-weight son propiedades CSS.
+d3.selectAll(&quot;#demo .zona&quot;).style(&quot;background&quot;, &quot;#ccebdc&quot;);</code></pre>
+<h3>Resultado</h3><div id="demo" aria-label="Ejemplo de selection.style">
+<p class="zona">Norte</p><p class="zona">Centro</p><p class="zona">Sur</p>
+</div>
+<pre id="salida" aria-live="polite"></pre>
+<h3>Cómo leerlo</h3><p>Las propiedades CSS con guion se escriben entre comillas: &quot;font-weight&quot;.</p>
+<p>Heredar un color CSS del padre no significa recibir un dato de D3.</p>
+<p>Si todavía no distingues una selección singular de una múltiple, vuelve a <a href="d3.select.html">d3.select</a> y <a href="d3.selectAll.html">d3.selectAll</a>.</p></section><section><h2>Práctica</h2><p>1. Sustituye selectAll por select en la primera instrucción.</p><p>2. Prueba style(&quot;color&quot;, null).</p><p>Predice el resultado antes de editar el .js. Recarga la página para volver a partir del HTML inicial.</p></section><footer><a href="https://d3js.org/d3-selection/modifying">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar resultados. Cada HTML carga su ejemplo desde la carpeta js. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/selectionstyle.js"></script>
+</body></html>

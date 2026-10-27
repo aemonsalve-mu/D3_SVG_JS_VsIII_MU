@@ -1,0 +1,23 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>d3.pie · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>d3.pie</h1><p>Calcula ángulos proporcionales a valores positivos; no dibuja. Su salida suele combinarse con d3.arc para generar sectores.</p><p class="notice">Estudia antes selección, atributos y SVG. Empieza por line y una transición sencilla; las áreas, arcos y sectores añaden conceptos.</p><section><h2>Sintaxis</h2><pre>const calcular = d3.pie().sort(null);
+const sectores = calcular([40,70,100]);</pre><p><b>Qué representan los números.</b> El vector [40,70,100] contiene cantidades, no tamaños ni coordenadas. pie calcula para cada dato los ángulos de un sector.</p><p><b>Resultado esperado:</b> Tres sectores cuya suma angular es 2π.</p></section><section>
+            <h2>Ejemplo D3 y SVG</h2>
+            <p>JavaScript del ejemplo y resultado para d3.pie.</p>
+            <p>Este ejemplo no necesita una figura inicial. Los resultados se escriben en el panel de salida.</p>
+<h3>JavaScript del ejemplo</h3><pre><code>// pie calcula ángulos; no dibuja por sí sola.
+const calcular = d3.pie().sort(null);
+const sectores = calcular([40, 70, 100]);
+// [0] es el primer sector; value, startAngle y endAngle son sus propiedades.
+d3.select(&quot;#salida&quot;).text(
+  &quot;Valor del primer sector: &quot; + sectores[0].value + &quot;\n&quot; +
+  &quot;Ángulo inicial: &quot; + sectores[0].startAngle + &quot;\n&quot; +
+  &quot;Ángulo final: &quot; + sectores[0].endAngle + &quot;\n&quot; +
+  &quot;Fin del último sector: &quot; + sectores[2].endAngle
+);</code></pre>
+            <div id="demo" aria-label="Visualización de d3.pie">
+
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Qué cambia y qué permanece.</b> La suma es 210. El primer ángulo mide (40/210)×2π, aproximadamente 1.197 radianes. La suma angular completa es 2π. pie no crea el path ni decide el radio; para dibujar se utiliza arc.</p><p>Para distinguir datos, posiciones y dimensiones, revisa <a href="../escalas/vectores-y-dimensiones.html">vectores y dimensiones</a> y <a href="../../svg/atributos/svg.viewBox.html">viewBox</a>. El HTML contiene la figura inicial; el .js calcula sus atributos o prepara la interacción.</p></section><section><h2>Práctica</h2><p>Duplica todas las cantidades a [80,140,200]: los ángulos deben permanecer iguales porque las proporciones no cambian.</p><p>Cambia una sola medida y predice el resultado antes de recargar el HTML.</p></section><footer><a href="https://d3js.org/api">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/d3pie.js"></script>
+</body></html>

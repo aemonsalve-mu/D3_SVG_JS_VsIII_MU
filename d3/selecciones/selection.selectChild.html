@@ -1,0 +1,49 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>selection.selectChild · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>selection.selectChild</h1><p>Selecciona el primer hijo directo coincidente de cada nodo seleccionado. No busca nietos. Si el padre tiene un dato enlazado, lo transmite al hijo seleccionado.</p><section><h2>Sintaxis</h2><pre>const grupo = d3.select(&quot;#grupo-a&quot;);
+grupo.selectChild(&quot;p&quot;);</pre><p>grupo es la selección del contenedor A. selectChild busca únicamente entre sus hijos directos; p indica la etiqueta que debe coincidir.</p><p><b>Resultado esperado:</b> Ana queda verde, Luis con fondo verde y Sara en negrita. La salida muestra Ana.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+<p>El HTML ya contiene los elementos iniciales. El archivo <code>js/selectionselectchild.js</code> se carga al final de la página, después de D3. Para probar cambios, edita ese archivo y recarga el HTML; el bloque mostrado aquí es una copia para leer.</p>
+<h3>HTML inicial dentro de #demo</h3><pre><code>&lt;div id=&quot;grupo-a&quot; class=&quot;grupo&quot;&gt;
+  &lt;h3&gt;Grupo A&lt;/h3&gt;
+  &lt;p class=&quot;alumno&quot;&gt;Ana&lt;/p&gt;
+  &lt;div class=&quot;subgrupo&quot;&gt;
+    &lt;p class=&quot;alumno&quot;&gt;Luis&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;alumno&quot;&gt;Eva&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;grupo-b&quot; class=&quot;grupo&quot;&gt;
+  &lt;h3&gt;Grupo B&lt;/h3&gt;
+  &lt;p class=&quot;alumno&quot;&gt;Sara&lt;/p&gt;
+  &lt;p class=&quot;alumno&quot;&gt;Leo&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>const grupo = d3.select(&quot;#grupo-a&quot;);
+// 1. select puede llegar hasta el párrafo anidado de Luis.
+grupo.select(&quot;.subgrupo p&quot;).style(&quot;background&quot;, &quot;#ccebdc&quot;);
+// 2. selectChild solo considera los hijos directos: Ana es la primera p.
+grupo.selectChild(&quot;p&quot;).style(&quot;color&quot;, &quot;teal&quot;);
+// 3. En el grupo B se elige Sara, aunque Leo también coincide.
+d3.select(&quot;#grupo-b&quot;).selectChild(&quot;.alumno&quot;).style(&quot;font-weight&quot;, &quot;bold&quot;);
+d3.select(&quot;#salida&quot;).text(&quot;Primer hijo p de A: &quot; + grupo.selectChild(&quot;p&quot;).text());</code></pre>
+<h3>Resultado</h3><div id="demo" aria-label="Ejemplo de selection.selectChild">
+<div id="grupo-a" class="grupo">
+  <h3>Grupo A</h3>
+  <p class="alumno">Ana</p>
+  <div class="subgrupo">
+    <p class="alumno">Luis</p>
+  </div>
+  <p class="alumno">Eva</p>
+</div>
+<div id="grupo-b" class="grupo">
+  <h3>Grupo B</h3>
+  <p class="alumno">Sara</p>
+  <p class="alumno">Leo</p>
+</div>
+</div>
+<pre id="salida" aria-live="polite"></pre>
+<h3>Cómo leerlo</h3><p>El h3 también es hijo directo, pero no coincide con p. Por eso selectChild(&quot;p&quot;) elige Ana.</p>
+<p>Sin selector, selectChild() elige el primer hijo que sea un elemento: aquí sería h3. No cuenta los saltos de línea como elementos.</p>
+<p>Para todos los hijos directos se utiliza selectChildren. Para buscar a cualquier profundidad se utiliza select o selectAll.</p>
+<p><b>Lectura de los ejemplos:</b> const guarda un valor o una selección con un nombre; las comillas delimitan texto. Un punto llama a un método y los paréntesis contienen sus argumentos. Al encadenar métodos, cada uno actúa sobre lo que devuelve el anterior.</p><p><b>Selectores CSS:</b> p es una etiqueta; .alumno es una clase que pueden compartir varios nodos; #grupo-a es un id que debe ser único. El espacio indica descendencia y &gt; exige un hijo directo.</p><p>Recorrido recomendado: <a href="d3.select.html">d3.select</a> · <a href="d3.selectAll.html">d3.selectAll</a> · <a href="selection.select.html">selection.select</a> · <a href="selection.selectAll.html">selection.selectAll</a> · <a href="selection.selectChild.html">selection.selectChild</a> · <a href="selection.selectChildren.html">selection.selectChildren</a></p><p><b>DOM y posición:</b> padre e hijo son niveles consecutivos; descendiente puede estar a varios niveles; hermanos comparten padre. Estas búsquedas devuelven nodos dentro del contenedor, no sus hermanos ni sus ancestros. Los selectores no mueven los nodos.</p></section><section><h2>Práctica</h2><p>1. Prueba selectChild() sin argumento y comprueba qué etiqueta cambia.</p><p>2. Mueve todo el div del subgrupo antes del párrafo de Ana: selectChild(&quot;p&quot;) debe seguir encontrando Ana.</p><p>Predice el resultado antes de editar el .js. Recarga la página para volver a partir del HTML inicial.</p></section><footer><a href="https://d3js.org/d3-selection/selecting">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar resultados. Cada HTML carga su ejemplo desde la carpeta js. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/selectionselectchild.js"></script>
+</body></html>

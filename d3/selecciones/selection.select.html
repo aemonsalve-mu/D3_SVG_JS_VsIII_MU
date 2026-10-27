@@ -1,0 +1,69 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>selection.select · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>selection.select</h1><p>Parte de una selección que ya has creado y busca dentro de cada uno de sus elementos. De cada contenedor elige solo el primer descendiente que coincide con el selector CSS.</p><section><h2>Sintaxis</h2><pre>const grupos = d3.selectAll(&quot;#demo .grupo&quot;);
+const primeros = grupos.select(&quot;.alumno&quot;);</pre><p><b>Cómo se lee:</b> primero guardamos los dos contenedores en una variable llamada <code>grupos</code>. Después, <code>grupos.select(".alumno")</code> busca el primer alumno dentro de cada contenedor. Guardamos el resultado en <code>primeros</code>.</p><p><code>grupos</code> y <code>primeros</code> son nombres que elegimos nosotros; no son comandos de D3. <code>select</code> sí es el nombre del método y se escribe así, en inglés. En la documentación, <code>selection.select</code> significa «llamar a select sobre una selección»; D3 no crea automáticamente una variable llamada selection.</p><p><b>Resultado esperado:</b> Dos alumnos elegidos: Ana y Sara quedan verdes. Luis tiene fondo verde. En la ampliación, el dato de Ana pasa de «Dato propio de Ana» a «Dato del grupo A»; su nombre visible no cambia.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+<p>El HTML ya contiene los elementos iniciales. El archivo <code>js/selectionselect.js</code> se carga al final de la página, después de D3. Para probar cambios, edita ese archivo y recarga el HTML; el bloque mostrado aquí es una copia para leer.</p>
+<h3>HTML inicial dentro de #demo</h3><pre><code>&lt;div id=&quot;grupo-a&quot; class=&quot;grupo&quot;&gt;
+  &lt;h3&gt;Grupo A&lt;/h3&gt;
+  &lt;p class=&quot;alumno&quot;&gt;Ana&lt;/p&gt;
+  &lt;div class=&quot;subgrupo&quot;&gt;
+    &lt;p class=&quot;alumno&quot;&gt;Luis&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;alumno&quot;&gt;Eva&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;grupo-b&quot; class=&quot;grupo&quot;&gt;
+  &lt;h3&gt;Grupo B&lt;/h3&gt;
+  &lt;p class=&quot;alumno&quot;&gt;Sara&lt;/p&gt;
+  &lt;p class=&quot;alumno&quot;&gt;Leo&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. d3.selectAll busca los dos contenedores en el documento.
+const grupos = d3.selectAll(&quot;#demo .grupo&quot;);
+
+// 2. select busca DENTRO de cada contenedor: Ana y Sara.
+const primeros = grupos.select(&quot;.alumno&quot;);
+primeros.style(&quot;color&quot;, &quot;teal&quot;);
+
+// 3. Una búsqueda también puede llegar a un descendiente anidado.
+const grupoA = d3.select(&quot;#grupo-a&quot;);
+grupoA.select(&quot;.subgrupo p&quot;).style(&quot;background&quot;, &quot;#ccebdc&quot;);
+
+// 4. Ampliación: datum guarda un dato, sin cambiar el texto HTML.
+// Lee primero la ficha datum si aún no conoces este método.
+grupoA.datum(&quot;Dato del grupo A&quot;);
+d3.select(&quot;#grupo-a &gt; p&quot;).datum(&quot;Dato propio de Ana&quot;);
+const antes = d3.select(&quot;#grupo-a &gt; p&quot;).datum();
+
+// 5. select desde grupoA transmite su dato a la primera alumna.
+grupoA.select(&quot;.alumno&quot;);
+const despues = d3.select(&quot;#grupo-a &gt; p&quot;).datum();
+
+d3.select(&quot;#salida&quot;).text(
+  &quot;Alumnos elegidos: &quot; + primeros.size() + &quot;\n&quot; +
+  &quot;Dato de Ana antes: &quot; + antes + &quot;\n&quot; +
+  &quot;Dato de Ana después: &quot; + despues
+);</code></pre>
+<h3>Resultado</h3><div id="demo" aria-label="Ejemplo de selection.select">
+<div id="grupo-a" class="grupo">
+  <h3>Grupo A</h3>
+  <p class="alumno">Ana</p>
+  <div class="subgrupo">
+    <p class="alumno">Luis</p>
+  </div>
+  <p class="alumno">Eva</p>
+</div>
+<div id="grupo-b" class="grupo">
+  <h3>Grupo B</h3>
+  <p class="alumno">Sara</p>
+  <p class="alumno">Leo</p>
+</div>
+</div>
+<pre id="salida" aria-live="polite"></pre>
+<h3>Cómo leerlo</h3><p><b>Documento frente a contenedor.</b> <code>d3.select(".alumno")</code> empieza en el documento y encuentra Ana. <code>grupos.select(".alumno")</code> empieza en cada contenedor ya seleccionado: encuentra Ana en A y Sara en B.</p>
+<p><b>Uno por contenedor.</b> select no significa siempre «un único nodo en toda la página». Si partes de dos contenedores, puede devolver dos nodos, uno por cada contenedor donde encuentre una coincidencia.</p>
+<p><b>Descendiente no significa hijo directo.</b> Luis está dentro del div del subgrupo. <code>grupoA.select(".subgrupo p")</code> puede encontrarlo porque select busca también a varios niveles. Para exigir un hijo directo utiliza <a href="selection.selectChild.html">selectChild</a>.</p>
+<p><b>La posición no cambia.</b> Buscar un alumno no lo mueve de contenedor ni modifica sus hermanos. Si un contenedor no tiene coincidencia, no aporta ningún nodo a ese resultado.</p>
+<p><b>La transmisión del dato es un paso posterior.</b> Solo si el contenedor tiene un dato enlazado, select lo asigna al descendiente encontrado y puede reemplazar su dato anterior. El parentesco HTML por sí solo no transmite datos. Estudia <a href="selection.datum.html">datum</a> antes de las últimas líneas del ejemplo. La herencia de colores CSS es otro mecanismo.</p>
+<p><b>Lectura de los ejemplos:</b> const guarda un valor o una selección con un nombre; las comillas delimitan texto. Un punto llama a un método y los paréntesis contienen sus argumentos. Al encadenar métodos, cada uno actúa sobre lo que devuelve el anterior.</p><p><b>Selectores CSS:</b> p es una etiqueta; .alumno es una clase que pueden compartir varios nodos; #grupo-a es un id que debe ser único. El espacio indica descendencia y &gt; exige un hijo directo.</p><p><b>Dato:</b> datum(valor) asocia un dato a un nodo y datum() lo lee. data([valor1, valor2]) reparte valores entre nodos. Estas operaciones no escriben texto por sí solas. Puedes revisar <a href="selection.datum.html">datum</a> y <a href="selection.data.html">data</a> por separado.</p><p>Recorrido recomendado: <a href="d3.select.html">d3.select</a> · <a href="d3.selectAll.html">d3.selectAll</a> · <a href="selection.select.html">selection.select</a> · <a href="selection.selectAll.html">selection.selectAll</a> · <a href="selection.selectChild.html">selection.selectChild</a> · <a href="selection.selectChildren.html">selection.selectChildren</a></p><p><b>DOM y posición:</b> padre e hijo son niveles consecutivos; descendiente puede estar a varios niveles; hermanos comparten padre. Estas búsquedas devuelven nodos dentro del contenedor, no sus hermanos ni sus ancestros. Los selectores no mueven los nodos.</p></section><section><h2>Práctica</h2><p>1. Sustituye grupos.select por grupos.selectAll. ¿Cuántos alumnos quedan verdes?</p><p>2. Comenta grupoA.select(&quot;.alumno&quot;) en la ampliación. ¿Qué dato conserva Ana?</p><p>3. Cambia .subgrupo p por .alumno en la tercera parte: ¿qué párrafo encuentra ahora dentro de A?</p><p>Predice el resultado antes de editar el .js. Recarga la página para volver a partir del HTML inicial.</p></section><footer><a href="https://d3js.org/d3-selection/selecting">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar resultados. Cada HTML carga su ejemplo desde la carpeta js. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/selectionselect.js"></script>
+</body></html>

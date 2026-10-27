@@ -1,0 +1,25 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>selection.datum · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>selection.datum</h1><p>Asocia un dato a cada nodo sin calcular entradas ni salidas. Sin argumentos lee el dato del primer nodo; null lo elimina.</p><section><h2>Sintaxis</h2><pre>seleccion.datum(dato)</pre><p><b>Resultado esperado:</b> La salida indica 40. Los párrafos muestran Venta: 40 y Venta: 70.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+<p>El HTML ya contiene los elementos iniciales. El archivo <code>js/selectiondatum.js</code> se carga al final de la página, después de D3. Para probar cambios, edita ese archivo y recarga el HTML; el bloque mostrado aquí es una copia para leer.</p>
+<h3>HTML inicial dentro de #demo</h3><pre><code>&lt;p id=&quot;norte&quot;&gt;Texto inicial de Norte&lt;/p&gt;&lt;p id=&quot;sur&quot;&gt;Texto inicial de Sur&lt;/p&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. Guardar un dato NO cambia el texto que había.
+d3.select(&quot;#norte&quot;).datum(40);
+d3.select(&quot;#sur&quot;).datum(70);
+// 2. Leemos el dato de Norte.
+const venta = d3.select(&quot;#norte&quot;).datum();
+d3.select(&quot;#salida&quot;).text(&quot;Dato de Norte: &quot; + venta);
+// 3. Ahora escribimos texto a partir de cada dato.
+d3.selectAll(&quot;#demo p&quot;).text(function(d) {
+  return &quot;Venta: &quot; + d;
+});</code></pre>
+<h3>Resultado</h3><div id="demo" aria-label="Ejemplo de selection.datum">
+<p id="norte">Texto inicial de Norte</p><p id="sur">Texto inicial de Sur</p>
+</div>
+<pre id="salida" aria-live="polite"></pre>
+<h3>Cómo leerlo</h3><p>Un dato D3 no es el texto ni un atributo HTML del nodo.</p>
+<p>datum([40, 70]) guarda el array completo en cada nodo; data([40, 70]) reparte un valor por nodo del grupo.</p>
+<p>Si todavía no distingues una selección singular de una múltiple, vuelve a <a href="d3.select.html">d3.select</a> y <a href="d3.selectAll.html">d3.selectAll</a>.</p><p>En <code>function(d)</code>, <code>d</code> es el dato del nodo. <code>return</code> entrega el resultado que D3 utilizará. Si aparece <code>i</code>, es el índice dentro del grupo y empieza en 0.</p></section><section><h2>Práctica</h2><p>1. Comenta la última llamada a text: guardar datos no modifica el texto inicial.</p><p>2. Asigna datum(100) a los dos párrafos.</p><p>Predice el resultado antes de editar el .js. Recarga la página para volver a partir del HTML inicial.</p></section><footer><a href="https://d3js.org/d3-selection/joining">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar resultados. Cada HTML carga su ejemplo desde la carpeta js. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/selectiondatum.js"></script>
+</body></html>

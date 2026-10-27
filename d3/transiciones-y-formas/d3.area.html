@@ -1,0 +1,21 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>d3.area · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>d3.area</h1><p>Genera un path cerrado entre dos límites.</p><p class="notice">Estudia antes selección, atributos y SVG. Empieza por line y una transición sencilla; las áreas, arcos y sectores añaden conceptos.</p><section><h2>Sintaxis</h2><pre>const puntos = [[30,130],[150,90],[270,110],[400,25]];
+const area = d3.area().x(function(d) { return d[0]; }).y0(150).y1(function(d) { return d[1]; });</pre><p><b>Qué representan los números.</b> puntos contiene parejas [x,y] de la frontera superior; y0(150) fija la base común. Los dos límites son posiciones, no alturas.</p><p><b>Resultado esperado:</b> Área rellena hasta la línea base 150.</p></section><section>
+            <h2>Ejemplo D3 y SVG</h2>
+            <p>JavaScript del ejemplo y resultado para d3.area.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 500 170&quot;&gt;&lt;path id=&quot;forma&quot; fill=&quot;#8bd0b7&quot;/&gt;&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>const puntos = [[30, 130], [150, 90], [270, 110], [400, 25]];
+// d es una pareja [x, y]; d[0] es x y d[1] es y.
+const area = d3.area().x(function(d) {
+  return d[0];
+}).y0(150).y1(function(d) {
+  return d[1];
+});
+d3.select(&quot;#forma&quot;).attr(&quot;d&quot;, area(puntos));</code></pre>
+            <div id="demo" aria-label="Visualización de d3.area">
+<svg viewBox="0 0 500 170"><path id="forma" fill="#8bd0b7"/></svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Qué cambia y qué permanece.</b> En el punto [150,90], la distancia vertical hasta la base es 150−90=60. La función de x devuelve d[0] y la de y1 devuelve d[1]. return entrega una coordenada por punto.</p><p>Para distinguir datos, posiciones y dimensiones, revisa <a href="../escalas/vectores-y-dimensiones.html">vectores y dimensiones</a> y <a href="../../svg/atributos/svg.viewBox.html">viewBox</a>. El HTML contiene la figura inicial; el .js calcula sus atributos o prepara la interacción.</p></section><section><h2>Práctica</h2><p>Cambia y0 de 150 a 160: la base baja 10 y el área se amplía sin mover los puntos de la frontera superior.</p><p>Cambia una sola medida y predice el resultado antes de recargar el HTML.</p></section><footer><a href="https://d3js.org/api">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/d3area.js"></script>
+</body></html>

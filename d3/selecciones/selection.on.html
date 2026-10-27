@@ -1,0 +1,24 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>selection.on · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>selection.on</h1><p>Registra una función para un evento. En D3 7 recibe event y el dato d; con function, this es el nodo que tiene el escuchador.</p><section><h2>Sintaxis</h2><pre>seleccion.on(&quot;click&quot;, function(event, d) { ... })</pre><p><b>Resultado esperado:</b> Al pulsar un botón se muestra su zona y click; ese botón queda naranja.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+<p>El HTML ya contiene los elementos iniciales. El archivo <code>js/selectionon.js</code> se carga al final de la página, después de D3. Para probar cambios, edita ese archivo y recarga el HTML; el bloque mostrado aquí es una copia para leer.</p>
+<h3>HTML inicial dentro de #demo</h3><pre><code>&lt;button class=&quot;zona&quot;&gt;Norte&lt;/button&gt;&lt;button class=&quot;zona&quot;&gt;Sur&lt;/button&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. Un dato por botón.
+const botones = d3.selectAll(&quot;#demo .zona&quot;).data([&quot;Norte&quot;, &quot;Sur&quot;]);
+// 2. Esta función espera un clic; no se ejecuta al registrarla.
+botones.on(&quot;click.detalle&quot;, function(event, d) {
+  d3.select(&quot;#salida&quot;).text(&quot;Zona seleccionada: &quot; + d + &quot;\nEvento: &quot; + event.type);
+  d3.select(this).style(&quot;background&quot;, &quot;orange&quot;);
+});
+// 3. Para retirar el escuchador, descomenta la línea siguiente.
+// botones.on(&quot;.detalle&quot;, null);</code></pre>
+<h3>Resultado</h3><div id="demo" aria-label="Ejemplo de selection.on">
+<button class="zona">Norte</button><button class="zona">Sur</button>
+</div>
+<pre id="salida" aria-live="polite"></pre>
+<h3>Cómo leerlo</h3><p>event contiene información del clic; d es el dato del botón. No son el mismo argumento.</p>
+<p>El sufijo .detalle es un nombre de escuchador D3, no una clase CSS. Permite retirarlo sin quitar otros.</p>
+<p>Si todavía no distingues una selección singular de una múltiple, vuelve a <a href="d3.select.html">d3.select</a> y <a href="d3.selectAll.html">d3.selectAll</a>.</p></section><section><h2>Práctica</h2><p>1. Descomenta la última línea.</p><p>2. Prueba mouseenter.detalle en lugar de click.detalle.</p><p>Predice el resultado antes de editar el .js. Recarga la página para volver a partir del HTML inicial.</p></section><footer><a href="https://d3js.org/d3-selection/events">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar resultados. Cada HTML carga su ejemplo desde la carpeta js. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/selectionon.js"></script>
+</body></html>

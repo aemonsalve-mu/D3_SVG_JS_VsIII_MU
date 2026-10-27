@@ -1,0 +1,19 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>selection.html · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>selection.html</h1><p>Interpreta una cadena como HTML y reemplaza los hijos del nodo. Usa contenido conocido; para texto sin interpretar etiquetas usa text.</p><section><h2>Sintaxis</h2><pre>seleccion.html(&quot;marcado HTML&quot;)</pre><p><b>Resultado esperado:</b> El primer bloque muestra 100 en negrita; el segundo muestra las etiquetas.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+<p>El HTML ya contiene los elementos iniciales. El archivo <code>js/selectionhtml.js</code> se carga al final de la página, después de D3. Para probar cambios, edita ese archivo y recarga el HTML; el bloque mostrado aquí es una copia para leer.</p>
+<h3>HTML inicial dentro de #demo</h3><pre><code>&lt;div id=&quot;con-html&quot;&gt;&lt;p&gt;Contenido anterior&lt;/p&gt;&lt;/div&gt;&lt;div id=&quot;con-texto&quot;&gt;&lt;/div&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. html crea un párrafo con una palabra en negrita.
+d3.select(&quot;#con-html&quot;).html(&quot;&lt;p&gt;Ventas: &lt;b&gt;100&lt;/b&gt;&lt;/p&gt;&quot;);
+// 2. text muestra literalmente la misma cadena.
+d3.select(&quot;#con-texto&quot;).text(&quot;&lt;p&gt;Ventas: &lt;b&gt;100&lt;/b&gt;&lt;/p&gt;&quot;);</code></pre>
+<h3>Resultado</h3><div id="demo" aria-label="Ejemplo de selection.html">
+<div id="con-html"><p>Contenido anterior</p></div><div id="con-texto"></div>
+</div>
+<pre id="salida" aria-live="polite"></pre>
+<h3>Cómo leerlo</h3><p>Aquí html es el concepto estudiado; en las otras fichas el HTML inicial ya está en el archivo .html.</p>
+<p>Este método está destinado a elementos HTML. Para SVG escribe el marcado en el HTML o crea figuras con append.</p>
+<p>Si todavía no distingues una selección singular de una múltiple, vuelve a <a href="d3.select.html">d3.select</a> y <a href="d3.selectAll.html">d3.selectAll</a>.</p></section><section><h2>Práctica</h2><p>1. Cambia b por em.</p><p>2. Comprueba que Contenido anterior desaparece.</p><p>Predice el resultado antes de editar el .js. Recarga la página para volver a partir del HTML inicial.</p></section><footer><a href="https://d3js.org/d3-selection/modifying">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar resultados. Cada HTML carga su ejemplo desde la carpeta js. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/selectionhtml.js"></script>
+</body></html>

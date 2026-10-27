@@ -1,0 +1,20 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>selection.remove · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>selection.remove</h1><p>Retira del DOM los nodos seleccionados y sus descendientes. La selección devuelta sigue haciendo referencia a los nodos retirados.</p><section><h2>Sintaxis</h2><pre>seleccion.remove()</pre><p><b>Resultado esperado:</b> Solo queda Norte; el contador es 1.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+<p>El HTML ya contiene los elementos iniciales. El archivo <code>js/selectionremove.js</code> se carga al final de la página, después de D3. Para probar cambios, edita ese archivo y recarga el HTML; el bloque mostrado aquí es una copia para leer.</p>
+<h3>HTML inicial dentro de #demo</h3><pre><code>&lt;div id=&quot;lista&quot;&gt;&lt;p&gt;Norte&lt;/p&gt;&lt;p class=&quot;retirar&quot;&gt;Centro&lt;/p&gt;&lt;p class=&quot;retirar&quot;&gt;Sur&lt;/p&gt;&lt;/div&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. selectAll encuentra dos párrafos; remove los retira.
+d3.selectAll(&quot;#lista .retirar&quot;).remove();
+// 2. Una nueva selección cuenta los nodos que quedan.
+const restantes = d3.select(&quot;#lista&quot;).selectAll(&quot;p&quot;);
+d3.select(&quot;#salida&quot;).text(&quot;Párrafos restantes: &quot; + restantes.size());</code></pre>
+<h3>Resultado</h3><div id="demo" aria-label="Ejemplo de selection.remove">
+<div id="lista"><p>Norte</p><p class="retirar">Centro</p><p class="retirar">Sur</p></div>
+</div>
+<pre id="salida" aria-live="polite"></pre>
+<h3>Cómo leerlo</h3><p>remove retira el nodo; no se limita a ocultarlo.</p>
+<p>Al retirar un contenedor, sus hijos también dejan de mostrarse.</p>
+<p>Si todavía no distingues una selección singular de una múltiple, vuelve a <a href="d3.select.html">d3.select</a> y <a href="d3.selectAll.html">d3.selectAll</a>.</p></section><section><h2>Práctica</h2><p>1. Cambia selectAll por select: solo se retira Centro.</p><p>2. Selecciona #lista para retirarlo completo.</p><p>Predice el resultado antes de editar el .js. Recarga la página para volver a partir del HTML inicial.</p></section><footer><a href="https://d3js.org/d3-selection/modifying">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar resultados. Cada HTML carga su ejemplo desde la carpeta js. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/selectionremove.js"></script>
+</body></html>

@@ -1,0 +1,24 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>selection.size · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>selection.size</h1><p>Cuenta los nodos no nulos de la selección. Cuenta elementos, no datos ni hijos ni coincidencias futuras.</p><section><h2>Sintaxis</h2><pre>seleccion.size()</pre><p><b>Resultado esperado:</b> Cuatro zonas visibles. Los contadores son 3, 3 y 4.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+<p>El HTML ya contiene los elementos iniciales. El archivo <code>js/selectionsize.js</code> se carga al final de la página, después de D3. Para probar cambios, edita ese archivo y recarga el HTML; el bloque mostrado aquí es una copia para leer.</p>
+<h3>HTML inicial dentro de #demo</h3><pre><code>&lt;div id=&quot;lista&quot;&gt;&lt;p class=&quot;zona&quot;&gt;Norte&lt;/p&gt;&lt;p class=&quot;zona&quot;&gt;Centro&lt;/p&gt;&lt;p class=&quot;zona&quot;&gt;Sur&lt;/p&gt;&lt;/div&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>const zonas = d3.selectAll(&quot;#lista .zona&quot;);
+const antes = zonas.size();
+// 1. Añadimos un nodo al DOM.
+d3.select(&quot;#lista&quot;).append(&quot;p&quot;).attr(&quot;class&quot;, &quot;zona&quot;).text(&quot;Oeste&quot;);
+// 2. La selección guardada mantiene sus nodos originales.
+const guardada = zonas.size();
+// 3. Una nueva búsqueda sí encuentra los cuatro.
+const actual = d3.selectAll(&quot;#lista .zona&quot;).size();
+d3.select(&quot;#salida&quot;).text(&quot;Antes: &quot; + antes + &quot;\nSelección guardada: &quot; + guardada + &quot;\nNueva selección: &quot; + actual);</code></pre>
+<h3>Resultado</h3><div id="demo" aria-label="Ejemplo de selection.size">
+<div id="lista"><p class="zona">Norte</p><p class="zona">Centro</p><p class="zona">Sur</p></div>
+</div>
+<pre id="salida" aria-live="polite"></pre>
+<h3>Cómo leerlo</h3><p>Una selección no se actualiza automáticamente al cambiar el DOM.</p>
+<p>d3.select(&quot;#lista&quot;).size() devuelve 1: cuenta el contenedor, no sus párrafos.</p>
+<p>Si todavía no distingues una selección singular de una múltiple, vuelve a <a href="d3.select.html">d3.select</a> y <a href="d3.selectAll.html">d3.selectAll</a>.</p></section><section><h2>Práctica</h2><p>1. Cuenta con select en lugar de selectAll.</p><p>2. Retira una zona y compara una selección guardada con una nueva.</p><p>Predice el resultado antes de editar el .js. Recarga la página para volver a partir del HTML inicial.</p></section><footer><a href="https://d3js.org/d3-selection/control-flow">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar resultados. Cada HTML carga su ejemplo desde la carpeta js. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/selectionsize.js"></script>
+</body></html>

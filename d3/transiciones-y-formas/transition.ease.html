@@ -1,0 +1,22 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>transition.ease · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>transition.ease</h1><p>Función de ritmo de la animación.</p><p class="notice">Estudia antes selección, atributos y SVG. Empieza por line y una transición sencilla; las áreas, arcos y sectores añaden conceptos.</p><section><h2>Sintaxis</h2><pre>const circulo = d3.select(&quot;#circulo&quot;);
+circulo.transition().ease(d3.easeLinear).attr(&quot;cx&quot;,450);</pre><p><b>Qué representan los números.</b> ease recibe una función que transforma el progreso temporal normalizado, de 0 a 1. No recibe un vector de coordenadas.</p><p><b>Resultado esperado:</b> Animar aplica el parámetro al movimiento.</p></section><section>
+            <h2>Ejemplo D3 y SVG</h2>
+            <p>JavaScript del ejemplo y resultado para transition.ease.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 560 150&quot;&gt;&lt;circle id=&quot;circulo&quot; cx=&quot;50&quot; cy=&quot;70&quot; r=&quot;22&quot; fill=&quot;teal&quot;/&gt;&lt;/svg&gt;
+&lt;button id=&quot;animar&quot;&gt;Animar&lt;/button&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>const circulo = d3.select(&quot;#circulo&quot;);
+
+// La animación empieza al pulsar el botón del HTML.
+d3.select(&quot;#animar&quot;).on(&quot;click&quot;, function() {
+  circulo.interrupt().attr(&quot;cx&quot;, 50);
+  circulo.transition().ease(d3.easeLinear).attr(&quot;cx&quot;, 450);
+});</code></pre>
+            <div id="demo" aria-label="Visualización de transition.ease">
+<svg viewBox="0 0 560 150"><circle id="circulo" cx="50" cy="70" r="22" fill="teal"/></svg>
+<button id="animar">Animar</button>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Qué cambia y qué permanece.</b> d3.easeLinear produce progreso uniforme en este cambio numérico de cx. No es la misma función que d3.scaleLinear, que transforma valores entre dominio y rango.</p><p>Para distinguir datos, posiciones y dimensiones, revisa <a href="../escalas/vectores-y-dimensiones.html">vectores y dimensiones</a> y <a href="../../svg/atributos/svg.viewBox.html">viewBox</a>. El HTML contiene la figura inicial; el .js calcula sus atributos o prepara la interacción.</p></section><section><h2>Práctica</h2><p>Compara d3.easeLinear con d3.easeCubicInOut manteniendo iguales distancia y duración.</p><p>Cambia una sola medida y predice el resultado antes de recargar el HTML.</p></section><footer><a href="https://d3js.org/api">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/transitionease.js"></script>
+</body></html>

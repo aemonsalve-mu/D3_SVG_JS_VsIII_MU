@@ -1,0 +1,28 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>selection.enter · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>selection.enter</h1><p>Devuelve los marcadores de datos sin nodo. append crea los elementos que faltan; enter por sí sola no dibuja.</p><section><h2>Sintaxis</h2><pre>enlace.enter().append(&quot;etiqueta&quot;)</pre><p><b>Resultado esperado:</b> Norte — existente, Centro — nuevo y Sur — nuevo. Se crean dos párrafos.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+<p>El HTML ya contiene los elementos iniciales. El archivo <code>js/selectionenter.js</code> se carga al final de la página, después de D3. Para probar cambios, edita ese archivo y recarga el HTML; el bloque mostrado aquí es una copia para leer.</p>
+<h3>HTML inicial dentro de #demo</h3><pre><code>&lt;div id=&quot;lista&quot;&gt;&lt;p&gt;Norte ya estaba en el HTML&lt;/p&gt;&lt;/div&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>const lista = d3.select(&quot;#lista&quot;);
+// 1. Hay un nodo existente y tres datos.
+const enlace = lista.selectAll(&quot;p&quot;).data([&quot;Norte&quot;, &quot;Centro&quot;, &quot;Sur&quot;]);
+const faltan = enlace.enter().size();
+// 2. Creamos solo los dos párrafos que faltan.
+enlace.enter().append(&quot;p&quot;).text(function(d) {
+  return d + &quot; — nuevo&quot;;
+});
+// 3. Actualizamos por separado el párrafo existente.
+enlace.text(function(d) {
+  return d + &quot; — existente&quot;;
+});
+d3.select(&quot;#salida&quot;).text(&quot;Párrafos creados: &quot; + faltan);</code></pre>
+<h3>Resultado</h3><div id="demo" aria-label="Ejemplo de selection.enter">
+<div id="lista"><p>Norte ya estaba en el HTML</p></div>
+</div>
+<pre id="salida" aria-live="polite"></pre>
+<h3>Cómo leerlo</h3><p>Los marcadores recuerdan el padre donde deben crearse los nodos. Por eso la búsqueda se hace desde #lista.</p>
+<p>enter no incluye los nodos que ya existían. merge y join permiten actuar sobre nuevos y existentes.</p>
+<p>Si todavía no distingues una selección singular de una múltiple, vuelve a <a href="d3.select.html">d3.select</a> y <a href="d3.selectAll.html">d3.selectAll</a>.</p><p>En <code>function(d)</code>, <code>d</code> es el dato del nodo. <code>return</code> entrega el resultado que D3 utilizará. Si aparece <code>i</code>, es el índice dentro del grupo y empieza en 0.</p></section><section><h2>Práctica</h2><p>1. Empieza con dos párrafos en el HTML.</p><p>2. Añade Oeste al array.</p><p>Predice el resultado antes de editar el .js. Recarga la página para volver a partir del HTML inicial.</p></section><footer><a href="https://d3js.org/d3-selection/joining">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar resultados. Cada HTML carga su ejemplo desde la carpeta js. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/selectionenter.js"></script>
+</body></html>

@@ -1,0 +1,17 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>d3.arc · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>d3.arc</h1><p>Genera sectores y anillos a partir de radios y ángulos en radianes.</p><p class="notice">Estudia antes selección, atributos y SVG. Empieza por line y una transición sencilla; las áreas, arcos y sectores añaden conceptos.</p><section><h2>Sintaxis</h2><pre>const arco = d3.arc().innerRadius(40).outerRadius(85);
+arco.startAngle(0).endAngle(Math.PI * 1.5);</pre><p><b>Qué representan los números.</b> innerRadius=40 y outerRadius=85 son radios, no diámetros. startAngle y endAngle se expresan en radianes, no en grados.</p><p><b>Resultado esperado:</b> Tres cuartos de un anillo.</p></section><section>
+            <h2>Ejemplo D3 y SVG</h2>
+            <p>JavaScript del ejemplo y resultado para d3.arc.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 300 220&quot;&gt;&lt;path id=&quot;forma&quot; transform=&quot;translate(150,110)&quot; fill=&quot;teal&quot;/&gt;&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// Radios en unidades SVG; ángulos en radianes.
+const arco = d3.arc().innerRadius(40).outerRadius(85);
+arco.startAngle(0).endAngle(Math.PI * 1.5);
+d3.select(&quot;#forma&quot;).attr(&quot;d&quot;, arco());</code></pre>
+            <div id="demo" aria-label="Visualización de d3.arc">
+<svg viewBox="0 0 300 220"><path id="forma" transform="translate(150,110)" fill="teal"/></svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Qué cambia y qué permanece.</b> El ángulo final 1.5π corresponde a 270°. La traslación del path a (150,110) sitúa el centro, sin cambiar los radios. El grosor del anillo es 85−40=45.</p><p>Para distinguir datos, posiciones y dimensiones, revisa <a href="../escalas/vectores-y-dimensiones.html">vectores y dimensiones</a> y <a href="../../svg/atributos/svg.viewBox.html">viewBox</a>. El HTML contiene la figura inicial; el .js calcula sus atributos o prepara la interacción.</p></section><section><h2>Práctica</h2><p>Cambia innerRadius a 0 para obtener un sector sin hueco; conserva outerRadius para mantener el diámetro exterior 170.</p><p>Cambia una sola medida y predice el resultado antes de recargar el HTML.</p></section><footer><a href="https://d3js.org/api">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/d3arc.js"></script>
+</body></html>

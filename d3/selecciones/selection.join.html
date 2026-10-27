@@ -1,0 +1,27 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>selection.join · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>selection.join</h1><p>Después de data crea los nodos que faltan, conserva los emparejados, retira los sobrantes y devuelve la selección resultante.</p><section><h2>Sintaxis</h2><pre>seleccion.data(datos).join(&quot;etiqueta&quot;)</pre><p><b>Resultado esperado:</b> Al terminar quedan Norte y Sur. Los contadores son 3 y 2.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+<p>El HTML ya contiene los elementos iniciales. El archivo <code>js/selectionjoin.js</code> se carga al final de la página, después de D3. Para probar cambios, edita ese archivo y recarga el HTML; el bloque mostrado aquí es una copia para leer.</p>
+<h3>HTML inicial dentro de #demo</h3><pre><code>&lt;div id=&quot;lista&quot;&gt;&lt;p&gt;Texto anterior&lt;/p&gt;&lt;/div&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>const lista = d3.select(&quot;#lista&quot;);
+// 1. Pasamos de uno a tres párrafos: se crean dos.
+lista.selectAll(&quot;p&quot;).data([&quot;Norte&quot;, &quot;Centro&quot;, &quot;Sur&quot;]).join(&quot;p&quot;).text(function(d) {
+  return d;
+});
+const primeraCantidad = lista.selectAll(&quot;p&quot;).size();
+// 2. Pasamos de tres a dos: se retira un nodo.
+lista.selectAll(&quot;p&quot;).data([&quot;Norte&quot;, &quot;Sur&quot;]).join(&quot;p&quot;).text(function(d) {
+  return d;
+});
+d3.select(&quot;#salida&quot;).text(&quot;Primera actualización: &quot; + primeraCantidad + &quot;\nSegunda actualización: &quot; + lista.selectAll(&quot;p&quot;).size());</code></pre>
+<h3>Resultado</h3><div id="demo" aria-label="Ejemplo de selection.join">
+<div id="lista"><p>Texto anterior</p></div>
+</div>
+<pre id="salida" aria-live="polite"></pre>
+<h3>Cómo leerlo</h3><p>Las instrucciones se ejecutan en orden al cargar; se ve el estado final. El contador registra el intermedio.</p>
+<p>Sin clave, el segundo nodo se reutiliza para Sur y se retira el tercero. D3 no identifica nodos por el texto.</p>
+<p>join resume el patrón de enter, actualización y exit; no acumula párrafos en cada actualización.</p>
+<p>Si todavía no distingues una selección singular de una múltiple, vuelve a <a href="d3.select.html">d3.select</a> y <a href="d3.selectAll.html">d3.selectAll</a>.</p><p>En <code>function(d)</code>, <code>d</code> es el dato del nodo. <code>return</code> entrega el resultado que D3 utilizará. Si aparece <code>i</code>, es el índice dentro del grupo y empieza en 0.</p></section><section><h2>Práctica</h2><p>1. Añade una tercera actualización con un dato.</p><p>2. Compara con enter y exit.</p><p>Predice el resultado antes de editar el .js. Recarga la página para volver a partir del HTML inicial.</p></section><footer><a href="https://d3js.org/d3-selection/joining">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar resultados. Cada HTML carga su ejemplo desde la carpeta js. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/selectionjoin.js"></script>
+</body></html>

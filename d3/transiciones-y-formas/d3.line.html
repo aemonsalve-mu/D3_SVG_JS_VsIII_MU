@@ -1,0 +1,20 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>d3.line · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>d3.line</h1><p>Genera el atributo d de un path desde una serie; no crea nodos.</p><p class="notice">Estudia antes selección, atributos y SVG. Empieza por line y una transición sencilla; las áreas, arcos y sectores añaden conceptos.</p><section><h2>Sintaxis</h2><pre>const puntos = [[30,130],[150,90],[270,110],[400,25]];
+const linea = d3.line();
+const ruta = linea(puntos);</pre><p><b>Qué representan los números.</b> Cada fila de puntos es una pareja [x,y]. [30,130] significa una posición: x=30,y=130; no una figura de ancho 30 y alto 130.</p><p><b>Resultado esperado:</b> Una línea une los cuatro puntos.</p></section><section>
+            <h2>Ejemplo D3 y SVG</h2>
+            <p>JavaScript del ejemplo y resultado para d3.line.</p>
+            <h3>HTML inicial dentro de #demo</h3><pre><code>&lt;svg viewBox=&quot;0 0 500 170&quot;&gt;&lt;path id=&quot;forma&quot; fill=&quot;none&quot; stroke=&quot;teal&quot;/&gt;&lt;/svg&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// Cada pareja contiene [x, y]. d3.line ya usa esas posiciones por defecto.
+const puntos = [[30, 130], [150, 90], [270, 110], [400, 25]];
+const linea = d3.line();
+const ruta = linea(puntos);
+d3.select(&quot;#forma&quot;).attr(&quot;d&quot;, ruta);
+d3.select(&quot;#salida&quot;).text(ruta);</code></pre>
+            <div id="demo" aria-label="Visualización de d3.line">
+<svg viewBox="0 0 500 170"><path id="forma" fill="none" stroke="teal"/></svg>
+</div>
+            <pre id="salida" aria-live="polite"></pre><h3>Cómo leerlo, paso a paso</h3><p><b>Qué cambia y qué permanece.</b> d3.line usa por defecto d[0] como x y d[1] como y. Estos valores ya son coordenadas SVG. Si fueran tiempo y ventas en sus unidades originales, habría que transformarlos antes mediante escalas.</p><p>Para distinguir datos, posiciones y dimensiones, revisa <a href="../escalas/vectores-y-dimensiones.html">vectores y dimensiones</a> y <a href="../../svg/atributos/svg.viewBox.html">viewBox</a>. El HTML contiene la figura inicial; el .js calcula sus atributos o prepara la interacción.</p></section><section><h2>Práctica</h2><p>Cambia el segundo punto de [150,90] a [150,40]: solo debe subir ese vértice. El lienzo y los demás puntos no cambian.</p><p>Cambia una sola medida y predice el resultado antes de recargar el HTML.</p></section><footer><a href="https://d3js.org/api">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar los resultados. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/d3line.js"></script>
+</body></html>

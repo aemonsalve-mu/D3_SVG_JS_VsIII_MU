@@ -1,0 +1,25 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>selection.order · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>selection.order</h1><p>Mueve los nodos hermanos del DOM para que sigan el orden de la selección. No calcula una ordenación por valores.</p><section><h2>Sintaxis</h2><pre>seleccion.order()</pre><p><b>Resultado esperado:</b> Sur, Norte y Centro. Se reutilizan los mismos nodos.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+<p>El HTML ya contiene los elementos iniciales. El archivo <code>js/selectionorder.js</code> se carga al final de la página, después de D3. Para probar cambios, edita ese archivo y recarga el HTML; el bloque mostrado aquí es una copia para leer.</p>
+<h3>HTML inicial dentro de #demo</h3><pre><code>&lt;div id=&quot;lista&quot;&gt;&lt;p&gt;Norte&lt;/p&gt;&lt;p&gt;Centro&lt;/p&gt;&lt;p&gt;Sur&lt;/p&gt;&lt;/div&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>const lista = d3.select(&quot;#lista&quot;);
+lista.selectAll(&quot;p&quot;).data([&quot;Norte&quot;, &quot;Centro&quot;, &quot;Sur&quot;]);
+// 1. La clave identifica cada nodo por su dato, no por su posición.
+function clave(d) {
+  return d;
+}
+// 2. El nuevo enlace devuelve la selección en el orden de los datos.
+const nuevoOrden = lista.selectAll(&quot;p&quot;).data([&quot;Sur&quot;, &quot;Norte&quot;, &quot;Centro&quot;], clave);
+// 3. El DOM no cambia de orden hasta ejecutar order.
+nuevoOrden.order();</code></pre>
+<h3>Resultado</h3><div id="demo" aria-label="Ejemplo de selection.order">
+<div id="lista"><p>Norte</p><p>Centro</p><p>Sur</p></div>
+</div>
+<pre id="salida" aria-live="polite"></pre>
+<h3>Cómo leerlo</h3><p>Cada nombre es distinto y actúa como identificador estable. Sin clave, data emparejaría por posición.</p>
+<p>order sigue el orden de la selección; sort calcula uno con un comparador.</p>
+<p>Si todavía no distingues una selección singular de una múltiple, vuelve a <a href="d3.select.html">d3.select</a> y <a href="d3.selectAll.html">d3.selectAll</a>.</p></section><section><h2>Práctica</h2><p>1. Comenta order y observa el orden original en el DOM.</p><p>2. Usa [&quot;Centro&quot;, &quot;Sur&quot;, &quot;Norte&quot;].</p><p>Predice el resultado antes de editar el .js. Recarga la página para volver a partir del HTML inicial.</p></section><footer><a href="https://d3js.org/d3-selection/modifying">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar resultados. Cada HTML carga su ejemplo desde la carpeta js. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/selectionorder.js"></script>
+</body></html>

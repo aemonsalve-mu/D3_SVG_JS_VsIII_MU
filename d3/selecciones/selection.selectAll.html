@@ -1,0 +1,62 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>selection.selectAll · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>selection.selectAll</h1><p>Busca todos los descendientes coincidentes dentro de cada nodo seleccionado. Crea un grupo de selección por contenedor y no transmite automáticamente el dato del padre a sus descendientes.</p><section><h2>Sintaxis</h2><pre>const grupos = d3.selectAll(&quot;#demo .grupo&quot;);
+const alumnos = grupos.selectAll(&quot;.alumno&quot;);</pre><p>grupos es una variable creada con d3.selectAll. Después, grupos.selectAll busca todos los alumnos dentro de cada contenedor de esa selección.</p><p><b>Resultado esperado:</b> Los cinco alumnos quedan verdes. Los índices son 0, 1, 2 en A y 0, 1 en B. Antes de asignar los nombres, Ana conserva su dato propio.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+<p>El HTML ya contiene los elementos iniciales. El archivo <code>js/selectionselectall.js</code> se carga al final de la página, después de D3. Para probar cambios, edita ese archivo y recarga el HTML; el bloque mostrado aquí es una copia para leer.</p>
+<h3>HTML inicial dentro de #demo</h3><pre><code>&lt;div id=&quot;grupo-a&quot; class=&quot;grupo&quot;&gt;
+  &lt;h3&gt;Grupo A&lt;/h3&gt;
+  &lt;p class=&quot;alumno&quot;&gt;Ana&lt;/p&gt;
+  &lt;div class=&quot;subgrupo&quot;&gt;
+    &lt;p class=&quot;alumno&quot;&gt;Luis&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;alumno&quot;&gt;Eva&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;grupo-b&quot; class=&quot;grupo&quot;&gt;
+  &lt;h3&gt;Grupo B&lt;/h3&gt;
+  &lt;p class=&quot;alumno&quot;&gt;Sara&lt;/p&gt;
+  &lt;p class=&quot;alumno&quot;&gt;Leo&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>// 1. Asociamos un dato distinto a cada contenedor.
+const grupos = d3.selectAll(&quot;#demo .grupo&quot;);
+grupos.data([&quot;Norte&quot;, &quot;Sur&quot;]);
+// 2. Ana tiene un dato propio antes de seleccionar los descendientes.
+d3.select(&quot;#grupo-a &gt; p&quot;).datum(&quot;Dato propio de Ana&quot;);
+// 3. Se eligen tres alumnos de A y dos de B, sin copiar Norte ni Sur.
+const alumnos = grupos.selectAll(&quot;.alumno&quot;);
+alumnos.style(&quot;color&quot;, &quot;teal&quot;);
+const conservado = alumnos.datum();
+
+// 4. Asignamos los datos de cada grupo de manera explícita.
+d3.select(&quot;#grupo-a&quot;).selectAll(&quot;p&quot;).data([&quot;Ana&quot;, &quot;Luis&quot;, &quot;Eva&quot;]);
+d3.select(&quot;#grupo-b&quot;).selectAll(&quot;p&quot;).data([&quot;Sara&quot;, &quot;Leo&quot;]);
+// 5. i empieza en 0 dentro de CADA grupo de selección.
+alumnos.text(function(d, i) {
+  return d + &quot; (índice &quot; + i + &quot;)&quot;;
+});
+
+d3.select(&quot;#salida&quot;).text(&quot;Alumnos: &quot; + alumnos.size() + &quot;\nDato conservado antes de data: &quot; + conservado);</code></pre>
+<h3>Resultado</h3><div id="demo" aria-label="Ejemplo de selection.selectAll">
+<div id="grupo-a" class="grupo">
+  <h3>Grupo A</h3>
+  <p class="alumno">Ana</p>
+  <div class="subgrupo">
+    <p class="alumno">Luis</p>
+  </div>
+  <p class="alumno">Eva</p>
+</div>
+<div id="grupo-b" class="grupo">
+  <h3>Grupo B</h3>
+  <p class="alumno">Sara</p>
+  <p class="alumno">Leo</p>
+</div>
+</div>
+<pre id="salida" aria-live="polite"></pre>
+<h3>Cómo leerlo</h3><p>Las búsquedas quedan dentro de cada contenedor. Los nodos no cambian de padre en el DOM: los grupos de selección son una organización interna de D3.</p>
+<p>selectAll no copia Norte ni Sur a los párrafos. Los datos que ya tenían los hijos se conservan hasta que se cambien explícitamente.</p>
+<p>data([...]) asigna valores por orden a los nodos de cada grupo de selección. Aquí hacemos una asignación sencilla por contenedor, sin arrays de objetos ni funciones anidadas.</p>
+<p>En function(d, i), d es el dato del nodo e i su índice dentro del grupo. return indica el texto que D3 debe escribir. No necesitamos funciones flecha.</p>
+<p>Una selección global y una agrupada pueden contener el mismo número de nodos. Lo que cambia es cómo se reparten en grupos y dónde empieza otra vez el índice i.</p>
+<p><b>Lectura de los ejemplos:</b> const guarda un valor o una selección con un nombre; las comillas delimitan texto. Un punto llama a un método y los paréntesis contienen sus argumentos. Al encadenar métodos, cada uno actúa sobre lo que devuelve el anterior.</p><p><b>Selectores CSS:</b> p es una etiqueta; .alumno es una clase que pueden compartir varios nodos; #grupo-a es un id que debe ser único. El espacio indica descendencia y &gt; exige un hijo directo.</p><p><b>Dato:</b> datum(valor) asocia un dato a un nodo y datum() lo lee. data([valor1, valor2]) reparte valores entre nodos. Estas operaciones no escriben texto por sí solas. Puedes revisar <a href="selection.datum.html">datum</a> y <a href="selection.data.html">data</a> por separado.</p><p>Recorrido recomendado: <a href="d3.select.html">d3.select</a> · <a href="d3.selectAll.html">d3.selectAll</a> · <a href="selection.select.html">selection.select</a> · <a href="selection.selectAll.html">selection.selectAll</a> · <a href="selection.selectChild.html">selection.selectChild</a> · <a href="selection.selectChildren.html">selection.selectChildren</a></p><p><b>DOM y posición:</b> padre e hijo son niveles consecutivos; descendiente puede estar a varios niveles; hermanos comparten padre. Estas búsquedas devuelven nodos dentro del contenedor, no sus hermanos ni sus ancestros. Los selectores no mueven los nodos.</p><p>En <code>function(d)</code>, <code>d</code> es el dato del nodo. <code>return</code> entrega el resultado que D3 utilizará. Si aparece <code>i</code>, es el índice dentro del grupo y empieza en 0.</p></section><section><h2>Práctica</h2><p>1. Cambia grupos.selectAll por grupos.select y predice cuántos nombres se actualizan.</p><p>2. Asigna [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;] al grupo A y observa qué texto cambia.</p><p>3. Compara los índices con d3.selectAll(&quot;#demo .alumno&quot;).text(function(d, i) { return d + &quot; / &quot; + i; });: ahora forman un solo grupo, del 0 al 4.</p><p>Predice el resultado antes de editar el .js. Recarga la página para volver a partir del HTML inicial.</p></section><footer><a href="https://d3js.org/d3-selection/selecting">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar resultados. Cada HTML carga su ejemplo desde la carpeta js. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/selectionselectall.js"></script>
+</body></html>

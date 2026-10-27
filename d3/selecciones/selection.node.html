@@ -1,0 +1,22 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>selection.node · D3 y SVG</title><link rel="stylesheet" href="../../assets/style.css"><style>#demo svg { width: 100%; height: auto; max-height: 240px; }</style></head><body><header><div><a href="../../index.html">← Índice de archivos</a> · D3 7.9.0</div></header><main><p class="muted">UN ARCHIVO · UN CONCEPTO</p><h1>selection.node</h1><p>Devuelve el primer nodo DOM de la selección o null si está vacía. El resultado no es una selección D3.</p><section><h2>Sintaxis</h2><pre>seleccion.node()</pre><p><b>Resultado esperado:</b> La salida muestra P y Norte. Solo Norte queda verde.</p></section><section>
+            <h2>Ejemplo paso a paso</h2>
+<p>El HTML ya contiene los elementos iniciales. El archivo <code>js/selectionnode.js</code> se carga al final de la página, después de D3. Para probar cambios, edita ese archivo y recarga el HTML; el bloque mostrado aquí es una copia para leer.</p>
+<h3>HTML inicial dentro de #demo</h3><pre><code>&lt;p class=&quot;zona&quot;&gt;Norte&lt;/p&gt;&lt;p class=&quot;zona&quot;&gt;Sur&lt;/p&gt;</code></pre>
+<h3>JavaScript del ejemplo</h3><pre><code>const zonas = d3.selectAll(&quot;#demo .zona&quot;);
+// 1. node devuelve solo el primer párrafo DOM.
+const nodo = zonas.node();
+// 2. tagName y textContent son propiedades del DOM.
+d3.select(&quot;#salida&quot;).text(&quot;Etiqueta: &quot; + nodo.tagName + &quot;\nTexto: &quot; + nodo.textContent);
+// 3. Para usar métodos D3, seleccionamos ese nodo.
+d3.select(nodo).style(&quot;color&quot;, &quot;teal&quot;);</code></pre>
+<h3>Resultado</h3><div id="demo" aria-label="Ejemplo de selection.node">
+<p class="zona">Norte</p><p class="zona">Sur</p>
+</div>
+<pre id="salida" aria-live="polite"></pre>
+<h3>Cómo leerlo</h3><p>nodo.textContent pertenece al DOM; seleccion.text() pertenece a D3.</p>
+<p>No consultes propiedades de null. Comprueba empty() si el selector puede no encontrar un nodo.</p>
+<p>Si todavía no distingues una selección singular de una múltiple, vuelve a <a href="d3.select.html">d3.select</a> y <a href="d3.selectAll.html">d3.selectAll</a>.</p></section><section><h2>Práctica</h2><p>1. Cambia el selector para elegir Sur.</p><p>2. Comprueba que d3.select(&quot;#ausente&quot;).node() devuelve null.</p><p>Predice el resultado antes de editar el .js. Recarga la página para volver a partir del HTML inicial.</p></section><footer><a href="https://d3js.org/d3-selection/control-flow">Referencia oficial</a> · Datos sintéticos. El panel de salida permite comprobar resultados. Cada HTML carga su ejemplo desde la carpeta js. SVG no depende de D3.</footer></main>
+
+<script src="../../vendor/d3.min.js"></script>
+<script src="js/selectionnode.js"></script>
+</body></html>
